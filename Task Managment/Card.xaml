@@ -1,0 +1,52 @@
+﻿<Window x:Class="Task_Managment.Card"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Managment"
+        xmlns:uc="clr-namespace:Task_Managment.Control"
+        mc:Ignorable="d"
+        Title="Card"
+        Height="450"
+        Width="800">
+    <DockPanel LastChildFill="True">
+        
+        <DockPanel LastChildFill="True">
+            <Grid DockPanel.Dock="Bottom"
+                  Margin="8,0,8,8">
+            </Grid>
+            <ListView x:Name="masterList"
+                      Width="200"
+                      Margin="0,0,0,16"
+                      Background="BlueViolet">
+                
+            </ListView>
+        </DockPanel>
+
+        <Grid>
+            
+            <Grid.Background>
+                <ImageBrush x:Name="img_bg"
+                            ImageSource="images/img2_background.png"
+                            Stretch="Fill" />
+            </Grid.Background>
+            
+            <StackPanel x:Name="toDoListView"
+                        >
+
+
+                <uc:taskControl
+                    Margin="10 10 10 0"
+                    >
+                    
+                </uc:taskControl>
+
+            </StackPanel>
+
+        </Grid>
+        
+        
+    </DockPanel>
+</Window>
