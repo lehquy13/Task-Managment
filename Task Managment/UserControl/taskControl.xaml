@@ -9,13 +9,45 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
 
+
+
+    <UserControl.Resources>
+
+        <Style x:Key="CheckToggleButton"
+               TargetType="{x:Type ToggleButton}"
+               BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
+            <Setter Property="BorderThickness"
+                    Value="100" />
+            <Setter Property="Background"
+                    Value="Cornsilk">
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="MyToggleButton"
+               TargetType="{x:Type ToggleButton}"
+               BasedOn="{StaticResource MaterialDesignActionToggleButton}">
+            <Setter Property="BorderThickness"
+                    Value="100" />
+            <Setter Property="Background"
+                    Value="{StaticResource YellowBrush}">
+
+            </Setter>
+
+        </Style>
+
+
+    </UserControl.Resources>
+
+
     <Grid VerticalAlignment="Center"
           Grid.Column="0">
 
-        
+
+
         <Border Name="mask"
                 Background="White"
-                
                 CornerRadius="15" />
 
         <DockPanel Background="Transparent"
@@ -24,18 +56,20 @@
                    Width="Auto"
                    LastChildFill="True">
 
-            <ToggleButton Content="{materialDesign:PackIcon Kind=Check, Size=21 }"
-                          Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+            <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}"
                           Margin="10 0 10 0"
+                          materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Check}"
                           ToolTip="MaterialDesignFlatPrimaryToggleButton"
-                          IsChecked="True"
+                          Background="{StaticResource LightVioletBrush}"
+                          Width="30"
+                          Height="30"
                           DockPanel.Dock="Left" />
 
-            <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}"
+            <ToggleButton Style="{StaticResource MyToggleButton}"
                           DockPanel.Dock="Right"
                           Margin="0 0 10 0"
                           ToolTip="MaterialDesignActionLightToggleButton"
-                          Content="{materialDesign:PackIcon Kind=StarAdd}"
+                          Content="{materialDesign:PackIcon Kind=Heart}"
                           materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Star}" />
 
             <TextBlock HorizontalAlignment="Left"
@@ -49,7 +83,6 @@
         </DockPanel>
 
 
-       
         <Border Grid.Column="0"
                 BorderThickness="0"
                 BorderBrush="Black"
@@ -58,5 +91,5 @@
     </Grid>
 
 
-   
+
 </UserControl>
