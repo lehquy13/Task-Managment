@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +6,7 @@ namespace TodoList.Models
 {
     public class MyList
     {
-        [Key]public int ListId { get; set; }
+        public int ListId { get; set; }
         public string Title { get; set; }
         public DateTime DateCreated { get; set; }
 

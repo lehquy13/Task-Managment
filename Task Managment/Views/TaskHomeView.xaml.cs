@@ -22,7 +22,7 @@ namespace Task_Managment
         public TaskHomeView()
         {
             InitializeComponent();
-            Main.Content = new Views.ToDoTasks();
+            Main.Content = new Views.ToDoTasks(); // the right panel, not really "main"
         }
     }
 }
