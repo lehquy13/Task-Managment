@@ -146,6 +146,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\MyList.cs" />
+    <Compile Include="Models\MyTask.cs" />
     <Compile Include="UserControls\taskControl.xaml.cs">
       <DependentUpon>taskControl.xaml</DependentUpon>
     </Compile>
