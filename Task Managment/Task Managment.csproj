@@ -162,6 +162,9 @@
     <Compile Include="Views\wndRegister.xaml.cs">
       <DependentUpon>wndRegister.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\wndVerifyCode.xaml.cs">
+      <DependentUpon>wndVerifyCode.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\TaskHomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\wndRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\wndVerifyCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
