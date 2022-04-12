@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Task_Managment.UserControls
+namespace Task_Managment.Control
 {
     /// <summary>
     /// Interaction logic for taskControl.xaml
     /// </summary>
-    public partial class taskControl : System.Windows.Controls.UserControl
+    public partial class taskControl : UserControl
     {
         public taskControl()
         {

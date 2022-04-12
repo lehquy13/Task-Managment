@@ -156,6 +156,9 @@
     <Compile Include="Views\ToDoTasks.xaml.cs">
       <DependentUpon>ToDoTasks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\wndRegister.xaml.cs">
+      <DependentUpon>wndRegister.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\TaskHomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -192,6 +195,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ToDoTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\wndRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

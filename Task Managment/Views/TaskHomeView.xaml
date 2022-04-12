@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Styles="clr-namespace:Task_Managment"
-        xmlns:uc="clr-namespace:Task_Managment.Control"
+        xmlns:uc="clr-namespace:Task_Managment.UserControls"
         
         
         mc:Ignorable="d"

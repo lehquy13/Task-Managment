@@ -20,6 +20,12 @@ namespace TodoList.Models
             get { return _IconKind; }
             set { SetField(ref _IconKind, value); }
         }
+
+        private void SetField(ref PackIconKind iconKind, PackIconKind value)
+        {
+            throw new NotImplementedException();
+        }
+
         private PackIconKind _IconKind = PackIconKind.LanDisconnect;
         public MyTask()
         {

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Task_Managment.UserControls
+namespace Task_Managment.Views
 {
     /// <summary>
-    /// Interaction logic for taskControl.xaml
+    /// Interaction logic for wndRegister.xaml
     /// </summary>
-    public partial class taskControl : System.Windows.Controls.UserControl
+    public partial class wndRegister : Window
     {
-        public taskControl()
+        public wndRegister()
         {
             InitializeComponent();
         }
