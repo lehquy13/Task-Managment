@@ -17,9 +17,9 @@ namespace Task_Managment
     /// <summary>
     /// Interaction logic for Card.xaml
     /// </summary>
-    public partial class TaskHomeView : Window
+    public partial class wndTaskHomeView : Window
     {
-        public TaskHomeView()
+        public wndTaskHomeView()
         {
             InitializeComponent();
             Main.Content = new Views.ToDoTasks(); // the right panel, not really "main"

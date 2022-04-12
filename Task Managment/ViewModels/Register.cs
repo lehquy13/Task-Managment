@@ -20,9 +20,6 @@ namespace Task_Managment.ViewModels
         private const string MembersCollection = "Members";
         private const string MailPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
-        //public MongoClientSettings settings { get; }
-        //public MongoClient client { get; }
-        //public IMongoDatabase database { get; }
         public string connectionString { get; }
         public string databaseName { get; }
         public string membersCollection { get; }

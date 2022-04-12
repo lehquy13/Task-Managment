@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Task_Managment.ViewModels;
+
 namespace Task_Managment.Views
 {
     /// <summary>
@@ -19,9 +21,23 @@ namespace Task_Managment.Views
     /// </summary>
     public partial class wndLogin : Window
     {
+        private Login loginHandler;
+
         public wndLogin()
         {
             InitializeComponent();
+
+            btnLogin.Click += BtnLogin_onClick;
+
+            loginHandler = new Login();
+        }
+
+        private void BtnLogin_onClick(object sender, RoutedEventArgs e)
+        {
+            string email = tbEmail.Text;
+            string password = pbPassWord.Password;
+
+            loginHandler.Log_in(email, password);
         }
     }
 }
