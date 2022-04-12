@@ -69,15 +69,20 @@ namespace Task_Managment.ViewModels
                 System.Windows.MessageBox.Show("Passwords unmatch!!");
         }
 
-        // Send validation code email
-        public void SendVerificationCode(string toAddress)
+        public string GenerateVerficationCode()
         {
-            // Generating verification code
             Random rand = new Random();
             string verificationCode = "";
             for (int i = 1; i <= 6; i++)
                 verificationCode += rand.Next(0, 9);
 
+            return verificationCode;
+        }
+
+
+        // Send validation code email
+        public void SendVerificationCode(string verificationCode, string toAddress)
+        {
             // Setting mail addresses
             MailAddress FromAddress = new MailAddress("20520682@gm.uit.edu.vn");
             MailAddress ToAddress = new MailAddress(toAddress);

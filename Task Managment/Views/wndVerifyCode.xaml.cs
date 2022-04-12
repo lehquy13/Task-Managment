@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,20 @@ namespace Task_Managment.Views
     /// </summary>
     public partial class wndVerifyCode : Window
     {
-        public wndVerifyCode()
+        private string generatedCode;
+
+        public wndVerifyCode(string verifyCode)
         {
             InitializeComponent();
+
+            Closing += wndVerifyCode_onClosing;
+            this.generatedCode = verifyCode;
+        }
+
+        private void wndVerifyCode_onClosing(object sender, CancelEventArgs e)
+        {
+            string inputCode = tbVerifyCode.Text;
+            DialogResult = generatedCode == inputCode;
         }
     }
 }

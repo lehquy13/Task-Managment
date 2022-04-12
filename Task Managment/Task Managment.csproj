@@ -40,12 +40,6 @@
     <Reference Include="DnsClient, Version=1.6.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.6.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
-    <Reference Include="FluentEmail.Core, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentEmail.Core.3.0.2\lib\netstandard2.0\FluentEmail.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentEmail.Smtp, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentEmail.Smtp.3.0.2\lib\netstandard2.0\FluentEmail.Smtp.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.5.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.5\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>

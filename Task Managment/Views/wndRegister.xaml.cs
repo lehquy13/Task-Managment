@@ -66,8 +66,14 @@ namespace Task_Managment.Views
             string verifyPass = pbPassVerify.Password;
 
             try 
-            { 
-                registerHandler.SendVerificationCode(Email);
+            {
+                string verificationCode = registerHandler.GenerateVerficationCode();
+
+                registerHandler.SendVerificationCode(verificationCode ,Email);
+
+                wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
+                newWindow.ShowDialog();
+                if (newWindow.DialogResult == false) return;
             }
             catch (Exception ex)
             {
@@ -77,6 +83,10 @@ namespace Task_Managment.Views
             try
             {
                 registerHandler.AddNewMember(Email, Username, Password);
+
+                wndLogin newWindow = new wndLogin();
+                newWindow.Show();
+                Close();
             }
             catch (Exception ex)
             {
