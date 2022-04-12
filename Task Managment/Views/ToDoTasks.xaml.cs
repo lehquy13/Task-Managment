@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Task_Managment
+namespace Task_Managment.Views
 {
     /// <summary>
-    /// Interaction logic for Card.xaml
+    /// Interaction logic for ToDoTasks.xaml
     /// </summary>
-    public partial class Card : Window
+    public partial class ToDoTasks : Page
     {
-        public Card()
+        public ToDoTasks()
         {
             InitializeComponent();
         }
