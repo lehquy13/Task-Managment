@@ -31,19 +31,35 @@ namespace Task_Managment.ViewModels
             return database.GetCollection<T>(collection);
         }
 
-        public void Log_in(string email, string password)
+        public async void Log_in(object sender, string email, string password)
         {
-            var collection = ConnectToMongo<Members>(MembersCollection);
-            var memberList = collection.Find<Members>(c => c.Email == email).ToList();
+                var memberList = await Get_Accounts(email, password);
+                if (memberList.Count > 0 && memberList[0].Password == password)
+                {
+                    wndTaskHomeView newWindow = new wndTaskHomeView();
+                    wndLogin _this = sender as wndLogin;
+                    _this.Hide(); 
+                    newWindow.ShowDialog();
+                    _this.Show();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Wrong email or password!");
+                }
+        }
 
-            if (memberList.Count > 0 && memberList[0].Password == password)
+        public async Task<List<Members>> Get_Accounts(string email, string password)
+        {
+            var membersCollection = ConnectToMongo<Members>(MembersCollection);
+            try
             {
-                wndTaskHomeView newWindow = new wndTaskHomeView();
-                newWindow.ShowDialog();
+                var matchedEmails = membersCollection.Find<Members>(mail => mail.Email == email);
+                return matchedEmails.ToList();
             }
-            else
+            catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Wrong email or password!");
+                System.Windows.MessageBox.Show(ex.Message);
+                return null;
             }
         }
     }

@@ -37,7 +37,7 @@ namespace Task_Managment.Views
             string email = tbEmail.Text;
             string password = pbPassWord.Password;
 
-            loginHandler.Log_in(email, password);
+            loginHandler.Log_in(this, email, password);
         }
     }
 }
