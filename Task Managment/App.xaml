@@ -4,9 +4,8 @@
              xmlns:local="clr-namespace:Task_Managment"
              StartupUri="/Views/Calendar.xaml">
     <Application.Resources>
-      
-        
-        <ResourceDictionary>
+
+      <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Texts.xaml" />
 

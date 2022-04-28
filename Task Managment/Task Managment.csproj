@@ -149,6 +149,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\DeleteCommand.cs" />
+    <Compile Include="Commands\EndRenameCommand.cs" />
+    <Compile Include="Commands\MarkImportantCommand.cs" />
+    <Compile Include="Commands\NewSubtaskCommand.cs" />
+    <Compile Include="Commands\NewTaskCommand.cs" />
+    <Compile Include="Commands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\StartRenameCommand.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyList.cs" />
     <Compile Include="Models\MyTask.cs" />
