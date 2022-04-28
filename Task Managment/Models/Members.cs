@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Task_Managment.Models
+namespace Task_Managment.Model
 {
     internal class Members
     {
