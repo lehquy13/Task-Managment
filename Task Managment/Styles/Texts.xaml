@@ -15,6 +15,29 @@
                 Value="20" />
     </Style>
 
+    <!--Style for list of TextBox on top of task list -->
+    <Style x:Key="myRenamingTextboxStyle"
+           TargetType="TextBox">
+        <Setter Property="OverridesDefaultStyle"
+                Value="False" />
+        <Setter Property="Foreground"
+                Value="Gainsboro" />
+        <Setter Property="FontWeight"
+                Value="DemiBold" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="FontSize"
+                Value="14" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="Width"
+                Value="Auto" />
+        <Setter Property="Margin"
+                Value="0,4,0,6" />
+        <Setter Property="SelectionBrush"
+                Value="#BBBBBB" />
+    </Style>
+    
     <Style x:Key="myTextBoxPromptStyle"
            TargetType="TextBox">
         <Setter Property="OverridesDefaultStyle"
