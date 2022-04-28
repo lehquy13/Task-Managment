@@ -22,7 +22,6 @@ namespace Task_Managment
         public wndTaskHomeView()
         {
             InitializeComponent();
-            Main.Content = new Views.ToDoTasks(); // the right panel, not really "main"
         }
     }
 }
