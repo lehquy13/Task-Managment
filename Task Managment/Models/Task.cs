@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Task_Managment.Model
+namespace Task_Managment.Models
 {
     public class Task : INotifyPropertyChanged
     {

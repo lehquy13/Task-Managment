@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Task_Managment.Model;
+using Task_Managment.Models;
 using Task_Managment.ViewModels;
-using Task = Task_Managment.Model.Task;
+using Task = Task_Managment.Models.Task;
 
 namespace Task_Managment.ViewModel.Commands
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Task_Managment.Model;
+using Task_Managment.Models;
 using Task_Managment.ViewModels;
 
 namespace Task_Managment.ViewModel.Commands

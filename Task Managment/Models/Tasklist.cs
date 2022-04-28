@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using Task_Managment.ViewModels;
 
-namespace Task_Managment.Model
+namespace Task_Managment.Models
 {
     public class Tasklist : INotifyPropertyChanged
     {

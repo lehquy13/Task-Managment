@@ -156,9 +156,13 @@
     <Compile Include="Commands\NewTaskCommand.cs" />
     <Compile Include="Commands\NewTasklistCommand.cs" />
     <Compile Include="Commands\StartRenameCommand.cs" />
+    <Compile Include="Converters\BooltoVis.cs" />
+    <Compile Include="Converters\BooltoVisOpposite.cs" />
+    <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="Models\Members.cs" />
-    <Compile Include="Models\MyList.cs" />
-    <Compile Include="Models\MyTask.cs" />
+    <Compile Include="Models\Subtask.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\Tasklist.cs" />
     <Compile Include="UserControls\taskControl.xaml.cs">
       <DependentUpon>taskControl.xaml</DependentUpon>
     </Compile>
@@ -193,6 +197,10 @@
     <Compile Include="Views\wndVerifyCode.xaml.cs">
       <DependentUpon>wndVerifyCode.xaml</DependentUpon>
     </Compile>
+    <Page Include="ResXAML\MainResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\UserControlBlank.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -300,31 +308,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\menu.png" />
+    <Resource Include="imagesForWpf\menu.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\img_home.png" />
-    <Resource Include="images\tgBtn_MouseOver.png" />
+    <Resource Include="imagesForWpf\img_home.png" />
+    <Resource Include="imagesForWpf\tgBtn_MouseOver.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\closeBtn_default.png" />
+    <Resource Include="imagesForWpf\closeBtn_default.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\closeBtn_MouseOver.png" />
-    <Resource Include="images\img_background.png" />
+    <Resource Include="imagesForWpf\closeBtn_MouseOver.png" />
+    <Resource Include="imagesForWpf\img_background.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ControlStyle\" />
-    <Folder Include="Converters\" />
-    <Folder Include="ResXAML\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\img2_background.png" />
+    <Resource Include="imagesForWpf\img2_background.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Resource Include="imagesForWpf\circle.png" />
+    <Resource Include="imagesForWpf\day.png" />
+    <Resource Include="imagesForWpf\Done.png" />
+    <Resource Include="imagesForWpf\greenery.png" />
+    <Resource Include="imagesForWpf\img3_background.png" />
+    <Resource Include="imagesForWpf\important.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

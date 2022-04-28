@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Task_Managment.Model
+namespace Task_Managment.Models
 {
     public class Subtask
     {

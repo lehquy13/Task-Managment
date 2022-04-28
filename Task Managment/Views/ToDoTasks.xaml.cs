@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TodoList.Models;
+using Task_Managment.Models;
 
 
 namespace Task_Managment.Views
@@ -27,25 +27,6 @@ namespace Task_Managment.Views
     {
         public ToDoTasks()
         {
-            InitializeComponent();
-            var tasks = new List<MyTask>();
-            tasks.Add(new MyTask() { Content = "alo" });
-            tasks.Add(new MyTask() { Content = "alo" });
-            tasks.Add(new MyTask() { Content = "alo",IsChecked = true });
-
-            toDoList.ItemsSource = tasks;
-
-        }
-
-     
-        private void ToggleButton_Initialized(object sender, EventArgs e)
-        {
-            ToggleButton a = (ToggleButton)sender;
-            if(a.IsChecked == true)
-            {
-                a.Content = new PackIconKind() ;
-            }
-           
         }
     }
 }
