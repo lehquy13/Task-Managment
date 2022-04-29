@@ -19,8 +19,6 @@
 
     <Page.Resources>
 
-
-
         <c:BooltoVis x:Key="BooltoVis" />
         <c:BooltoVisOpposite x:Key="BooltoVisOpposite" />
         <c:BooltoVisSubtasksPane x:Key="BooltoVisSubtasks" />
@@ -190,7 +188,7 @@
                             Stretch="Fill" />
             </DockPanel.Background>
 
-           
+
 
             <!--Add a task -->
             <StackPanel Background="Transparent"
@@ -214,8 +212,9 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel>
 
+            <StackPanel>
+                <!--Task Title -->
                 <StackPanel Orientation="Horizontal"
                             Margin="0,20,5,5"
                             DockPanel.Dock="Top">
@@ -324,32 +323,25 @@
                                         <Button Background="Transparent"
                                                 Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"
                                                 CommandParameter="{Binding Name}"
-                                                Style="{Binding Source={StaticResource MaterialDesignFloatingActionMiniDarkButton}}">
+                                                Style="{Binding Source={StaticResource myGreyStarButton}}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
+                                                
                                                 <Image Grid.Column="0"
                                                        Style="{Binding Source={StaticResource myButtonImageStyle}}"
-                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVisOpposite}}">
-                                                    <Image.Source>
-                                                        <BitmapImage DecodePixelWidth="30"
-                                                                     DecodePixelHeight="30"
-                                                                     UriSource="C:\Users\Admin\Downloads\images.jpg" />
-                                                    </Image.Source>
+                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVisOpposite}}"
+                                                       Source=" /imagesForWpf/lowerstar.png">
                                                 </Image>
+                                                
                                                 <Image Grid.Column="0"
                                                        Style="{Binding Source={StaticResource myButtonImageStyle}}"
-                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVis}}">
-                                                    <Image.Source>
-                                                        <BitmapImage DecodePixelWidth="30"
-                                                                     DecodePixelHeight="30"
-                                                                     UriSource="C:\Users\Admin\Downloads\images.jpg" />
-                                                    </Image.Source>
-                                                </Image>
+                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVis}}"
+                                                       Source="/imagesForWpf/star.png" />
                                             </Grid>
                                         </Button>
-                                    </Grid>
+                                    </Grid> 
 
                                     <Grid.ContextMenu>
                                         <ContextMenu DataContext="{StaticResource TasksViewModelVM}">
@@ -389,8 +381,8 @@
 
             </StackPanel>
         </DockPanel>
-       
-        
+
+
 
 
 

@@ -78,6 +78,7 @@
            TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
+       
         <Setter Property="Foreground"
                 Value="Gainsboro" />
         <Setter Property="Background"
@@ -87,7 +88,8 @@
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="Width"
-                Value="Auto" />
+                Value="Auto" 
+                />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -214,6 +216,36 @@
 
     <SolidColorBrush x:Key="ButtonNormalBorder"
                      Color="#FF707070" />
+
+    <!--Style for Grey star button-->
+    <Style x:Key="myGreyStarButton"
+           TargetType="Button">
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="0">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                          TextElement.FontSize="{TemplateBinding FontSize}"
+                                          TextElement.FontStretch="{TemplateBinding FontStretch}"
+                                          TextElement.FontWeight="{TemplateBinding FontWeight}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="ToggleButtonStyle1"
            TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle"

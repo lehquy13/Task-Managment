@@ -343,6 +343,8 @@
     <Resource Include="imagesForWpf\greenery.png" />
     <Resource Include="imagesForWpf\img3_background.png" />
     <Resource Include="imagesForWpf\important.png" />
+    <Resource Include="imagesForWpf\star.png" />
+    <Resource Include="imagesForWpf\lowerstar.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
