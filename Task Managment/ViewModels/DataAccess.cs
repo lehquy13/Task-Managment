@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using wndNoteView.Models;
+using Task_Managment.Models;
 
-namespace wndNoteView.ViewModels
+namespace Task_Managment.ViewModels
 {
     public class DataAccess
     {
@@ -46,7 +46,7 @@ namespace wndNoteView.ViewModels
         }
 
         #region Notes_Data_Access
-        public List<Note> GetAllNotesOfMember(Users currentMember)
+        public List<Note> GetAllNotesOfMember(Members currentMember)
         {
             var _collection = ConnectToMongo<Note>(NotesCollection);
             var _results = _collection.Find<Note>(c => c.MemberId == currentMember.Email);
@@ -60,20 +60,20 @@ namespace wndNoteView.ViewModels
             return _results.ToList();
         }
 
-        public Task CreateNewNote(Note newNote)
+        public System.Threading.Tasks.Task CreateNewNote(Note newNote)
         {
             var _collection = ConnectToMongo<Note>(NotesCollection);
             return _collection.InsertOneAsync(newNote);
         }
 
-        public Task UpdateSelectedNote(Note selectedNote)
+        public System.Threading.Tasks.Task UpdateSelectedNote(Note selectedNote)
         {
             var _collection = ConnectToMongo<Note>(NotesCollection);
             var _filter = Builders<Note>.Filter.Eq("_id", selectedNote.Id);
             return _collection.ReplaceOneAsync(_filter, selectedNote, new ReplaceOptions { IsUpsert = true });
         }
 
-        public Task DeleteSelectedNote(Note selectedNote)
+        public System.Threading.Tasks.Task DeleteSelectedNote(Note selectedNote)
         {
             var _collection = ConnectToMongo<Note>(NotesCollection);
             return _collection.DeleteOneAsync(c => c.Id == selectedNote.Id);

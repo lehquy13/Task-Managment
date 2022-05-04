@@ -14,9 +14,9 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using wndNoteView.Models;
+using Task_Managment.Models;
 
-namespace wndNoteView.ViewModels
+namespace Task_Managment.ViewModels
 {
     public class vmNoteHomeView : INotifyPropertyChanged
     {
@@ -52,7 +52,7 @@ namespace wndNoteView.ViewModels
                 OnPropertyChanged("NotesCount");
             }
         }
-        public Users _currentUser { get; set; }
+        public Members _currentUser { get; set; }
         public bool IsTitleSorted
         {
             get { return _isTitleSorted; }
@@ -84,16 +84,16 @@ namespace wndNoteView.ViewModels
         
         public vmNoteHomeView()
         {
-            Users currentUser = new Users("phatlam1811@gmail.com", "phatlam1811", "123");
+            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
             Initialize(currentUser);
         }
 
-        public vmNoteHomeView(Users currentUser)
+        public vmNoteHomeView(Members currentUser)
         {
             Initialize(currentUser);
         }
 
-        public vmNoteHomeView(Users currentUser, NotebookModel currentNotebook)
+        public vmNoteHomeView(Members currentUser, NotebookModel currentNotebook)
         {
             Initialize(currentUser);
         }
@@ -111,7 +111,7 @@ namespace wndNoteView.ViewModels
         #endregion
 
         #region Functions
-        private void Initialize(Users currentUsers)
+        private void Initialize(Members currentUsers)
         {
             IsTitleSorted = false;
             IsCreatedDateSorted = false;

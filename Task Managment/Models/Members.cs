@@ -9,7 +9,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Task_Managment.Models
 {
-    internal class Members
+    public class Members
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
