@@ -9,7 +9,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 
-namespace wndNoteView.ViewModels
+namespace Task_Managment.ViewModels
 {
     public class RichTextboxHelper : DependencyObject
     {
