@@ -166,6 +166,8 @@
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\NotebookModel.cs" />
     <Compile Include="Models\Subtask.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Tasklist.cs" />
