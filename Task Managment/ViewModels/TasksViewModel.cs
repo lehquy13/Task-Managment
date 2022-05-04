@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using Task_Managment.Models;
 using Task_Managment.ViewModel.Commands;
+using Task_Managment.Commands;
 
 namespace Task_Managment.ViewModels
 {
@@ -73,7 +74,8 @@ namespace Task_Managment.ViewModels
                         {
                             if (SelectedTask != null)
                             {
-                                this.SubtasksPaneVisible = true;
+                                
+                                this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
                                 this.Subtasks.Clear();
                                 if (SelectedTask.Subtasks != null)
                                 {
@@ -149,6 +151,10 @@ namespace Task_Managment.ViewModels
 
         public MarkImportantCommand MarkImportantCommand { get; set; }
 
+        public CloseSubtaskPanelCommand CloseSubtaskPanelCommand { get; set; }
+        
+        public SelectSubtaskCommand SelectSubtaskCommand { get; set; }
+
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -178,6 +184,11 @@ namespace Task_Managment.ViewModels
             this.DeleteCommand = new DeleteCommand(this);
 
             this.MarkImportantCommand = new MarkImportantCommand(this);
+
+            this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
+
+            this.SelectSubtaskCommand = new SelectSubtaskCommand(this);
+
         }
 
         //!Methods

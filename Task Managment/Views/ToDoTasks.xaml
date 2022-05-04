@@ -15,6 +15,7 @@
       mc:Ignorable="d"
       d:DesignHeight="450"
       d:DesignWidth="800"
+      Style="{StaticResource PageTasksStyle}"
       Title="ToDoTasks">
 
     <Page.Resources>
@@ -23,60 +24,10 @@
         <c:BooltoVisOpposite x:Key="BooltoVisOpposite" />
         <c:BooltoVisSubtasksPane x:Key="BooltoVisSubtasks" />
 
-        <Style x:Key="CheckToggleButton"
-               TargetType="{x:Type ToggleButton}"
-               BasedOn="{StaticResource MaterialDesignFlatToggleButton}">
-            <Setter Property="BorderThickness"
-                    Value="100" />
-            <Setter Property="Background"
-                    Value="Cornsilk">
-
-            </Setter>
-
-        </Style>
-
-        <Style x:Key="MyToggleButton"
-               TargetType="{x:Type ToggleButton}"
-               BasedOn="{StaticResource MaterialDesignActionToggleButton}">
-            <Setter Property="BorderThickness"
-                    Value="100" />
-            <Setter Property="Background"
-                    Value="{StaticResource YellowBrush}">
-            </Setter>
-
-
-        </Style>
-
-        <Style x:Key="CheckBoxStyle1"
-               TargetType="{x:Type CheckBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <BulletDecorator Background="Transparent"
-                                         SnapsToDevicePixels="true">
-                            <BulletDecorator.Bullet>
-                                <Border Background="#FFAEB3B9"
-                                        BorderThickness="2"
-                                        CornerRadius="10">
-                                    <Microsoft_Windows_Themes:BulletChrome IsChecked="{TemplateBinding IsChecked}"
-                                                                           RenderMouseOver="{TemplateBinding IsMouseOver}"
-                                                                           RenderPressed="{TemplateBinding IsPressed}" />
-                                </Border>
-                            </BulletDecorator.Bullet>
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"
-                                              RecognizesAccessKey="True"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        </BulletDecorator>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
     </Page.Resources>
 
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True"
+               Background="White">
 
 
         <!--Tasklist Panel-->
@@ -141,12 +92,15 @@
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="LostFocus">
                                             <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM}, Path=EndRenameCommand}"
-                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTasklist}" />
+                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
 
                                     <Grid.ContextMenu>
-                                        <ContextMenu DataContext="{StaticResource TasksViewModelVM}">
+
+                                        <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
+                                                     Background="#D8FFFFFF"
+                                                     Foreground="Black">
                                             <MenuItem Header="Rename list"
                                                       Command="{Binding StartRenameCommand}"
                                                       CommandParameter="{Binding SelectedTasklist}" />
@@ -180,211 +134,318 @@
         </Grid>
 
 
-
-        <DockPanel LastChildFill="True">
-            <DockPanel.Background>
+        <Border BorderBrush="#FF000000"
+                BorderThickness="1"
+                CornerRadius="10 0 0 0"
+                Margin="0 10 -5 0">
+            <Border.Background>
                 <ImageBrush x:Name="img_bg"
                             ImageSource="/imagesForWpf/img3_background.png"
                             Stretch="Fill" />
-            </DockPanel.Background>
+            </Border.Background>
 
+            <DockPanel>
 
+                <!--Task Title && SubTaskList && no Add task here -->
 
-            <!--Add a task -->
-            <StackPanel Background="Transparent"
-                        DockPanel.Dock="Bottom">
-                <Grid>
-                    <TextBox Style="{StaticResource myTextBoxPromptStyle}"
-                             Text=" + Add a task"
-                             Foreground="Black"
-                             Focusable="False" />
+                <!--Subtask's details Panel!!! -->
+                <Border DockPanel.Dock="Right"
+                        Margin="0 0 0 0"
+                        BorderThickness="2"
+                        BorderBrush="White"
+                        Width="270"
+                        Background="WhiteSmoke"
+                        Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks}, 
+                                                      Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-                    <TextBox Style="{StaticResource myTextBoxStyle}"
-                             AcceptsReturn="False"
-                             Foreground="Black"
-                             Text="{Binding AddaTaskText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Return"
-                                        Command="{Binding NewTaskCommand}"
-                                        CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
-                        </TextBox.InputBindings>
-                    </TextBox>
-                </Grid>
-            </StackPanel>
+                    <StackPanel>
 
+                        <!--Close button-->
+                        <Button Style="{StaticResource myButtonStyle}"
+                                Command="{Binding CloseSubtaskPanelCommand}"
+                                CommandParameter="{Binding}"
+                                HorizontalAlignment="Right"
+                                Margin="0"
+                                Foreground="#1E90FF">
+                            <materialDesign:PackIcon Kind="Close" />
+                        </Button>
 
-            <StackPanel>
-                <!--Task Title -->
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,20,5,5"
-                            DockPanel.Dock="Top">
-                    <Image Source="{Binding SelectedTasklist.IconSource}"
-                           Width="25"
-                           Height="25"
-                           Margin="0,3,14,0" />
-                    <Grid Width="Auto">
-                        <Border Background="Transparent"
-                                BorderThickness="2"
-                                CornerRadius="10">
+                        <!--<uc:TitlebarMenuButtons />-->
 
-                        </Border>
+                        <!--list of sub' of subtaks!!-->
+                        <ListView Margin="15,3,10,5"
+                                  ItemsSource="{Binding Subtasks}"
+                                  Style="{Binding Source={StaticResource myListviewStyle}}">
 
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding SelectedTasklist.Name}"
-                                   Foreground="#EEEEEE"
-                                   FontSize="26"
-                                   FontWeight="DemiBold"
-                                   Margin="0,0,0,0" />
-                    </Grid>
-
-                </StackPanel>
-
-                <!--Black separating border-->
-                <StackPanel Orientation="Horizontal"
-                            DockPanel.Dock="Right">
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                               Margin="0,0,0,0"
-                               Width="0.5"
-                               Background="Black"
-                               Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks},
-                                                                 Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-
-
-                <!--Subtasks showlist-->
-                <ListView x:Name="toDoList"
-                          Margin="30,0,35,0"
-                          HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding TasksList}"
-                          Style="{Binding Source={StaticResource myListviewStyle}}"
-                          SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
-                    <ListView.ItemTemplate>
-
-                        <DataTemplate>
-                            <Border Background="#CEEAE8E4"
-                                    BorderThickness="2"
-                                    CornerRadius="10"
-                                    HorizontalAlignment="Stretch">
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <!--Grey Circle-->
-                                    <Button Grid.Column="0"
-                                            Width="20"
-                                            Height="20"
-                                            x:Name="Datatemplate"
-                                            Margin="0,0,7,0"
-                                            Visibility="Visible"
-                                            Background="Transparent"
-                                            Command="{Binding Source={StaticResource TasksViewModelVM}, Path=DeleteCommand}"
-                                            CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}"
-                                            Style="{Binding Source={StaticResource MaterialDesignFloatingActionMiniDarkButton}}">
-
-                                        <Image>
-                                            <Image.Style>
-                                                <Style TargetType="{x:Type Image}">
-                                                    <Setter Property="Cursor"
-                                                            Value="Hand" />
-                                                    <Setter Property="Image.Source"
-                                                            Value="\imagesForWpf\circle.png" />
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver"
-                                                                 Value="True">
-                                                            <Setter Property="Image.Source"
-                                                                    Value="\imagesForWpf\Done.png">
-                                                            </Setter>
-                                                            <Setter Property="FocusManager.FocusedElement"
-                                                                    Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}}"></Setter>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Image.Style>
+                                        <Image Grid.Column="0"
+                                               Width="15"
+                                               Height="15"
+                                               Margin="0,0,7,0">
+                                            <Image.Source>
+                                                <BitmapImage DecodePixelWidth="30"
+                                                             DecodePixelHeight="30"
+                                                             UriSource="\imagesForWpf\next.png" />
+                                            </Image.Source>
                                         </Image>
 
-                                    </Button>
+                                        <TextBox Grid.Column="1"
+                                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{Binding Source={StaticResource mySubtaskTextBoxStyle}}">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding Key="Return"
+                                                            Command="{Binding Source={StaticResource TasksViewModelVM}, Path=NewSubtaskCommand}" />
+                                            </TextBox.InputBindings>
 
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding Name}"
-                                               Margin="0,10,10,10"
-                                               Width="Auto"
-                                               HorizontalAlignment="Stretch"
-                                               Style="{Binding Source={StaticResource myTextblockStyle}}" />
+                                        </TextBox>
+                                    </Grid>
 
-                                    <!--Grey star-->
-                                    <Grid Grid.Column="2"
-                                          Width="17"
-                                          Height="17"
-                                          Margin="0,0,7,0">
-                                        <Button Background="Transparent"
-                                                Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"
-                                                CommandParameter="{Binding Name}"
-                                                Style="{Binding Source={StaticResource myGreyStarButton}}">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                
-                                                <Image Grid.Column="0"
-                                                       Style="{Binding Source={StaticResource myButtonImageStyle}}"
-                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVisOpposite}}"
-                                                       Source=" /imagesForWpf/lowerstar.png">
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <!--+add step button-->
+                        <Button Style="{StaticResource myButtonStyle}"
+                                Command="{Binding NewSubtaskCommand}"
+                                CommandParameter="{Binding}"
+                                Content="+   Add step"
+                                Margin="15,5,5,5"
+                                Foreground="#1E90FF" />
+
+                        <!--Note text to get more details of subtasks-->
+                        <Grid>
+                            <TextBox Style="{Binding Source={StaticResource myNotesTextBoxPromptStyle}}"
+                                     Text=" Add note"
+                                     Padding="5,7,5,7" />
+
+                            <TextBox Style="{Binding Source={StaticResource myNotesTextBoxStyle}}"
+                                     Text="{Binding SelectedTask.Notes}"
+                                     Padding="5,7,5,7" />
+                        </Grid>
+
+                    </StackPanel>
+
+                </Border>
+
+                <DockPanel LastChildFill="True">
+                    <!--Margin="0 10 0 10"-->
+
+
+                    <!--Add a task -->
+                    <StackPanel Background="Transparent"
+                                DockPanel.Dock="Bottom">
+                        <Grid>
+                            <TextBox Style="{StaticResource myTextBoxPromptStyle}"
+                                     Text=" + Add a task"
+                                     Foreground="Black"
+                                     Focusable="False" />
+
+                            <TextBox Style="{StaticResource myTextBoxStyle}"
+                                     AcceptsReturn="False"
+                                     Foreground="Black"
+                                     Text="{Binding AddaTaskText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Return"
+                                                Command="{Binding NewTaskCommand}"
+                                                CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type TextBox}}}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </Grid>
+                    </StackPanel>
+
+
+
+                    <StackPanel>
+
+                        <!--Task Title -->
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,20,5,5"
+                                    DockPanel.Dock="Top">
+                            <Image Source="{Binding SelectedTasklist.IconSource}"
+                                   Width="25"
+                                   Height="25"
+                                   Margin="0,3,14,0" />
+                            <Grid Width="Auto">
+                                <Border Background="Transparent"
+                                        BorderThickness="2"
+                                        CornerRadius="10">
+
+                                </Border>
+
+
+                                <TextBlock Text="{Binding SelectedTasklist.Name}"
+                                           Foreground="#EEEEEE"
+                                           FontSize="26"
+                                           FontWeight="DemiBold"
+                                           Margin="0,0,0,0" />
+                            </Grid>
+
+                        </StackPanel>
+
+                        <!--Black separating border-->
+
+
+                        <!--Subtasks showlist-->
+                        <ListView x:Name="toDoList"
+                                  Margin="30,0,35,0"
+                                  HorizontalContentAlignment="Stretch"
+                                  ItemsSource="{Binding TasksList}"
+                                  Style="{Binding Source={StaticResource myListviewStyle}}"
+                            SelectedItem="{Binding SelectedTask}">
+                         
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseUp">
+                                    <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM},
+                                        Path=SelectSubtaskCommand}"
+                                                           CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, 
+                                        Path=SelectedTask}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+                                    <Border Background="#CEEAE8E4"
+                                            BorderThickness="2"
+                                            CornerRadius="10"
+                                            HorizontalAlignment="Stretch">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="40" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--Grey Circle-->
+                                            <Button Grid.Column="0"
+                                                    Width="20"
+                                                    Height="20"
+                                                    x:Name="Datatemplate"
+                                                    Margin="0,0,7,0"
+                                                    Visibility="Visible"
+                                                    Background="Transparent"
+                                                    Command="{Binding Source={StaticResource TasksViewModelVM}, Path=DeleteCommand}"
+                                                    CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}"
+                                                    Style="{Binding Source={StaticResource MaterialDesignFloatingActionMiniDarkButton}}">
+
+                                                <Image>
+                                                    <Image.Style>
+                                                        <Style TargetType="{x:Type Image}">
+                                                            <Setter Property="Cursor"
+                                                                    Value="Hand" />
+                                                            <Setter Property="Image.Source"
+                                                                    Value="\imagesForWpf\circle.png" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Image.Source"
+                                                                            Value="\imagesForWpf\Done.png">
+                                                                    </Setter>
+                                                                    <Setter Property="FocusManager.FocusedElement"
+                                                                            Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}}"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
                                                 </Image>
-                                                
-                                                <Image Grid.Column="0"
-                                                       Style="{Binding Source={StaticResource myButtonImageStyle}}"
-                                                       Visibility="{Binding Important, Converter={StaticResource BooltoVis}}"
-                                                       Source="/imagesForWpf/star.png" />
+
+                                            </Button>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Name}"
+                                                       Margin="0,10,10,10"
+                                                       Width="Auto"
+                                                       HorizontalAlignment="Stretch"
+                                                       Style="{Binding Source={StaticResource myTextblockStyle}}" />
+
+                                            <!--Grey star-->
+                                            <Grid Grid.Column="2"
+                                                  Width="17"
+                                                  Height="17"
+                                                  Margin="0,0,7,0">
+                                                <Button Background="Transparent"
+                                                        Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"
+                                                        CommandParameter="{Binding Name}"
+                                                        Style="{Binding Source={StaticResource myGreyStarButton}}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Grid.Column="0"
+                                                               Style="{Binding Source={StaticResource myButtonImageStyle}}"
+                                                               Visibility="{Binding Important, Converter={StaticResource BooltoVisOpposite}}"
+                                                               Source=" /imagesForWpf/lowerstar.png">
+                                                        </Image>
+
+                                                        <Image Grid.Column="0"
+                                                               Style="{Binding Source={StaticResource myButtonImageStyle}}"
+                                                               Visibility="{Binding Important, Converter={StaticResource BooltoVis}}"
+                                                               Source="/imagesForWpf/star.png" />
+                                                    </Grid>
+                                                </Button>
                                             </Grid>
-                                        </Button>
-                                    </Grid> 
 
-                                    <Grid.ContextMenu>
-                                        <ContextMenu DataContext="{StaticResource TasksViewModelVM}">
-                                            <MenuItem Header="Add to My Day" />
-                                            <Separator />
-                                            <MenuItem Header="Mark as Important"
-                                                      Command="{Binding MarkImportantCommand}"
-                                                      CommandParameter="{Binding SelectedTask.Name}" />
+                                            <!--right mouse click on the item-->
+                                            <Grid.ContextMenu>
+                                                <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
+                                                             Background="#CEF0F8FF"
+                                                             Foreground="Black">
+                                                    <MenuItem Header="Add to My Day" />
+                                                    <Separator />
+                                                    <MenuItem Header="Mark as Important"
+                                                              Command="{Binding MarkImportantCommand}"
+                                                              CommandParameter="{Binding SelectedTask.Name}" />
 
-                                            <MenuItem Header="Mark as Completed"
-                                                      Command="{Binding DeleteCommand}"
-                                                      CommandParameter="{Binding SelectedTask}" />
+                                                    <MenuItem Header="Mark as Completed"
+                                                              Command="{Binding DeleteCommand}"
+                                                              CommandParameter="{Binding SelectedTask}" />
 
-                                            <Separator />
-                                            <MenuItem Header="Delete Task"
-                                                      Command="{Binding DeleteCommand}"
-                                                      CommandParameter="{Binding SelectedTask}" />
-                                        </ContextMenu>
-                                    </Grid.ContextMenu>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                                                    <Separator />
+                                                    <MenuItem Header="Delete Task"
+                                                              Command="{Binding DeleteCommand}"
+                                                              CommandParameter="{Binding SelectedTask}" />
+                                                </ContextMenu>
+                                            </Grid.ContextMenu>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
 
-                </ListView>
+                        </ListView>
 
-                <!--Black separating border-->
-                <StackPanel Orientation="Horizontal"
-                            DockPanel.Dock="Right">
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                               Margin="0,0,0,0"
-                               Width="0.5"
-                               Background="Black"
-                               Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks},
+                        <!--Black separating border-->
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Right">
+                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                       Margin="0,0,0,0"
+                                       Width="0.5"
+                                       Background="Black"
+                                       Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks},
                                                                  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
+                        </StackPanel>
 
-            </StackPanel>
-        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+
+            </DockPanel>
+
+
+        </Border>
+
+
+
 
 
 
 
 
     </DockPanel>
+
 </Page>

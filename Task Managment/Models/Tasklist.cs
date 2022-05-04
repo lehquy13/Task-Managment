@@ -11,7 +11,8 @@ namespace Task_Managment.Models
     public class Tasklist : INotifyPropertyChanged
     {
         //!Fields
-        public static readonly string DefaultIcon = Path.Combine(TasksViewModel.ImagesPath, "menu.png");
+
+        public static readonly string DefaultIcon = "menu.png";
 
         //!Properties
         public string TasklistID { get; set; }
@@ -55,7 +56,7 @@ namespace Task_Managment.Models
             this.TasklistID = Guid.NewGuid().ToString();
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
-            this.IconSource = new Uri(Tasklist.DefaultIcon);
+            this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
         }
 
         //!Events
