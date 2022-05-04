@@ -161,6 +161,7 @@
     <Compile Include="Commands\NewSubtaskCommand.cs" />
     <Compile Include="Commands\NewTaskCommand.cs" />
     <Compile Include="Commands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
