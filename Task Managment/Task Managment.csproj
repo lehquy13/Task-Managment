@@ -155,12 +155,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CloseSubtaskPanelCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\EndRenameCommand.cs" />
     <Compile Include="Commands\MarkImportantCommand.cs" />
     <Compile Include="Commands\NewSubtaskCommand.cs" />
     <Compile Include="Commands\NewTaskCommand.cs" />
     <Compile Include="Commands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\SelectSubtaskCommand.cs" />
     <Compile Include="Commands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
@@ -206,6 +208,10 @@
     <Page Include="ResXAML\MainResource.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UserControlBlank.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -345,6 +351,7 @@
     <Resource Include="imagesForWpf\important.png" />
     <Resource Include="imagesForWpf\star.png" />
     <Resource Include="imagesForWpf\lowerstar.png" />
+    <Resource Include="imagesForWpf\next.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

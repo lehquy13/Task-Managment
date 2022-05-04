@@ -80,7 +80,7 @@
                 Value="True" />
        
         <Setter Property="Foreground"
-                Value="Gainsboro" />
+                Value="Black" />
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="FontSize"
@@ -105,7 +105,7 @@
                                  Value="True">
                             <Setter TargetName="templateBorder"
                                     Property="Background"
-                                    Value="#303030" />
+                                    Value="#FFF5EE" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
