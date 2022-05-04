@@ -8,8 +8,8 @@
         xmlns:uc="clr-namespace:Task_Managment.UserControls"
         mc:Ignorable="d"
         Title="TaskHomeView"
-        Height="1080"
-        Width="1600"
+        Height="600"
+        Width="1000"
         WindowStartupLocation="CenterScreen">
 
 
@@ -19,7 +19,7 @@
 
 
 
-        <Frame Source="ToDoTasks.xaml" />
+        <Frame Source="pNoteHomeView.xaml" />
 
 
     </DockPanel>
