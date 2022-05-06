@@ -9,8 +9,5 @@ using System.ComponentModel;
 
 namespace Task_Managment.ViewModels
 {
-    public class Calendar:INotifyPropertyChanged
-    {
 
-    }
 }

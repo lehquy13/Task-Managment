@@ -205,9 +205,6 @@
     <Compile Include="Views\Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\cld.xaml.cs">
-      <DependentUpon>cld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\eventwindow.xaml.cs">
       <DependentUpon>eventwindow.xaml</DependentUpon>
     </Compile>
@@ -247,10 +244,6 @@
     <Page Include="Views\Calendar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\cld.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\eventwindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -14,7 +14,7 @@
      Background="White"
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Calendar" Height="450" Width="868">
-    <Grid Grid.Row="1" Background="White">
+    <Grid Grid.Column="1" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -26,6 +26,9 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <materialDesign:Card Grid.Row="0" Margin="5" Background="White">
                 <WrapPanel>
                     <TextBlock x:Name="tblmonthyear" Text="MONTH YEAR" TextAlignment="Center" Padding="700,0,0,0" FontSize="20" Foreground="DeepSkyBlue" />
@@ -53,15 +56,15 @@
                     <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
                 </WrapPanel>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Row="2" Margin="5">
+            <materialDesign:Card Grid.Row="2" Margin="5" Background="White">
                 <WrapPanel x:Name="daycontainer" >
 
                 </WrapPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
-                <WrapPanel>
-
-                </WrapPanel>
+                <Viewbox>
+                    <Calendar/>
+                </Viewbox>
             </materialDesign:Card>
 
         </Grid>
