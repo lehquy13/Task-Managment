@@ -1,8 +1,9 @@
-﻿<Window x:Class="Task_Managment.Views.Calendar"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="Task_Managment.Views.Calendar"   
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Managment"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
           TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -10,35 +11,46 @@
      TextElement.FontSize="13"
      TextOptions.TextFormattingMode="Ideal"
      TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
+     Background="White"
      FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Calendar" Height="450" Width="868">
-    <Grid Grid.Row="1">
+    <Grid Grid.Row="1" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" >
+        <Grid Grid.Row="0" Background="White" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" ></RowDefinition>
                 <RowDefinition Height="auto" ></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <materialDesign:Card Grid.Row="0" Margin="5">
+            <materialDesign:Card Grid.Row="0" Margin="5" Background="White">
                 <WrapPanel>
-                    <TextBlock x:Name="tblmonthyear" Text="MONTH YEAR" TextAlignment="Left" Margin="0,0,-7,0" Padding="360,0,0,0" FontSize="16" />
+                    <TextBlock x:Name="tblmonthyear" Text="MONTH YEAR" TextAlignment="Center" Padding="700,0,0,0" FontSize="20" Foreground="DeepSkyBlue" />
+                    <Button Name="btnprevious" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="30,0,0,0" Click="btnprevious_Click" RenderTransformOrigin="0.483,0.837" Background="White" BorderBrush="White">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_down_icon.png"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Name="btnnext" Padding="0,0,5,4" Margin="10,0,0,0" Click="btnnext_Click" Background="White" BorderBrush="White">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_up_icon.png"/>
+                        </StackPanel>
+                    </Button>
                 </WrapPanel>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Row="1" Margin="5">
+            <materialDesign:Card Grid.Row="1" Background="White">
                 <WrapPanel>
-                    <TextBlock Text="Sunday" Margin="5 5 15 5" Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Monday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Tuesday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Wednesday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Thursday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Friday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
-                    <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="100" FontWeight="Normal" TextAlignment="Center"></TextBlock>
+                    <TextBlock Text="Sunday" Margin="5 5 15 5" Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Monday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Tuesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Wednesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Thursday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Friday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
                 </WrapPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="2" Margin="5">
@@ -48,14 +60,10 @@
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
                 <WrapPanel>
-                    <Button Name="btnprevious" Content="Previous" HorizontalAlignment="Stretch" Padding="16,4,16,4" Margin="640,0,0,0" Click="btnprevious_Click" RenderTransformOrigin="0.483,0.837" />
-                    <Button Name="btnnext" Content="Next" Padding="22,4,13,4" Margin="30,0,0,0" Click="btnnext_Click"/>
+
                 </WrapPanel>
             </materialDesign:Card>
 
-
-
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="767,254,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>

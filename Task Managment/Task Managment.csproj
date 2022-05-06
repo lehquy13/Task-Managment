@@ -174,7 +174,9 @@
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
+    <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\MyCalendar.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\NotebookModel.cs" />
     <Compile Include="Models\Subtask.cs" />
@@ -192,6 +194,7 @@
     <Compile Include="ViewModels\AllToDoTasks.cs" />
     <Compile Include="ViewModels\AllToDoTasks1.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Calendar.cs" />
     <Compile Include="ViewModels\DataAccess.cs" />
     <Compile Include="ViewModels\Login.cs" />
     <Compile Include="ViewModels\Register.cs" />
@@ -201,6 +204,9 @@
     <Compile Include="ViewModels\vmNoteHomeView.cs" />
     <Compile Include="Views\Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\cld.xaml.cs">
+      <DependentUpon>cld.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\eventwindow.xaml.cs">
       <DependentUpon>eventwindow.xaml</DependentUpon>
@@ -241,6 +247,10 @@
     <Page Include="Views\Calendar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\cld.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\eventwindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -373,6 +383,8 @@
     <Resource Include="imagesForWpf\star.png" />
     <Resource Include="imagesForWpf\lowerstar.png" />
     <Resource Include="imagesForWpf\next.png" />
+    <Resource Include="imagesForWpf\arrow_down_icon.png" />
+    <Resource Include="imagesForWpf\arrow_up_icon.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

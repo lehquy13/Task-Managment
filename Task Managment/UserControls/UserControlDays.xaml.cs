@@ -63,7 +63,7 @@ namespace Task_Managment.UserControls
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                lbevent.Content = reader["event"].ToString();
+                lbevent.Text = reader["event"].ToString();
             }
             reader.Dispose();
             cmd.Dispose();
