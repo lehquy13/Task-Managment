@@ -36,7 +36,7 @@ namespace Task_Managment.ViewModels
                 var memberList = await Get_Accounts(email, password);
                 if (memberList.Count > 0 && memberList[0].Password == password)
                 {
-                    wndTaskHomeView newWindow = new wndTaskHomeView();
+                    MainWindow newWindow = new MainWindow();
                     wndLogin _this = sender as wndLogin;
                     _this.Hide(); 
                     newWindow.ShowDialog();

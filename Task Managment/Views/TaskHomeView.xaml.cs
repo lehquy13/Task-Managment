@@ -17,7 +17,7 @@ namespace Task_Managment
     /// <summary>
     /// Interaction logic for Card.xaml
     /// </summary>
-    public partial class wndTaskHomeView : Window
+    public partial class wndTaskHomeView : Page
     {
         public wndTaskHomeView()
         {

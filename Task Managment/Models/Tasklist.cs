@@ -54,6 +54,7 @@ namespace Task_Managment.Models
         public Tasklist()
         {
             this.TasklistID = Guid.NewGuid().ToString();
+           
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
             this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));

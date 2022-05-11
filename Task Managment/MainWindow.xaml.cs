@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Task_Managment
 {
@@ -43,12 +45,12 @@ namespace Task_Managment
 
         private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
         {
-            img_bg.Opacity = 1;
+           // img_bg.Opacity = 1;
         }
 
         private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
         {
-            img_bg.Opacity = 0.3;
+            //mg_bg.Opacity = 0.3;
         }
 
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -59,6 +61,12 @@ namespace Task_Managment
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void buttonTesting_Click(object sender, RoutedEventArgs e)
+        {
+            FrameChange.Navigate(new Uri("TaskHomeView.xaml",UriKind.RelativeOrAbsolute));
+
         }
     }
 }

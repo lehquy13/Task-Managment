@@ -44,7 +44,7 @@ namespace Task_Managment.ViewModels
                         if(SelectedTasklist.Tasks.Count > 0)
                         {
                             this.SelectedTask = null;
-                            this.SubtasksPaneVisible = false;
+                            this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
 
                             foreach (Task task in this.SelectedTasklist.Tasks)
                             {
@@ -64,35 +64,20 @@ namespace Task_Managment.ViewModels
             get { return _selectedTask; }
             set
             {
-                _selectedTask = value;
-                
-                if (SelectedTasklist != null)
+                if (_selectedTask == null)
                 {
-                    if (SelectedTasklist.Tasks != null)
-                    {
-                        if (SelectedTasklist.Tasks.Count > 0)
-                        {
-                            if (SelectedTask != null)
-                            {
-                                
-                                this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
-                                this.Subtasks.Clear();
-                                if (SelectedTask.Subtasks != null)
-                                {
-                                    if (SelectedTask.Subtasks.Count > 0)
-                                    {
-                                        foreach (Subtask subTask in this.SelectedTask.Subtasks)
-                                        {
-                                            this.Subtasks.Add(subTask);
-                                        }
-                                    }
-                                }
-                            }
-                            else this.SubtasksPaneVisible = false;
-                        }
-                    }
+                    _selectedTask = value;
+                    SelectSubtaskCommand.Execute(value);
                 }
-                PropertyUpdated("SelectedTask");
+                else if (_selectedTask != value)
+                {
+                    _selectedTask = value;
+                    SelectSubtaskCommand.Execute(value);
+                }
+                else
+                {
+                    SelectSubtaskCommand.Execute(value);
+                }
             }
         }
 
