@@ -14,7 +14,7 @@
         <TextBox x:Name="tbxevent" HorizontalAlignment="Left" Margin="276,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Grid.Column="1"/>
         <Label Content="Date" HorizontalAlignment="Left" Margin="276,83,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <Label Content="Event" HorizontalAlignment="Left" Margin="276,164,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Button x:Name="btnsave" Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="380,254,0,0" VerticalAlignment="Top" Click="btnsave_Click"/>
+        <Button x:Name="btnsave" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Margin="380,254,0,0" VerticalAlignment="Top" Click="btnsave_Click"/>
 
     </Grid>
 </Window>

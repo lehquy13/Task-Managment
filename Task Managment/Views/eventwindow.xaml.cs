@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Task_Managment.DataAccess;
+using Task_Managment.Models;
 using Task_Managment.UserControls;
 
 namespace Task_Managment.Views
@@ -21,7 +23,6 @@ namespace Task_Managment.Views
     /// </summary>
     public partial class eventwindow : Window
     {
-        string conn = @"Data Source=DESKTOP-KLH8VFB\SQLEXPRESS;Initial Catalog = TaskManagement; Integrated Security = True";
         public eventwindow()
         {
             InitializeComponent();
@@ -34,14 +35,8 @@ namespace Task_Managment.Views
 
         private void btnsave_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(conn);
-            con.Open();
-            string sql = "insert into tbl_calendar (date,event)" +
-             "values (N'" + tbxdate.Text + "',N'" + tbxevent.Text + "')";
-            SqlCommand cmd = new SqlCommand(sql,con);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("saved");
-            con.Close();
+            CalendarDataaccess db = new CalendarDataaccess();
+            db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(tbxdate.Text), Note = tbxevent.Text });
         }
     }
 }

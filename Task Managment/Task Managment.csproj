@@ -174,7 +174,9 @@
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
+    <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\MyCalendar.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\NotebookModel.cs" />
     <Compile Include="Models\Subtask.cs" />
@@ -190,6 +192,7 @@
       <DependentUpon>UserControlDays.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Calendar.cs" />
     <Compile Include="ViewModels\DataAccess.cs" />
     <Compile Include="ViewModels\Login.cs" />
     <Compile Include="ViewModels\Register.cs" />
@@ -370,6 +373,8 @@
     <Resource Include="imagesForWpf\star.png" />
     <Resource Include="imagesForWpf\lowerstar.png" />
     <Resource Include="imagesForWpf\next.png" />
+    <Resource Include="imagesForWpf\arrow_down_icon.png" />
+    <Resource Include="imagesForWpf\arrow_up_icon.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
