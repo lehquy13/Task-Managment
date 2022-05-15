@@ -36,25 +36,68 @@ namespace Task_Managment.Commands
         public void Execute(object parameter)
         {
             //parameter is the TasksViewModel object
-            if (parameter is Task)
+            if (parameter == null || parameter is Task is false) 
+                return;
+            else if(parameter == TasksViewModel.SelectedTask)
             {
-                Task task = (Task)parameter;
-                TasksViewModel.SelectedTask = task;
+                this.TasksViewModel.SubtasksPaneVisible = !this.TasksViewModel.SubtasksPaneVisible;
+                TasksViewModel.PropertyUpdated("SelectedTask");
+                return;
             }
+            else
+            {
+                // check and revert the panel status
+                Task task = (Task)parameter;
+                //if (task == TasksViewModel.SelectedTask)
+                //    return;
 
-            return;
+                TasksViewModel.SelectedTask = task;
+                if (TasksViewModel.SelectedTasklist != null)
+                {
+                    if (TasksViewModel.SelectedTasklist.Tasks != null)
+                    {
+                        if (TasksViewModel.SelectedTasklist.Tasks.Count > 0)
+                        {
+                            if (TasksViewModel.SelectedTask != null)
+                            {
 
-            ////create a new string subtask
-            //Subtask newSubtask = new Subtask(this.TasksViewModel.SelectedTask.TaskID)
-            //{
-            //    Name = ""
-            //};
+                                this.TasksViewModel.SubtasksPaneVisible = !this.TasksViewModel.SubtasksPaneVisible;
+                                this.TasksViewModel.Subtasks.Clear();
+                                if (TasksViewModel.SelectedTask.Subtasks != null)
+                                {
+                                    if (TasksViewModel.SelectedTask.Subtasks.Count > 0)
+                                    {
+                                        foreach (Subtask subTask in this.TasksViewModel.SelectedTask.Subtasks)
+                                        {
+                                            this.TasksViewModel.Subtasks.Add(subTask);
+                                        }
+                                    }
+                                }
+                            }
+                            else this.TasksViewModel.SubtasksPaneVisible = false;
+                        }
+                    }
+                }
 
-            ////add the string to the observable collection
-            //this.TasksViewModel.Subtasks.Add(newSubtask);
+            }
+            TasksViewModel.PropertyUpdated("SelectedTask");
+            //TasksViewModel.PropertyUpdated("SelectedTask");
+            //return;
 
-            ////add the string to the subtasks list
-            //this.TasksViewModel.SelectedTask.Subtasks.Add(newSubtask);
+
+
         }
+
+        ////create a new string subtask
+        //Subtask newSubtask = new Subtask(this.TasksViewModel.SelectedTask.TaskID)
+        //{
+        //    Name = ""
+        //};
+
+        ////add the string to the observable collection
+        //this.TasksViewModel.Subtasks.Add(newSubtask);
+
+        ////add the string to the subtasks list
+        //this.TasksViewModel.SelectedTask.Subtasks.Add(newSubtask);
     }
 }
