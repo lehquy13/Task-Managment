@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Task_Managment.Views;
-using Calendar = Task_Managment.Views.Calendar;
+using Task_Managment.ViewModels;
 
 namespace Task_Managment.UserControls
 {
@@ -23,51 +23,63 @@ namespace Task_Managment.UserControls
     /// </summary>
     public partial class UserControlDays : UserControl
     {
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        private void test()
-        {
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
-        }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            displayevent();
-        }
-       
+
+        //System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        //private void test()
+        //{
+        //    dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+        //    dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+        //    dispatcherTimer.Start();
+        //}
+        //private void dispatcherTimer_Tick(object sender, EventArgs e)
+        //{
+        //    displayevent();
+        //}
+
         public static string static_day;
-        string conn = @"Data Source=DESKTOP-KLH8VFB\SQLEXPRESS;Initial Catalog = TaskManagement; Integrated Security = True";
+        //string conn = @"Data Source=DESKTOP-KLH8VFB\SQLEXPRESS;Initial Catalog = TaskManagement; Integrated Security = True";
         public UserControlDays()
         {
             InitializeComponent();
         }
         public void days(int numday)
         {
-            lbdays.Content = numday + "";
+            lbdays.Text= numday + "";
+        }
+        public void dayss(string numday)
+        {
+            lbdays.Text = numday + "";
         }
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            static_day = lbdays.Content.ToString();
-            test();
-            eventwindow e_form=new eventwindow();
+             static_day= lbdays.Text.ToString();
+            eventwindow e_form = new eventwindow();
             e_form.ShowDialog();
         }
-        private void displayevent()
-        {
-            SqlConnection con = new SqlConnection(conn);
-            con.Open();
-            string sql = "select * from tbl_calendar where date = '"+ Calendar.static_month.ToString() +"/" + lbdays.Content +"/"+Calendar.static_year.ToString()+"'";
-            SqlCommand cmd=con.CreateCommand();
-            cmd.CommandText = sql;
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                lbevent.Text = reader["event"].ToString();
-            }
-            reader.Dispose();
-            cmd.Dispose();
-            con.Close();
-        }
+
+        //private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    static_day = lbdays.Content.ToString();
+        //    test();
+        //    eventwindow e_form=new eventwindow();
+        //    e_form.ShowDialog();
+        //}
+        //private void displayevent()
+        //{
+        //    SqlConnection con = new SqlConnection(conn);
+        //    con.Open();
+        //    string sql = "select * from tbl_calendar where date = '"+ CalendarViewModel.static_month.ToString() +"/" + lbdays.Content +"/"+CalendarViewModel.static_year.ToString()+"'";
+        //    SqlCommand cmd=con.CreateCommand();
+        //    cmd.CommandText = sql;
+        //    SqlDataReader reader = cmd.ExecuteReader();
+        //    if (reader.Read())
+        //    {
+        //        lbevent.Text = reader["event"].ToString();
+        //    }
+        //    reader.Dispose();
+        //    cmd.Dispose();
+        //    con.Close();
+        //}
     }
 }

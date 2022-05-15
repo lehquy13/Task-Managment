@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.UserControls;
+using Task_Managment.ViewModels;
 
 namespace Task_Managment.Views
 {
@@ -26,17 +27,19 @@ namespace Task_Managment.Views
         public eventwindow()
         {
             InitializeComponent();
+            tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year;
+
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            tbxdate.Text = Calendar.static_month + "/" + UserControlDays.static_day+"/"+Calendar.static_year;
-        }
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day+"/"+CalendarViewModel.static_year;
+        //}
 
-        private void btnsave_Click(object sender, RoutedEventArgs e)
-        {
-            CalendarDataaccess db = new CalendarDataaccess();
-            db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(tbxdate.Text), Note = tbxevent.Text });
-        }
+        //private void btnsave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    CalendarDataaccess db = new CalendarDataaccess();
+        //    db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(tbxdate.Text), Note = tbxevent.Text });
+        //}
     }
 }

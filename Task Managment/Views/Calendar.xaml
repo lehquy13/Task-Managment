@@ -4,17 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Managment"
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dtContext="clr-namespace:Task_Managment.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
      TextOptions.TextFormattingMode="Ideal"
      TextOptions.TextRenderingMode="Auto"
-     Background="White"
+     Background="{DynamicResource MaterialDesignLightBackground}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Calendar" Height="450" Width="868">
-    <Grid Grid.Column="1" Background="White">
+        Title="Calendar" Height="450" Width="868" 
+        x:Name="Cldar"
+        DataContext="{StaticResource CalendarVM}"
+        >
+    <Grid Grid.Row="1" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -31,14 +35,35 @@
             </Grid.ColumnDefinitions>
             <materialDesign:Card Grid.Row="0" Margin="5" Background="White">
                 <WrapPanel>
-                    <TextBlock x:Name="tblmonthyear" Text="MONTH YEAR" TextAlignment="Center" Padding="700,0,0,0" FontSize="20" Foreground="DeepSkyBlue" />
-                    <Button Name="btnprevious" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="30,0,0,0" Click="btnprevious_Click" RenderTransformOrigin="0.483,0.837" Background="White" BorderBrush="White">
+                    <TextBlock 
+                        x:Name="tblmonthyear" 
+                        TextAlignment="Center" 
+                        Padding="700,0,0,0" 
+                        FontSize="20" 
+                        Foreground="DeepSkyBlue"
+                        Text="{Binding MonthYear}"
+                        />
+                    <Button 
+                        Name="btnprevious" 
+                        HorizontalAlignment="Stretch" 
+                        Padding="0,0,0,0" Margin="30,0,0,0" 
+                        RenderTransformOrigin="0.483,0.837" 
+                        Background="White" 
+                        BorderBrush="White"
+                        Command="{Binding PreviousCM }"
+                        >
                         <StackPanel Orientation="Horizontal">
                             <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_down_icon.png"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Name="btnnext" Padding="0,0,5,4" Margin="10,0,0,0" Click="btnnext_Click" Background="White" BorderBrush="White">
+                    <Button Name="btnnext" 
+                            Padding="0,0,5,4" 
+                            Margin="10,0,0,0" 
+                            Background="White" 
+                            BorderBrush="White"
+                            Command="{Binding NextCM}"
+                            >
                         <StackPanel Orientation="Horizontal">
                             <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_up_icon.png"/>
                         </StackPanel>
@@ -47,26 +72,22 @@
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="1" Background="White">
                 <WrapPanel>
-                    <TextBlock Text="Sunday" Margin="5 5 15 5" Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Monday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Tuesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Wednesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Thursday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Friday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
-                    <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Text="Sunday" Margin="5 5 15 5" Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Monday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Tuesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Wednesday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Thursday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Friday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
+                    <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="195" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
                 </WrapPanel>
             </materialDesign:Card>
-            <materialDesign:Card Grid.Row="2" Margin="5" Background="White">
-                <WrapPanel x:Name="daycontainer" >
-
-                </WrapPanel>
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
-                <Viewbox>
-                    <Calendar/>
-                </Viewbox>
-            </materialDesign:Card>
-
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding UserControlDays}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </Grid>
     </Grid>
 </Window>
