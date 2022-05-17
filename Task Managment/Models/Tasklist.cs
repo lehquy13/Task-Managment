@@ -11,7 +11,7 @@ namespace Task_Managment.Models
     public class Tasklist : INotifyPropertyChanged
     {
         //!Fields
-
+        public string MemberId { get; set; }
         public static readonly string DefaultIcon = "menu.png";
 
         //!Properties
@@ -57,6 +57,18 @@ namespace Task_Managment.Models
            
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
+            this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
+        }
+
+     
+
+        public Tasklist(List<Task> _tasks, Members _member)
+        {
+            this.TasklistID = Guid.NewGuid().ToString();
+            MemberId = _member.Email;
+
+            this.Name = "Untitled list";
+            this.Tasks = _tasks;
             this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
         }
 

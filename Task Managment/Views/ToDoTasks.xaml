@@ -26,11 +26,11 @@
 
     </Page.Resources>
 
-    <DockPanel LastChildFill="True"
+    <!--<DockPanel LastChildFill="True"
                Background="White">
 
 
-        <!--Tasklist Panel-->
+        --><!--Tasklist Panel--><!--
 
         <Grid DockPanel.Dock="Left">
             <Grid.RowDefinitions>
@@ -52,7 +52,7 @@
                            Foreground="Black"
                            Margin="20,20,5,0" />
 
-                <!--Task List-->
+                --><!--Task List--><!--
                 <ListView Margin="25,5,10,5"
                           ItemsSource="{Binding TasklistList}"
                           Style="{Binding Source={StaticResource myListviewStyle}}"
@@ -147,9 +147,9 @@
 
             <DockPanel>
 
-                <!--Task Title && SubTaskList && no Add task here -->
+                --><!--Task Title && SubTaskList && no Add task here -->
 
-                <!--Subtask's details Panel!!! -->
+                <!--Subtask's details Panel!!! --><!--
                 <Border DockPanel.Dock="Right"
                         Margin="0 0 0 0"
                         BorderThickness="2"
@@ -161,7 +161,7 @@
 
                     <StackPanel>
 
-                        <!--Close button-->
+                        --><!--Close button--><!--
                         <Button Style="{StaticResource myButtonStyle}"
                                 Command="{Binding CloseSubtaskPanelCommand}"
                                 CommandParameter="{Binding}"
@@ -171,9 +171,9 @@
                             <materialDesign:PackIcon Kind="Close" />
                         </Button>
 
-                        <!--<uc:TitlebarMenuButtons />-->
+                        --><!--<uc:TitlebarMenuButtons />-->
 
-                        <!--list of sub' of subtaks!!-->
+                        <!--list of sub' of subtaks!!--><!--
                         <ListView Margin="15,3,10,5"
                                   ItemsSource="{Binding Subtasks}"
                                   Style="{Binding Source={StaticResource myListviewStyle}}">
@@ -212,7 +212,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
 
-                        <!--+add step button-->
+                        --><!--+add step button--><!--
                         <Button Style="{StaticResource myButtonStyle}"
                                 Command="{Binding NewSubtaskCommand}"
                                 CommandParameter="{Binding}"
@@ -220,7 +220,7 @@
                                 Margin="15,5,5,5"
                                 Foreground="#1E90FF" />
 
-                        <!--Note text to get more details of subtasks-->
+                        --><!--Note text to get more details of subtasks--><!--
                         <Grid>
                             <TextBox Style="{Binding Source={StaticResource myNotesTextBoxPromptStyle}}"
                                      Text=" Add note"
@@ -236,10 +236,10 @@
                 </Border>
 
                 <DockPanel LastChildFill="True">
-                    <!--Margin="0 10 0 10"-->
+                    --><!--Margin="0 10 0 10"-->
 
 
-                    <!--Add a task -->
+                    <!--Add a task --><!--
                     <StackPanel Background="Transparent"
                                 DockPanel.Dock="Bottom">
                         <Grid>
@@ -265,7 +265,7 @@
 
                     <StackPanel>
 
-                        <!--Task Title -->
+                        --><!--Task Title --><!--
                         <StackPanel Orientation="Horizontal"
                                     Margin="0,20,5,5"
                                     DockPanel.Dock="Top">
@@ -290,10 +290,10 @@
 
                         </StackPanel>
 
-                        <!--Black separating border-->
+                        --><!--Black separating border-->
 
 
-                        <!--Subtasks showlist-->
+                        <!--Subtasks showlist--><!--
                         <ListView x:Name="toDoList"
                                   Margin="30,0,35,0"
                                   HorizontalContentAlignment="Stretch"
@@ -325,7 +325,7 @@
                                                 <ColumnDefinition Width="40" />
                                             </Grid.ColumnDefinitions>
 
-                                            <!--Grey Circle-->
+                                            --><!--Grey Circle--><!--
                                             <Button Grid.Column="0"
                                                     Width="20"
                                                     Height="20"
@@ -367,7 +367,7 @@
                                                        HorizontalAlignment="Stretch"
                                                        Style="{Binding Source={StaticResource myTextblockStyle}}" />
 
-                                            <!--Grey star-->
+                                            --><!--Grey star--><!--
                                             <Grid Grid.Column="2"
                                                   Width="17"
                                                   Height="17"
@@ -395,7 +395,7 @@
                                                 </Button>
                                             </Grid>
 
-                                            <!--right mouse click on the item-->
+                                            --><!--right mouse click on the item--><!--
                                             <Grid.ContextMenu>
                                                 <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
                                                              Background="#CEF0F8FF"
@@ -423,7 +423,7 @@
 
                         </ListView>
 
-                        <!--Black separating border-->
+                        --><!--Black separating border--><!--
                         <StackPanel Orientation="Horizontal"
                                     DockPanel.Dock="Right">
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
@@ -449,6 +449,6 @@
 
 
 
-    </DockPanel>
+    </DockPanel>-->
 
 </Page>

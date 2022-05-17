@@ -36,11 +36,14 @@ namespace Task_Managment.Commands
         public void Execute(object parameter)
         {
             //parameter is the TasksViewModel object
-            if (parameter == null || parameter is Task is false) 
-                return;
-            else if(parameter == TasksViewModel.SelectedTask)
+            if (parameter == null && TasksViewModel.SelectedSubtask != null)
             {
                 this.TasksViewModel.SubtasksPaneVisible = !this.TasksViewModel.SubtasksPaneVisible;
+                TasksViewModel.PropertyUpdated("SelectedTask");
+                return;
+            }
+            if (parameter != TasksViewModel.SelectedSubtask && this.TasksViewModel.SubtasksPaneVisible == true)
+            {
                 TasksViewModel.PropertyUpdated("SelectedTask");
                 return;
             }
@@ -51,23 +54,23 @@ namespace Task_Managment.Commands
                 //if (task == TasksViewModel.SelectedTask)
                 //    return;
 
-                TasksViewModel.SelectedTask = task;
-                if (TasksViewModel.SelectedTasklist != null)
+                //TasksViewModel.SelectedTask = task;
+                if (TasksViewModel.SelectedTask != null)
                 {
-                    if (TasksViewModel.SelectedTasklist.Tasks != null)
+                    if (TasksViewModel.SelectedTask.Tasks != null)
                     {
-                        if (TasksViewModel.SelectedTasklist.Tasks.Count > 0)
+                        if (TasksViewModel.SelectedTask.Tasks.Count > 0)
                         {
-                            if (TasksViewModel.SelectedTask != null)
+                            if (TasksViewModel.SelectedSubtask != null)
                             {
 
                                 this.TasksViewModel.SubtasksPaneVisible = !this.TasksViewModel.SubtasksPaneVisible;
                                 this.TasksViewModel.Subtasks.Clear();
-                                if (TasksViewModel.SelectedTask.Subtasks != null)
+                                if (TasksViewModel.SelectedSubtask.Subtasks != null)
                                 {
-                                    if (TasksViewModel.SelectedTask.Subtasks.Count > 0)
+                                    if (TasksViewModel.SelectedSubtask.Subtasks.Count > 0)
                                     {
-                                        foreach (Subtask subTask in this.TasksViewModel.SelectedTask.Subtasks)
+                                        foreach (Subtask subTask in this.TasksViewModel.SelectedSubtask.Subtasks)
                                         {
                                             this.TasksViewModel.Subtasks.Add(subTask);
                                         }
@@ -78,9 +81,11 @@ namespace Task_Managment.Commands
                         }
                     }
                 }
+                TasksViewModel.PropertyUpdated("SelectedTask");
+
 
             }
-            TasksViewModel.PropertyUpdated("SelectedTask");
+
             //TasksViewModel.PropertyUpdated("SelectedTask");
             //return;
 

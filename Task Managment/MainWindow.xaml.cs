@@ -63,10 +63,5 @@ namespace Task_Managment
             Close();
         }
 
-        private void buttonTesting_Click(object sender, RoutedEventArgs e)
-        {
-            FrameChange.Navigate(new Uri("TaskHomeView.xaml",UriKind.RelativeOrAbsolute));
-
-        }
     }
 }

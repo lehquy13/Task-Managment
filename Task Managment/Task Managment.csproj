@@ -175,6 +175,7 @@
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
+    <Compile Include="DataAccess\DataAcessForTask.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />
     <Compile Include="Models\Note.cs" />
@@ -182,9 +183,6 @@
     <Compile Include="Models\Subtask.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Tasklist.cs" />
-    <Compile Include="UserControls\taskControl.xaml.cs">
-      <DependentUpon>taskControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UserControlBlank.xaml.cs">
       <DependentUpon>UserControlBlank.xaml</DependentUpon>
     </Compile>
@@ -195,6 +193,7 @@
     <Compile Include="ViewModels\Calendar.cs" />
     <Compile Include="ViewModels\DataAccess.cs" />
     <Compile Include="ViewModels\Login.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Register.cs" />
     <Compile Include="ViewModels\RichTextboxHelper.cs" />
     <Compile Include="ViewModels\TasksViewModel.cs" />
@@ -281,10 +280,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\taskControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\ToDoTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

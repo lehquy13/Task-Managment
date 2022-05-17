@@ -34,7 +34,7 @@ namespace Task_Managment.ViewModel.Commands
             //parameter is the TasksViewModel object
 
             //create a new string subtask
-            Subtask newSubtask = new Subtask(this.TasksViewModel.SelectedTask.TaskID)
+            Subtask newSubtask = new Subtask(this.TasksViewModel.SelectedSubtask.TaskID)
             {
                 Name = ""
             };
@@ -43,7 +43,7 @@ namespace Task_Managment.ViewModel.Commands
             this.TasksViewModel.Subtasks.Add(newSubtask);
 
             //add the string to the subtasks list
-            this.TasksViewModel.SelectedTask.Subtasks.Add(newSubtask);
+            this.TasksViewModel.SelectedSubtask.Subtasks.Add(newSubtask);
         }
     }
 }

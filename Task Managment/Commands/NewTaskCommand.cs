@@ -29,7 +29,7 @@ namespace Task_Managment.ViewModel.Commands
 
             if (string.IsNullOrEmpty(taskText) == false && string.IsNullOrWhiteSpace(taskText) == false)
             {
-                if (TasksViewModel.SelectedTasklist != null)
+                if (TasksViewModel.SelectedTask != null)
                 {
                     return true;
                 }
@@ -41,7 +41,7 @@ namespace Task_Managment.ViewModel.Commands
         public void Execute(object parameter)
         {
             string taskText = parameter as string;
-            Tasklist selectedTasklist = TasksViewModel.SelectedTasklist;
+            Tasklist selectedTasklist = TasksViewModel.SelectedTask;
 
             //create a new task
             Task newTask = new Task(selectedTasklist.TasklistID)
@@ -58,7 +58,7 @@ namespace Task_Managment.ViewModel.Commands
             //add this directly to the observable collection
             //add it to the list of tasks against the task list as well
             this.TasksViewModel.TasksList.Add(newTask);
-            this.TasksViewModel.SelectedTasklist.Tasks.Add(newTask);
+            this.TasksViewModel.SelectedTask.Tasks.Add(newTask);
 
             ////set the selected task to the newly created task
             //this.TasksViewModel.SelectedTask = newTask;
@@ -67,7 +67,7 @@ namespace Task_Managment.ViewModel.Commands
             this.TasksViewModel.AddaTaskText = "";
 
             //update the task count
-            this.TasksViewModel.SelectedTasklist.TotalCount = this.TasksViewModel.SelectedTasklist.Tasks.Count.ToString();
+            this.TasksViewModel.SelectedTask.TotalCount = this.TasksViewModel.SelectedTask.Tasks.Count.ToString();
         }
 
     }

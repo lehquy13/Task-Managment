@@ -12,6 +12,8 @@ namespace Task_Managment.ViewModels
 {
     public class TasksViewModel : INotifyPropertyChanged
     {
+        public Members _currentUser { get; set; }
+        private DataAcessForTask db = DataAcessForTask.Instance;
         //!Fields
         public static readonly string ImagesPath = @"C:\Users\Admin\source\repos\Task-Managment\Task Managment\imagesForWpf";
 
@@ -28,56 +30,56 @@ namespace Task_Managment.ViewModels
         public Tasklist DefaultImportantList { get; set; } = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")) };
         public Tasklist DefaultTasksList     { get; set; } = new Tasklist() { Name = "Tasks",     IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")) };
 
-        private Tasklist _selectedTasklist;
-        public Tasklist SelectedTasklist
+        private Tasklist _selectedTask;
+        public Tasklist SelectedTask
         {
-            get { return _selectedTasklist; }
+            get { return _selectedTask; }
             set 
             { 
-                _selectedTasklist = value;
+                _selectedTask = value;
 
                 this.TasksList.Clear();
-                if(SelectedTasklist != null)
+                if(SelectedTask != null)
                 {
-                    if(SelectedTasklist.Tasks != null)
+                    if(SelectedTask.Tasks != null)
                     {
-                        if(SelectedTasklist.Tasks.Count > 0)
+                        if(SelectedTask.Tasks.Count > 0)
                         {
-                            this.SelectedTask = null;
+                            this.SelectedSubtask = null;
                             this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
 
-                            foreach (Task task in this.SelectedTasklist.Tasks)
+                            foreach (Task task in this.SelectedTask.Tasks)
                             {
                                 this.TasksList.Add(task);
                             }
                         }
                     }
                 }          
-                PropertyUpdated("SelectedTasklist");
+                PropertyUpdated("SelectedTask");
                 this.SubtasksPaneVisible = false;
             }
         }
 
-        private Task _selectedTask;
-        public Task SelectedTask
+        private Task _selectedSubtask;
+        public Task SelectedSubtask
         {
-            get { return _selectedTask; }
+            get { return _selectedSubtask; }
             set
             {
-                if (_selectedTask == null)
+                if (_selectedSubtask == null)
                 {
-                    _selectedTask = value;
-                    SelectSubtaskCommand.Execute(value);
+                    _selectedSubtask = value;
+                    //SelectSubtaskCommand.Execute(value);
                 }
-                else if (_selectedTask != value)
+                else if (_selectedSubtask != value)
                 {
-                    _selectedTask = value;
-                    SelectSubtaskCommand.Execute(value);
+                    _selectedSubtask = value;
+                    //SelectSubtaskCommand.Execute(value);
                 }
-                else
-                {
-                    SelectSubtaskCommand.Execute(value);
-                }
+                //else
+                //{
+                //    SelectSubtaskCommand.Execute(value);
+                //}
             }
         }
 
@@ -144,20 +146,47 @@ namespace Task_Managment.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         //!Ctor
+
         public TasksViewModel()
         {
-            this.TasklistList = new ObservableCollection<Tasklist> 
+            //init commands
+            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
+            init(currentUser);
+
+        }
+
+
+        public TasksViewModel(Members currentUser)
+        {
+            //init commands
+            init(currentUser);
+
+        }
+
+        
+        //!Methods
+        public void PropertyUpdated(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void init(Members currentUser)
+        {
+            _currentUser = currentUser;
+
+            this.TasklistList = new ObservableCollection<Tasklist>
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,
                 this.DefaultTasksList
             };
 
-            this.TasksList = new ObservableCollection<Task>();
+            
+            this.TasksList = new ObservableCollection<Task>(db.GetAllTaskOfMember(currentUser));
+            this.SelectedTask = this.DefaultImportantList;
 
             this.Subtasks = new ObservableCollection<Subtask>();
 
-            this.SelectedTasklist = this.DefaultImportantList;
 
             this.NewTasklistCommand = new NewTasklistCommand(this);
             this.NewTaskCommand = new NewTaskCommand(this);
@@ -173,14 +202,6 @@ namespace Task_Managment.ViewModels
             this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
 
             this.SelectSubtaskCommand = new SelectSubtaskCommand(this);
-
         }
-
-        //!Methods
-        public void PropertyUpdated(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
     }
 }

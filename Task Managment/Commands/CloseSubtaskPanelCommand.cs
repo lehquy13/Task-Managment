@@ -28,7 +28,8 @@ namespace Task_Managment.Commands
 
         public void Execute(object parameter)
         {
-            TasksViewModels.SubtasksPaneVisible = false;
+            if (TasksViewModels.SubtasksPaneVisible == true)
+                TasksViewModels.SubtasksPaneVisible = false;
         }
     }
 }

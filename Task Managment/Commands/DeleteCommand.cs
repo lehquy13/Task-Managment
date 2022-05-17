@@ -39,21 +39,21 @@ namespace Task_Managment.ViewModel.Commands
         {
             if(parameter is Task)
             {
-                Task selectedTask = this.TasksViewModels.SelectedTask;
+                Task selectedTask = this.TasksViewModels.SelectedSubtask;
 
                 //remove it from the observable collection if its not null
                 this.TasksViewModels.TasksList?.Remove(selectedTask);
                 //and remove selected task from task list if its not null
-                this.TasksViewModels.SelectedTasklist.Tasks?.Remove(selectedTask);
+                this.TasksViewModels.SelectedTask.Tasks?.Remove(selectedTask);
 
                 //update the Totalcount
-                this.TasksViewModels.SelectedTasklist.TotalCount =
-                        this.TasksViewModels.SelectedTasklist.Tasks.Count.ToString();
+                this.TasksViewModels.SelectedTask.TotalCount =
+                        this.TasksViewModels.SelectedTask.Tasks.Count.ToString();
             }
 
             else if(parameter is Tasklist)
             {
-                Tasklist selectedTasklist = this.TasksViewModels.SelectedTasklist;
+                Tasklist selectedTasklist = this.TasksViewModels.SelectedTask;
 
                 this.TasksViewModels.TasklistList?.Remove(selectedTasklist);
             } 

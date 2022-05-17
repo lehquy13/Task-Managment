@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -8,12 +10,17 @@ namespace Task_Managment.Models
     public class Task : INotifyPropertyChanged
     {
         //!Fields
-
-        //!Properties
-        public string TasklistID { get; set; }
-
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string TaskID { get; set; }
 
+        public string TasklistID { get; set; }
+
+        public string MemberId { get; set; }
+
+        //!Properties
+
+       
         public string Name { get; set; }
 
         public bool Completed { get; set; }
@@ -33,6 +40,7 @@ namespace Task_Managment.Models
         public string Notes { get; set; }
 
         public List<Subtask> Subtasks { get; set; }
+       
 
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;

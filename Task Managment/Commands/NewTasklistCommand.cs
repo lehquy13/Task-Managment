@@ -43,7 +43,7 @@ namespace Task_Managment.ViewModel.Commands
             
             TasksViewModel.TasklistList.Add(newTasklist);
             TasksViewModel.IsTasklistRenaming = true;
-            TasksViewModel.SelectedTasklist = newTasklist;
+            TasksViewModel.SelectedTask = newTasklist;
         }
     }
 }

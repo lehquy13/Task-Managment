@@ -89,7 +89,7 @@
                 Value="Left" />
         <Setter Property="Width"
                 Value="Auto" 
-                />
+          />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -105,7 +105,7 @@
                                  Value="True">
                             <Setter TargetName="templateBorder"
                                     Property="Background"
-                                    Value="#FFF5EE" />
+                                    Value="#E6E6E6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
