@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using Task_Managment.Models;
 using System.Threading.Tasks;
+using Task_Managment.ViewModels;
+using Task_Managment.UserControls;
 
 namespace Task_Managment.DataAccess
 {
@@ -26,8 +28,14 @@ namespace Task_Managment.DataAccess
             var results = await calendarCollection.FindAsync(_ => true);
             return results.ToList();
         }
+        public System.Threading.Tasks.Task SelectCalendar()
+        {
+            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
+            var filter = Builders<MyCalendar>.Filter.Eq("Date", CalendarViewModel.static_month + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year);
+            return calendarCollection.FindAsync(filter);
+        }
 
-        public System.Threading.Tasks.Task CreateCalendar(MyCalendar calendar)
+            public System.Threading.Tasks.Task CreateCalendar(MyCalendar calendar)
         {
             var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
             return calendarCollection.InsertOneAsync(calendar);

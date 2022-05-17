@@ -4,17 +4,57 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="eventwindow" Height="450" Width="800" Loaded="Window_Loaded">
+         TextElement.Foreground="{DynamicResource MaterialDesignDarkForeground}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      Background="{DynamicResource MaterialDesignLightBackground}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource EventVM}"
+        Title="eventwindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="39*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="tbxdate" HorizontalAlignment="Left" Margin="276,112,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <TextBox x:Name="tbxevent" HorizontalAlignment="Left" Margin="276,0,0,0" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Grid.Column="1"/>
-        <Label Content="Date" HorizontalAlignment="Left" Margin="276,83,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label Content="Event" HorizontalAlignment="Left" Margin="276,164,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Button x:Name="btnsave" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Margin="380,254,0,0" VerticalAlignment="Top" Click="btnsave_Click"/>
-
+        <TextBox x:Name="tbxdate"
+                 HorizontalAlignment="Left"
+                 Margin="276,112,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="120" Grid.Column="1"
+                 Text="{Binding TextBoxDay,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Foreground="Black"
+                 />
+        <TextBox x:Name="tbxevent"
+                 HorizontalAlignment="Left"
+                 Margin="276,0,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Center"
+                 Width="120"
+                 Grid.Column="1"
+                 Text="{Binding TextBoxEvent}"
+                 Foreground="Black"
+                 />
+        <Label Content="Date"
+               HorizontalAlignment="Left"
+               Margin="276,83,0,0" 
+               VerticalAlignment="Top" 
+               Grid.Column="1" 
+               Foreground="Black"/>
+        <Label Content="Event"
+               HorizontalAlignment="Left"
+               Margin="276,164,0,0"
+               VerticalAlignment="Top"
+               Grid.Column="1"
+               Foreground="Black"/>
+        <Button x:Name="btnsave"
+                Grid.Column="1"
+                Content="Save"
+                HorizontalAlignment="Left"
+                Margin="380,254,0,0" 
+                VerticalAlignment="Top" 
+                Command="{Binding SaveCM}"/>
     </Grid>
 </Window>
