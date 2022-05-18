@@ -30,50 +30,50 @@ namespace Task_Managment.ViewModels
         public Tasklist DefaultImportantList { get; set; } = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")) };
         public Tasklist DefaultTasksList     { get; set; } = new Tasklist() { Name = "Tasks",     IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")) };
 
-        private Tasklist _selectedTask;
-        public Tasklist SelectedTask
+        private Tasklist _selectedTasklist;
+        public Tasklist SelectedTasklist
         {
-            get { return _selectedTask; }
+            get { return _selectedTasklist; }
             set 
             { 
-                _selectedTask = value;
+                _selectedTasklist = value;
 
                 this.TasksList.Clear();
-                if(SelectedTask != null)
+                if(SelectedTasklist != null)
                 {
-                    if(SelectedTask.Tasks != null)
+                    if(SelectedTasklist.Tasks != null)
                     {
-                        if(SelectedTask.Tasks.Count > 0)
+                        if(SelectedTasklist.Tasks.Count > 0)
                         {
-                            this.SelectedSubtask = null;
+                            this.SelectedTask = null;
                             this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
 
-                            foreach (Task task in this.SelectedTask.Tasks)
+                            foreach (Task task in this.SelectedTasklist.Tasks)
                             {
                                 this.TasksList.Add(task);
                             }
                         }
                     }
                 }          
-                PropertyUpdated("SelectedTask");
+                PropertyUpdated("SelectedTasklist");
                 this.SubtasksPaneVisible = false;
             }
         }
 
-        private Task _selectedSubtask;
-        public Task SelectedSubtask
+        private Task _selectedTask;
+        public Task SelectedTask
         {
-            get { return _selectedSubtask; }
+            get { return _selectedTask; }
             set
             {
-                if (_selectedSubtask == null)
+                if (_selectedTask == null)
                 {
-                    _selectedSubtask = value;
+                    _selectedTask = value;
                     //SelectSubtaskCommand.Execute(value);
                 }
-                else if (_selectedSubtask != value)
+                else if (_selectedTask != value)
                 {
-                    _selectedSubtask = value;
+                    _selectedTask = value;
                     //SelectSubtaskCommand.Execute(value);
                 }
                 //else
@@ -140,7 +140,7 @@ namespace Task_Managment.ViewModels
 
         public CloseSubtaskPanelCommand CloseSubtaskPanelCommand { get; set; }
         
-        public SelectSubtaskCommand SelectSubtaskCommand { get; set; }
+        public SelectTaskCommand SelectSubtaskCommand { get; set; }
 
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -183,7 +183,7 @@ namespace Task_Managment.ViewModels
 
             
             this.TasksList = new ObservableCollection<Task>(db.GetAllTaskOfMember(currentUser));
-            this.SelectedTask = this.DefaultImportantList;
+            this.SelectedTasklist = this.DefaultImportantList;
 
             this.Subtasks = new ObservableCollection<Subtask>();
 
@@ -201,7 +201,7 @@ namespace Task_Managment.ViewModels
 
             this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
 
-            this.SelectSubtaskCommand = new SelectSubtaskCommand(this);
+            this.SelectSubtaskCommand = new SelectTaskCommand(this);
         }
     }
 }

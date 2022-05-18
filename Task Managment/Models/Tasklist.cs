@@ -59,7 +59,7 @@ namespace Task_Managment.Models
 
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
-            this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
+            this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
             //this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
         }
 

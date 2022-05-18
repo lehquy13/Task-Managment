@@ -57,7 +57,7 @@
                 <ListView Margin="25,5,10,5"
                           ItemsSource="{Binding TripleDefaultTaskList}"
                           Style="{Binding Source={StaticResource myListviewStyle}}"
-                          SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                          SelectedItem="{Binding SelectedTasklist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     <ListView.ItemTemplate>
 
@@ -93,7 +93,7 @@
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="LostFocus">
                                             <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM}, Path=EndRenameCommand}"
-                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedSubtask}" />
+                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
 
@@ -104,12 +104,12 @@
                                                      Foreground="Black">
                                             <MenuItem Header="Rename list"
                                                       Command="{Binding StartRenameCommand}"
-                                                      CommandParameter="{Binding SelectedTask}" />
+                                                      CommandParameter="{Binding SelectedTasklist}" />
                                             <MenuItem Header="Duplicate list" />
                                             <Separator />
                                             <MenuItem Header="Delete list"
                                                       Command="{Binding DeleteCommand}"
-                                                      CommandParameter="{Binding SelectedTask}" />
+                                                      CommandParameter="{Binding SelectedTasklist}" />
                                         </ContextMenu>
                                     </Grid.ContextMenu>
                                 </Grid>
@@ -229,7 +229,7 @@
                                      Padding="5,7,5,7" />
 
                             <TextBox Style="{Binding Source={StaticResource myNotesTextBoxStyle}}"
-                                     Text="{Binding SelectedSubtask.Notes}"
+                                     Text="{Binding SelectedTask.Notes}"
                                      Padding="5,7,5,7" />
                         </Grid>
 
@@ -271,7 +271,7 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="0,20,5,5"
                                     DockPanel.Dock="Top">
-                            <Image Source="{Binding SelectedTask.IconSource}"
+                            <Image Source="{Binding SelectedTasklist.IconSource}"
                                    Width="25"
                                    Height="25"
                                    Margin="0,3,14,0" />
@@ -283,7 +283,7 @@
                                 </Border>
 
 
-                                <TextBlock Text="{Binding SelectedTask.Name}"
+                                <TextBlock Text="{Binding SelectedTasklist.Name}"
                                            Foreground="#EEEEEE"
                                            FontSize="26"
                                            FontWeight="DemiBold"
@@ -301,14 +301,14 @@
                                   HorizontalContentAlignment="Stretch"
                                   ItemsSource="{Binding TasksList}"
                                   Style="{Binding Source={StaticResource myListviewStyle}}"
-                                  SelectedItem="{Binding SelectedSubtask, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                  SelectedItem="{Binding SelectedTask, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
 
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="MouseUp">
                                     <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM},
                                         Path=SelectSubtaskCommand}"
                                                            CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, 
-                                        Path=SelectedSubtask}" />
+                                        Path=SelectedTask}" />
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
 
@@ -405,16 +405,16 @@
                                                     <Separator />
                                                     <MenuItem Header="Mark as Important"
                                                               Command="{Binding MarkImportantCommand}"
-                                                              CommandParameter="{Binding SelectedSubtask.Name}" />
+                                                              CommandParameter="{Binding SelectedTask.Name}" />
 
                                                     <MenuItem Header="Mark as Completed"
                                                               Command="{Binding DeleteCommand}"
-                                                              CommandParameter="{Binding SelectedSubtask}" />
+                                                              CommandParameter="{Binding SelectedTask}" />
 
                                                     <Separator />
                                                     <MenuItem Header="Delete Task"
                                                               Command="{Binding DeleteCommand}"
-                                                              CommandParameter="{Binding SelectedSubtask}" />
+                                                              CommandParameter="{Binding SelectedTask}" />
                                                 </ContextMenu>
                                             </Grid.ContextMenu>
                                         </Grid>

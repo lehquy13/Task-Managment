@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -168,7 +169,7 @@
     <Compile Include="Commands\NewSubtaskCommand.cs" />
     <Compile Include="Commands\NewTaskCommand.cs" />
     <Compile Include="Commands\NewTasklistCommand.cs" />
-    <Compile Include="Commands\SelectSubtaskCommand.cs" />
+    <Compile Include="Commands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />

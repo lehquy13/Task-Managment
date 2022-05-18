@@ -32,9 +32,9 @@ namespace Task_Managment.ViewModel.Commands
             //you can only mark important if the task you are trying to mark important == selected task
             if (parameter is string)
             {
-                if (this.TasksViewModel.SelectedSubtask != null)
+                if (this.TasksViewModel.SelectedTask != null)
                 {
-                    if (parameter as string == this.TasksViewModel.SelectedSubtask.Name)
+                    if (parameter as string == this.TasksViewModel.SelectedTask.Name)
                     {
                         return true;
                     }
@@ -49,14 +49,14 @@ namespace Task_Managment.ViewModel.Commands
         {
             Tasklist importantList = this.TasksViewModel.DefaultImportantList;
 
-            if (this.TasksViewModel.SelectedSubtask.Important == false)
+            if (this.TasksViewModel.SelectedTask.Important == false)
             {
-                this.TasksViewModel.SelectedSubtask.Important = true;             
+                this.TasksViewModel.SelectedTask.Important = true;             
 
                 //if the important list doesn't contain this task, add it
-                if (importantList.Tasks.Contains(this.TasksViewModel.SelectedSubtask) == false)
+                if (importantList.Tasks.Contains(this.TasksViewModel.SelectedTask) == false)
                 {
-                    importantList.Tasks.Add(this.TasksViewModel.SelectedSubtask);
+                    importantList.Tasks.Add(this.TasksViewModel.SelectedTask);
 
                     //update the task counter on the important list
                     importantList.TotalCount = importantList.Tasks.Count.ToString();
@@ -64,17 +64,17 @@ namespace Task_Managment.ViewModel.Commands
             }
             else
             {
-                this.TasksViewModel.SelectedSubtask.Important = false;
+                this.TasksViewModel.SelectedTask.Important = false;
 
                 //if the important list does contain this task, Remove it
-                if (importantList.Tasks.Contains(this.TasksViewModel.SelectedSubtask) == true)
+                if (importantList.Tasks.Contains(this.TasksViewModel.SelectedTask) == true)
                 {
-                    importantList.Tasks.Remove(this.TasksViewModel.SelectedSubtask);
+                    importantList.Tasks.Remove(this.TasksViewModel.SelectedTask);
 
                     //if you are in the important list then also remove from the general tasklist collection
-                    if(this.TasksViewModel.SelectedTask == importantList)
+                    if(this.TasksViewModel.SelectedTasklist == importantList)
                     {
-                        this.TasksViewModel.TasksList.Remove(this.TasksViewModel.SelectedSubtask);
+                        this.TasksViewModel.TasksList.Remove(this.TasksViewModel.SelectedTask);
                     }
 
                     //update the task counter on the important list
