@@ -55,7 +55,7 @@ namespace Task_Managment.ViewModel.Commands
             {
                 Tasklist selectedTasklist = this.TasksViewModels.SelectedTask;
 
-                this.TasksViewModels.TasklistList?.Remove(selectedTasklist);
+                this.TasksViewModels.TripleDefaultTaskList?.Remove(selectedTasklist);
             } 
         }
     }

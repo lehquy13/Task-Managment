@@ -15,10 +15,10 @@ namespace Task_Managment.ViewModels
         public Members _currentUser { get; set; }
         private DataAcessForTask db = DataAcessForTask.Instance;
         //!Fields
-        public static readonly string ImagesPath = @"C:\Users\Admin\source\repos\Task-Managment\Task Managment\imagesForWpf";
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\"); 
 
         //!Properties
-        public ObservableCollection<Tasklist> TasklistList { get; set; } 
+        public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; } 
 
         public ObservableCollection<Tasklist> DefaultTasklistsList { get; set; }
 
@@ -174,7 +174,7 @@ namespace Task_Managment.ViewModels
         {
             _currentUser = currentUser;
 
-            this.TasklistList = new ObservableCollection<Tasklist>
+            this.TripleDefaultTaskList = new ObservableCollection<Tasklist>
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,

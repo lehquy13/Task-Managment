@@ -39,7 +39,8 @@ namespace Task_Managment.ViewModels
         private void init(Members currentUser)
         {
             FrameSource = new Uri("/Views/TaskHomeView.xaml", UriKind.Relative);
-            openNoteViewCommand = new RelayCommand<WrapPanel>(p => true, p => OpenNoteView());
+            openNoteViewCommand = new RelayCommand<Frame>(p => true, p => OpenNoteView());
+
         }
 
         private void OpenNoteView()

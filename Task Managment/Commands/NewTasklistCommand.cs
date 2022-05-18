@@ -30,7 +30,7 @@ namespace Task_Managment.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            if(TasksViewModel.TasklistList.Count < MaxNumberofTaskLists)
+            if(TasksViewModel.TripleDefaultTaskList.Count < MaxNumberofTaskLists)
             {
                 return true;
             }
@@ -41,7 +41,7 @@ namespace Task_Managment.ViewModel.Commands
         {
             Tasklist newTasklist = new Tasklist();
             
-            TasksViewModel.TasklistList.Add(newTasklist);
+            TasksViewModel.TripleDefaultTaskList.Add(newTasklist);
             TasksViewModel.IsTasklistRenaming = true;
             TasksViewModel.SelectedTask = newTasklist;
         }

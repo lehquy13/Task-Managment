@@ -12,6 +12,8 @@ namespace Task_Managment.Models
     {
         //!Fields
         public string MemberId { get; set; }
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
+
         public static readonly string DefaultIcon = "menu.png";
 
         //!Properties
@@ -23,8 +25,8 @@ namespace Task_Managment.Models
         public string Name
         {
             get { return _name; }
-            set 
-            { 
+            set
+            {
                 _name = value;
                 PropertyUpdated("Name");
             }
@@ -35,13 +37,13 @@ namespace Task_Managment.Models
         private string _totalCount;
         public string TotalCount
         {
-            get 
+            get
             {
                 if (Tasks.Count > 0)
                 {
                     return Tasks.Count.ToString();
                 }
-                else return ""; 
+                else return "";
             }
             set
             {
@@ -54,13 +56,14 @@ namespace Task_Managment.Models
         public Tasklist()
         {
             this.TasklistID = Guid.NewGuid().ToString();
-           
+
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
             this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
+            //this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
         }
 
-     
+
 
         public Tasklist(List<Task> _tasks, Members _member)
         {
@@ -69,7 +72,7 @@ namespace Task_Managment.Models
 
             this.Name = "Untitled list";
             this.Tasks = _tasks;
-            this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
+            this.IconSource = new Uri(Path.Combine(ImagesPath,DefaultIcon));
         }
 
         //!Events

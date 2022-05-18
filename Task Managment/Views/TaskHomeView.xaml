@@ -55,7 +55,7 @@
 
                 <!--Task List-->
                 <ListView Margin="25,5,10,5"
-                          ItemsSource="{Binding TasklistList}"
+                          ItemsSource="{Binding TripleDefaultTaskList}"
                           Style="{Binding Source={StaticResource myListviewStyle}}"
                           SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 

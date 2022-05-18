@@ -186,7 +186,7 @@
     <DockPanel>
 
         <!--// Background Color //-->
-
+        <!-- menu -->
         <Grid>
 
             <!--// Background Image //-->
@@ -421,7 +421,7 @@
 
                     <Button x:Name="buttonTesting"
                             Command="{Binding openNoteViewCommand}"
-                            CommandParameter="{Binding MyWrapPanel}">
+                            CommandParameter="{Binding ElementName=FrameWithinGrid}">
 
                     </Button>
 
