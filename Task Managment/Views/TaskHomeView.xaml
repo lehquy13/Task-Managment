@@ -330,7 +330,7 @@
                                                 <ColumnDefinition Width="40" />
                                             </Grid.ColumnDefinitions>
 
-                                            <!--Grey Circle-->
+                                            <!--Check Circle-->
                                             <Button Grid.Column="0"
                                                     Width="20"
                                                     Height="20"
@@ -339,7 +339,7 @@
                                                     Visibility="Visible"
                                                     Background="Transparent"
                                                     Command="{Binding Source={StaticResource TasksViewModelVM}, Path=DeleteCommand}"
-                                                    CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}"
+                                                    CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}"
                                                     Style="{Binding Source={StaticResource MaterialDesignFloatingActionMiniDarkButton}}">
 
                                                 <Image>
@@ -365,6 +365,7 @@
 
                                             </Button>
 
+                                            <!-- Content-->
                                             <TextBlock Grid.Column="1"
                                                        Text="{Binding Name}"
                                                        Margin="0,10,10,10"
@@ -374,8 +375,8 @@
 
                                             <!--Grey star-->
                                             <Grid Grid.Column="2"
-                                                  Width="17"
-                                                  Height="17"
+                                                  Width="30"
+                                                  Height="30"
                                                   Margin="0,0,7,0">
                                                 <Button Background="Transparent"
                                                         Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"

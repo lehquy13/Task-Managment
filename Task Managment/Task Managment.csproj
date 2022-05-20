@@ -163,16 +163,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\CloseSubtaskPanelCommand.cs" />
-    <Compile Include="Commands\DeleteCommand.cs" />
-    <Compile Include="Commands\EndRenameCommand.cs" />
-    <Compile Include="Commands\MarkImportantCommand.cs" />
-    <Compile Include="Commands\NewSubtaskCommand.cs" />
-    <Compile Include="Commands\NewTaskCommand.cs" />
-    <Compile Include="Commands\NewTasklistCommand.cs" />
-    <Compile Include="Commands\SelectTaskCommand.cs" />
+    <Compile Include="Commands\TaskCommands\CloseSubtaskPanelCommand.cs" />
+    <Compile Include="Commands\TaskCommands\DeleteCommand.cs" />
+    <Compile Include="Commands\TaskCommands\EndRenameCommand.cs" />
+    <Compile Include="Commands\TaskCommands\MarkImportantCommand.cs" />
+    <Compile Include="Commands\TaskCommands\NewSubtaskCommand.cs" />
+    <Compile Include="Commands\TaskCommands\NewTaskCommand.cs" />
+    <Compile Include="Commands\TaskCommands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Commands\StartRenameCommand.cs" />
+    <Compile Include="Commands\TaskCommands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
