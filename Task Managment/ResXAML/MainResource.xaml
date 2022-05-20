@@ -9,7 +9,5 @@
     <viewmodel:UCdayViewModel x:Key="UCdayVM"></viewmodel:UCdayViewModel>
     
     <viewmodel:MainWindowViewModel x:Key="MainWindowVM"></viewmodel:MainWindowViewModel>
-    
-    <!--<viewmodel:AllToDoTasks x:Key="AllToDoTasksVM"></viewmodel:AllToDoTasks>
-    <viewmodel:TasksViewModel x:Key="TasksViewModelVM"></viewmodel:TasksViewModel>-->
+   
 </ResourceDictionary>

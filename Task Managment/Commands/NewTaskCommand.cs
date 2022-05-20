@@ -11,6 +11,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewTaskCommand : ICommand
     {
         //!Properties
+        private DataAcessForTask db = DataAcessForTask.Instance;
         public TasksViewModel TasksViewModel { get; set; }
 
         //!Events
@@ -54,7 +55,8 @@ namespace Task_Managment.ViewModel.Commands
             {
                 newTask.Important = true;
             }
-
+            newTask.TasklistID = selectedTasklist.TasklistID;
+            
             //add this directly to the observable collection
             //add it to the list of tasks against the task list as well
             this.TasksViewModel.TasksList.Add(newTask);
@@ -68,6 +70,8 @@ namespace Task_Managment.ViewModel.Commands
 
             //update the task count
             this.TasksViewModel.SelectedTasklist.TotalCount = this.TasksViewModel.SelectedTasklist.Tasks.Count.ToString();
+
+            db.CreateNewTaskToTaskList(newTask);
         }
 
     }

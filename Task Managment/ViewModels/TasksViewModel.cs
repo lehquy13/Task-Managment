@@ -20,7 +20,7 @@ namespace Task_Managment.ViewModels
         //!Properties
         public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; } 
 
-        public ObservableCollection<Tasklist> DefaultTasklistsList { get; set; }
+        public ObservableCollection<Tasklist> TasklistsList { get; set; }
 
         public ObservableCollection<Task> TasksList { get; set; }
 
@@ -132,7 +132,7 @@ namespace Task_Managment.ViewModels
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
 
         public StartRenameCommand StartRenameCommand { get; set; }
-        public EndRenameCommand EndRenameCommand { get; set; }
+        public EndRenameCommand EndRenameCommand {get; set; }
 
         public DeleteCommand DeleteCommand { get; set; }
 
@@ -174,20 +174,49 @@ namespace Task_Managment.ViewModels
         {
             _currentUser = currentUser;
 
-            this.TripleDefaultTaskList = new ObservableCollection<Tasklist>
+            this.TasklistsList = new ObservableCollection<Tasklist>()
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,
                 this.DefaultTasksList
             };
+           
 
+            //this.TasklistsList =  new ObservableCollection<Tasklist>();
+            //this.TasklistsList.Add(this.DefaultMyDayList);
+            //this.TasklistsList.Add(this.DefaultImportantList);
+            //this.TasklistsList.Add(this.DefaultTasksList);
             
-            this.TasksList = new ObservableCollection<Task>(db.GetAllTaskOfMember(currentUser));
+            foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser))
+            {
+                this.TasklistsList.Add(temp);
+            }
+            for(int i = 0; i < this.TasklistsList.Count; i++)
+            {
+                this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]);
+                for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
+                {
+                    this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]);
+                }
+            }
+            
+
+            //get all the tasks of tripledefaultTasklists
+            //this.DefaultMyDayList.Tasks = db.GetAllTasksFromTasklist(this.DefaultMyDayList);
+            //this.DefaultImportantList.Tasks = db.GetAllTasksFromTasklist(this.DefaultImportantList);
+            //this.DefaultTasksList.Tasks = db.GetAllTasksFromTasklist(this.DefaultTasksList);
+
+            this.TasksList = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
 
             this.Subtasks = new ObservableCollection<Subtask>();
+            initCommand();
+            PropertyUpdated("TasklistList");
 
+        }
 
+        private void initCommand()
+        {
             this.NewTasklistCommand = new NewTasklistCommand(this);
             this.NewTaskCommand = new NewTaskCommand(this);
             this.NewSubtaskCommand = new NewSubtaskCommand(this);

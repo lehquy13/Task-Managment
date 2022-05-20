@@ -18,15 +18,13 @@
       Style="{StaticResource PageTasksStyle}"
       Title="ToDoTasks"
       Background="AliceBlue">
+    
     <Page.Resources>
-
         <c:BooltoVis x:Key="BooltoVis" />
         <c:BooltoVisOpposite x:Key="BooltoVisOpposite" />
         <c:BooltoVisSubtasksPane x:Key="BooltoVisSubtasks" />
-
     </Page.Resources>
-
-
+    
     <DockPanel LastChildFill="True"
                Background="White">
 
@@ -53,9 +51,9 @@
                            Foreground="Black"
                            Margin="20,20,5,0" />
 
-                <!--Task List-->
+                <!--TaskList list-->
                 <ListView Margin="25,5,10,5"
-                          ItemsSource="{Binding TripleDefaultTaskList}"
+                          ItemsSource="{Binding TasklistsList}"
                           Style="{Binding Source={StaticResource myListviewStyle}}"
                           SelectedItem="{Binding SelectedTasklist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -81,22 +79,29 @@
 
                                 <Grid Grid.Column="1"
                                       HorizontalAlignment="Left">
+
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="LostFocus">
+                                            <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM}, Path=EndRenameCommand}"
+                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTasklist}" />
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                    
                                     <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                Style="{Binding Source={StaticResource myTextblockStyle}}"
                                                Visibility="{Binding Source={StaticResource TasksViewModelVM}, Path=IsTasklistRenaming, 
-                                                                    Converter={StaticResource BooltoVisOpposite}}" />
+                                                                    Converter={StaticResource BooltoVisOpposite}}">
+                                  
+                                        
+                                    </TextBlock>
 
                                     <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Style="{StaticResource myRenamingTextboxStyle}"
                                              Visibility="{Binding Source={StaticResource TasksViewModelVM}, Path=IsTasklistRenaming, 
                                                                   Converter={StaticResource BooltoVis}}" />
-                                    <b:Interaction.Triggers>
-                                        <b:EventTrigger EventName="LostFocus">
-                                            <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM}, Path=EndRenameCommand}"
-                                                                   CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, Path=SelectedTask}" />
-                                        </b:EventTrigger>
-                                    </b:Interaction.Triggers>
 
+                                    
+                                    
                                     <Grid.ContextMenu>
 
                                         <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
@@ -116,7 +121,7 @@
 
                                 <TextBlock Grid.Column="2"
                                            Style="{Binding Source={StaticResource myTextblockStyle}}"
-                                           Foreground="DimGray"
+                                           Foreground="Black"
                                            Margin="0,4,5,0"
                                            Text="{Binding TotalCount}" />
 
@@ -132,7 +137,7 @@
                         Command="{Binding NewTasklistCommand}" />
 
             </StackPanel>
-            
+
         </Grid>
 
 
@@ -142,8 +147,10 @@
                 Margin="0 10 -5 0">
             <Border.Background>
                 <ImageBrush x:Name="img_bg"
-                            ImageSource="/imagesForWpf/img3_background.png"
-                            Stretch="Fill" />
+                            ImageSource="/imagesForWpf/img4_background.jpg"
+                            AlignmentY="Center"
+                            AlignmentX="Center"
+                            Stretch="UniformToFill" />
             </Border.Background>
 
             <DockPanel>
@@ -167,7 +174,6 @@
                                 Command="{Binding CloseSubtaskPanelCommand}"
                                 CommandParameter="{Binding}"
                                 HorizontalAlignment="Right"
-                               
                                 Foreground="#1E90FF"
                                 Margin="0 0 10 0">
                             <materialDesign:PackIcon Kind="Close" />
@@ -175,10 +181,11 @@
 
                         <!--<uc:TitlebarMenuButtons />-->
 
-                        <!--list of sub' of subtaks!!-->
+                        <!--list of subtaks!!-->
                         <ListView Margin="15,3,10,5"
                                   ItemsSource="{Binding Subtasks}"
-                                  Style="{Binding Source={StaticResource myListviewStyle}}">
+                                  Style="{Binding Source={StaticResource myListviewStyle}}"
+                                  Visibility="Hidden">
 
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -240,7 +247,6 @@
                 <DockPanel LastChildFill="True">
                     <!--Margin="0 10 0 10"-->
 
-
                     <!--Add a task -->
                     <StackPanel Background="Transparent"
                                 DockPanel.Dock="Bottom">
@@ -262,8 +268,6 @@
                             </TextBox>
                         </Grid>
                     </StackPanel>
-
-
 
                     <StackPanel>
 
@@ -295,7 +299,7 @@
                         <!--Black separating border-->
 
 
-                        <!--Subtasks showlist-->
+                        <!--Task showlist-->
                         <ListView x:Name="toDoList"
                                   Margin="30,0,35,0"
                                   HorizontalContentAlignment="Stretch"

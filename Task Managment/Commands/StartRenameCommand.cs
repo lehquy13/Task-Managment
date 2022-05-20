@@ -10,6 +10,7 @@ namespace Task_Managment.ViewModel.Commands
 {
     public class StartRenameCommand : ICommand
     {
+        private DataAcessForTask db = DataAcessForTask.Instance;
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
@@ -41,6 +42,7 @@ namespace Task_Managment.ViewModel.Commands
             {
                 TasksViewModel.IsTasklistRenaming = true;
             }
+            
         }
     }
 }

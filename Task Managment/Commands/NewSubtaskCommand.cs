@@ -10,7 +10,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewSubtaskCommand : ICommand
     {
         //!Fields
-
+        private DataAcessForTask db = DataAcessForTask.Instance;
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
@@ -44,6 +44,8 @@ namespace Task_Managment.ViewModel.Commands
 
             //add the string to the subtasks list
             this.TasksViewModel.SelectedTask.Subtasks.Add(newSubtask);
+
+            db.CreateNewSubTaskToTaskList(newSubtask);
         }
     }
 }

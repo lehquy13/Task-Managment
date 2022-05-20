@@ -12,6 +12,7 @@ namespace Task_Managment.ViewModel.Commands
     public class DeleteCommand : ICommand
     {
         //!Fields
+        private DataAcessForTask db = DataAcessForTask.Instance;
 
         //!Properties
         TasksViewModel TasksViewModels { get; set; }
@@ -40,22 +41,22 @@ namespace Task_Managment.ViewModel.Commands
             if(parameter is Task)
             {
                 Task selectedTask = this.TasksViewModels.SelectedTask;
-
                 //remove it from the observable collection if its not null
                 this.TasksViewModels.TasksList?.Remove(selectedTask);
                 //and remove selected task from task list if its not null
                 this.TasksViewModels.SelectedTasklist.Tasks?.Remove(selectedTask);
-
-                //update the Totalcount
+                db.DeleteSelectedTask(selectedTask);
+                //update the Totalcount of this.TasksViewModels.SelectedTasklist
                 this.TasksViewModels.SelectedTasklist.TotalCount =
                         this.TasksViewModels.SelectedTasklist.Tasks.Count.ToString();
+                db.UpdateSelectedTasklist(this.TasksViewModels.SelectedTasklist);
             }
 
             else if(parameter is Tasklist)
             {
                 Tasklist selectedTasklist = this.TasksViewModels.SelectedTasklist;
-
-                this.TasksViewModels.TripleDefaultTaskList?.Remove(selectedTasklist);
+                db.DeleteSelectedTasklist(selectedTasklist);
+                this.TasksViewModels.TasklistsList?.Remove(selectedTasklist);
             } 
         }
     }

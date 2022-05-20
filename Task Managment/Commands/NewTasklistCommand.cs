@@ -11,6 +11,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewTasklistCommand : ICommand
     {
         //!Fields
+        private DataAcessForTask db = DataAcessForTask.Instance;
         private const int MaxNumberofTaskLists = 15;
 
         //!Properties
@@ -30,7 +31,7 @@ namespace Task_Managment.ViewModel.Commands
 
         public bool CanExecute(object parameter)
         {
-            if(TasksViewModel.TripleDefaultTaskList.Count < MaxNumberofTaskLists)
+            if(TasksViewModel.TasklistsList.Count < MaxNumberofTaskLists)
             {
                 return true;
             }
@@ -40,10 +41,12 @@ namespace Task_Managment.ViewModel.Commands
         public void Execute(object parameter)
         {
             Tasklist newTasklist = new Tasklist();
-            
-            TasksViewModel.TripleDefaultTaskList.Add(newTasklist);
+            newTasklist.MemberId = TasksViewModel._currentUser.Email;
+            db.CreateNewTasklist(newTasklist);
+            TasksViewModel.TasklistsList.Add(newTasklist);
             TasksViewModel.IsTasklistRenaming = true;
             TasksViewModel.SelectedTasklist = newTasklist;
+
         }
     }
 }

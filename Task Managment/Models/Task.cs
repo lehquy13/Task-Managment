@@ -12,7 +12,15 @@ namespace Task_Managment.Models
         //!Fields
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string TaskID { get; set; }
+        private string _taskID;
+        public string TaskID {
+            get { return _taskID; }
+            set 
+            {
+                _taskID = value;
+                PropertyUpdated("TaskID");
+            }
+        }
 
         public string TasklistID { get; set; }
 
@@ -48,7 +56,7 @@ namespace Task_Managment.Models
         //!Ctor
         public Task(string tasklistId)
         {
-            this.TaskID = Guid.NewGuid().ToString();
+            //this.TaskID = Guid.NewGuid().ToString();
             this.TasklistID = tasklistId;
             this.Subtasks = new List<Subtask>();
         }

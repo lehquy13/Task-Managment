@@ -10,6 +10,9 @@ namespace Task_Managment.ViewModel.Commands
 {
     public class MarkImportantCommand : ICommand
     {
+        private DataAcessForTask db = DataAcessForTask.Instance;
+
+
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
@@ -81,6 +84,9 @@ namespace Task_Managment.ViewModel.Commands
                     importantList.TotalCount = importantList.Tasks.Count.ToString();
                 }
             }
+            db.UpdateSelectedTasklist(importantList);
+            db.UpdateSelectedTask(this.TasksViewModel.SelectedTask);
+            //db.UpdateSelectedTasklist(importantList); because we dont do about 3 default list, so just ignore them
         }
     }
 }
