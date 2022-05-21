@@ -27,8 +27,8 @@ namespace Task_Managment.Models
         public string MemberId { get; set; }
 
         //!Properties
+        public DateTime Date { get; set; }
 
-       
         public string Name { get; set; }
 
         public bool Completed { get; set; }

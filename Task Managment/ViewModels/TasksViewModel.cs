@@ -187,16 +187,17 @@ namespace Task_Managment.ViewModels
             //this.TasklistsList.Add(this.DefaultImportantList);
             //this.TasklistsList.Add(this.DefaultTasksList);
             
-            foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser))
+            foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser)) // lấy những tasklist như myday, importtant, untitledlist
             {
-                this.TasklistsList.Add(temp);
+                this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
             }
-            for(int i = 0; i < this.TasklistsList.Count; i++)
+
+            for(int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
             {
-                this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]);
+                this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
                 for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
                 {
-                    this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]);
+                    this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
                 }
             }
             

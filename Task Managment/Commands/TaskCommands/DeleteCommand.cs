@@ -13,7 +13,7 @@ namespace Task_Managment.ViewModel.Commands
     public class DeleteCommand : ICommand
     {
         //!Fields
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private DataAcessForTask db = DataAcessForTask.Instance; // 1.
 
         //!Properties
         TasksViewModel TasksViewModels { get; set; }

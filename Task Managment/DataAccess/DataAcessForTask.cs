@@ -66,6 +66,15 @@ namespace Task_Managment.Models
             return _results.ToList();
         }
 
+        public List<Task> GetAllTasksFromDate(DateTime dateTime)
+        {
+            var _collection = ConnectToMongo<Task>(TasksCollection);
+            var _results = _collection.Find<Task>(
+                c => c.Date == dateTime
+            );
+            return _results.ToList();
+        }
+
         //get list of subtasks (means many subtasks of that task)
         public List<Subtask> GetAllSubTasksFromTask(Task selectedTask)
         {
