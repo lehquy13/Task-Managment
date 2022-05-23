@@ -54,11 +54,11 @@ namespace Task_Managment.DataAccess
             return calendarCollection.DeleteOneAsync(c => c.Id == calendar.Id);
         }
 
-        //public Task SelectCalendar(MyCalendar calendar)
-        //{
-        //    var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
-
-
-        //}
+        public async Task<List<MyCalendar>> GetCalendar(DateTime date)
+        {
+            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
+            var results = await calendarCollection.FindAsync(x=>x.Date==date);
+            return results.ToList();
+        }
     }
 }

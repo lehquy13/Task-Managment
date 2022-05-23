@@ -45,16 +45,31 @@ namespace Task_Managment.ViewModels
         }
 
         public ICommand SaveCM { get; set; }
+        public ICommand EditCM { get; set; }
+        public ICommand DeleteCM { get; set; }
+
 
         private void initCommand()
         {
             SaveCM=new RelayCommand<MyCalendar>(p => true, p =>SaveCalendar());
+            EditCM = new RelayCommand<MyCalendar>(p => true, p => EditCalendar());
+            DeleteCM = new RelayCommand<MyCalendar>(p => true, p => DeleteCalendar());
         }
 
         private void SaveCalendar()
         {
             CalendarDataaccess db = new CalendarDataaccess();
             db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(TextBoxDay), Note =TextBoxEvent });
+        }
+        private void EditCalendar()
+        {
+           
+            
+        }
+        private void DeleteCalendar()
+        {
+            CalendarDataaccess db = new CalendarDataaccess();
+            db.DeleteCalendar(new MyCalendar() { });
         }
     }
 }

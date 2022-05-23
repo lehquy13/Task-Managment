@@ -377,6 +377,7 @@
     <Resource Include="imagesForWpf\next.png" />
     <Resource Include="imagesForWpf\arrow_down_icon.png" />
     <Resource Include="imagesForWpf\arrow_up_icon.png" />
+    <Resource Include="imagesForWpf\eventwindow.jpg" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

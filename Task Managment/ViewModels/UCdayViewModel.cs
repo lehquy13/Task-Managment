@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task_Managment.DataAccess;
+using Task_Managment.Views;
+using Task_Managment.UserControls;
 
 namespace Task_Managment.ViewModels
 {
@@ -14,7 +17,7 @@ namespace Task_Managment.ViewModels
         private string Labeldays;
         private string Labelevents;
     
-        private void test()
+        public void test()
         {
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
@@ -23,7 +26,7 @@ namespace Task_Managment.ViewModels
        
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            //displayevent();
+            displayevent();
         }
         public void days(int numday)
         {
@@ -51,6 +54,16 @@ namespace Task_Managment.ViewModels
         private void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+        public void displayevent()
+        {
+            
+        }
+        public void mouseleft()
+        {
+            test();
+            eventwindow e_form = new eventwindow();
+            e_form.ShowDialog();
         }
 
     }
