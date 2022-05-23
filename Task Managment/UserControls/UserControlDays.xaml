@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="800" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" >
     <Grid x:Name="lb" Width="180" Height="118">
         <TextBlock x:Name="lbdays"
-               Text="{Binding LabelDay, StringFormat={}{0} 00}"
+               Text="{Binding LabelDay,StringFormat={}{0} 00}"
                Margin="0"
                RenderTransformOrigin="0.724,0.871"
                FontSize="20"
@@ -20,7 +20,7 @@
                
                />
         <TextBlock x:Name="lbevent"
-                   Text="{Binding LabelEvent}"
+                   Text="{Binding LabelEvent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                    Margin="16,39,10,10"
                    RenderTransformOrigin="0.096,0.911"
                    Foreground="Red"

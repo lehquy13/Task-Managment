@@ -42,6 +42,9 @@ namespace Task_Managment.UserControls
         {
             InitializeComponent();
         }
+        public void labelevent(string note){
+            lbevent.Text = note;
+        }
         public void days(int numday)
         {
             lbdays.Text= numday + "";

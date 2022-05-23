@@ -22,11 +22,17 @@ namespace Task_Managment.DataAccess
             var db = client.GetDatabase(DatabaseName);
             return db.GetCollection<T>(collection);
         }
-        public async Task<List<MyCalendar>> GetAllCalendar()
+        //public async Task<List<MyCalendar>> GetAllCalendar()
+        //{
+        //    var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
+        //    var results = await calendarCollection.FindAsync(_ => true);
+        //    return results.ToList();
+        //}
+        public List<MyCalendar> GetAllCalendar()
         {
-            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
-            var results = await calendarCollection.FindAsync(_ => true);
-            return results.ToList();
+            var _collection = ConnectToMongo<MyCalendar>(CalendarCollection);
+            var _results = _collection.Find<MyCalendar>(_=>true);
+            return _results.ToList();
         }
 
         public System.Threading.Tasks.Task SelectCalendar()

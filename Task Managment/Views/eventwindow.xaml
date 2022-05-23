@@ -87,7 +87,7 @@
                 ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                 />
         <Button x:Name="btnedit"
-                Content="Edit"
+                Content="Update"
                 HorizontalAlignment="Left"
                 Margin="255,280,0,0" 
                 VerticalAlignment="Top" 
