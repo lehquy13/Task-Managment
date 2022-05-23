@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,11 +13,36 @@ namespace Task_Managment.Models
     public class Tasklist : INotifyPropertyChanged
     {
         //!Fields
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        private string _tasklistID;
+    
+        public string TasklistID 
+        {
+            get { return _tasklistID; }
+
+            set
+            {
+                _tasklistID = value;
+                PropertyUpdated("TasklistID");
+            }
+        }
+        //{
+        //    get { return _tasklistID; }
+        //    set
+        //    {
+        //        _tasklistID = value;
+        //        PropertyUpdated("TasklistID");
+        //    }
+        //}
+
+        public string MemberId { get; set; }
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
 
         public static readonly string DefaultIcon = "menu.png";
 
         //!Properties
-        public string TasklistID { get; set; }
+   
 
         public List<Task> Tasks { get; set; }
 
@@ -23,8 +50,8 @@ namespace Task_Managment.Models
         public string Name
         {
             get { return _name; }
-            set 
-            { 
+            set
+            {
                 _name = value;
                 PropertyUpdated("Name");
             }
@@ -35,13 +62,13 @@ namespace Task_Managment.Models
         private string _totalCount;
         public string TotalCount
         {
-            get 
+            get
             {
                 if (Tasks.Count > 0)
                 {
                     return Tasks.Count.ToString();
                 }
-                else return ""; 
+                else return "";
             }
             set
             {
@@ -53,11 +80,24 @@ namespace Task_Managment.Models
         //!Ctor
         public Tasklist()
         {
-            this.TasklistID = Guid.NewGuid().ToString();
-           
+            //this.TasklistID = Guid.NewGuid().ToString();
+
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
-            this.IconSource = new Uri(Path.GetFullPath(DefaultIcon));
+            this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
+            //this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
+        }
+
+
+
+        public Tasklist(List<Task> _tasks, Members _member)
+        {
+            //this.TasklistID = Guid.NewGuid().ToString();
+            MemberId = _member.Email;
+
+            this.Name = "Untitled list";
+            this.Tasks = _tasks;
+            this.IconSource = new Uri(Path.Combine(ImagesPath,DefaultIcon));
         }
 
         //!Events

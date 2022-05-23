@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Task_Managment.Models;
 using Task_Managment.ViewModels;
+using Task = Task_Managment.Models.Task;
 
 namespace Task_Managment.Commands
 {
     public class CloseSubtaskPanelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
+        private DataAcessForTask db = DataAcessForTask.Instance;
 
         TasksViewModel TasksViewModels { get; set; }
 
@@ -28,7 +31,12 @@ namespace Task_Managment.Commands
 
         public void Execute(object parameter)
         {
-            TasksViewModels.SubtasksPaneVisible = false;
+            if (TasksViewModels.SubtasksPaneVisible == true)
+                TasksViewModels.SubtasksPaneVisible = false;
+            if(parameter is Task)
+            {
+                db.UpdateSelectedTask(parameter as Task);
+            }
         }
     }
 }

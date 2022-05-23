@@ -28,6 +28,7 @@ namespace Task_Managment.DataAccess
             var results = await calendarCollection.FindAsync(_ => true);
             return results.ToList();
         }
+
         public System.Threading.Tasks.Task SelectCalendar()
         {
             var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);

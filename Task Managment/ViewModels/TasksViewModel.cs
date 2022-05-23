@@ -12,13 +12,15 @@ namespace Task_Managment.ViewModels
 {
     public class TasksViewModel : INotifyPropertyChanged
     {
+        public Members _currentUser { get; set; }
+        private DataAcessForTask db = DataAcessForTask.Instance;
         //!Fields
-        public static readonly string ImagesPath = @"C:\Users\Admin\source\repos\Task-Managment\Task Managment\imagesForWpf";
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\"); 
 
         //!Properties
-        public ObservableCollection<Tasklist> TasklistList { get; set; } 
+        public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; } 
 
-        public ObservableCollection<Tasklist> DefaultTasklistsList { get; set; }
+        public ObservableCollection<Tasklist> TasklistsList { get; set; }
 
         public ObservableCollection<Task> TasksList { get; set; }
 
@@ -67,17 +69,17 @@ namespace Task_Managment.ViewModels
                 if (_selectedTask == null)
                 {
                     _selectedTask = value;
-                    SelectSubtaskCommand.Execute(value);
+                    //SelectSubtaskCommand.Execute(value);
                 }
                 else if (_selectedTask != value)
                 {
                     _selectedTask = value;
-                    SelectSubtaskCommand.Execute(value);
+                    //SelectSubtaskCommand.Execute(value);
                 }
-                else
-                {
-                    SelectSubtaskCommand.Execute(value);
-                }
+                //else
+                //{
+                //    SelectSubtaskCommand.Execute(value);
+                //}
             }
         }
 
@@ -130,7 +132,7 @@ namespace Task_Managment.ViewModels
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
 
         public StartRenameCommand StartRenameCommand { get; set; }
-        public EndRenameCommand EndRenameCommand { get; set; }
+        public EndRenameCommand EndRenameCommand {get; set; }
 
         public DeleteCommand DeleteCommand { get; set; }
 
@@ -138,27 +140,84 @@ namespace Task_Managment.ViewModels
 
         public CloseSubtaskPanelCommand CloseSubtaskPanelCommand { get; set; }
         
-        public SelectSubtaskCommand SelectSubtaskCommand { get; set; }
+        public SelectTaskCommand SelectSubtaskCommand { get; set; }
 
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
         //!Ctor
+
         public TasksViewModel()
         {
-            this.TasklistList = new ObservableCollection<Tasklist> 
+            //init commands
+            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
+            init(currentUser);
+
+        }
+
+
+        public TasksViewModel(Members currentUser)
+        {
+            //init commands
+            init(currentUser);
+
+        }
+
+        
+        //!Methods
+        public void PropertyUpdated(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void init(Members currentUser)
+        {
+            _currentUser = currentUser;
+
+            this.TasklistsList = new ObservableCollection<Tasklist>()
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,
                 this.DefaultTasksList
             };
+           
+
+            //this.TasklistsList =  new ObservableCollection<Tasklist>();
+            //this.TasklistsList.Add(this.DefaultMyDayList);
+            //this.TasklistsList.Add(this.DefaultImportantList);
+            //this.TasklistsList.Add(this.DefaultTasksList);
+            
+            foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser)) // lấy những tasklist như myday, importtant, untitledlist
+            {
+                this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
+            }
+
+            for(int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+            {
+                this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
+                for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
+                {
+                    this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
+                }
+            }
+            
+
+            //get all the tasks of tripledefaultTasklists
+            //this.DefaultMyDayList.Tasks = db.GetAllTasksFromTasklist(this.DefaultMyDayList);
+            //this.DefaultImportantList.Tasks = db.GetAllTasksFromTasklist(this.DefaultImportantList);
+            //this.DefaultTasksList.Tasks = db.GetAllTasksFromTasklist(this.DefaultTasksList);
 
             this.TasksList = new ObservableCollection<Task>();
-
-            this.Subtasks = new ObservableCollection<Subtask>();
-
             this.SelectedTasklist = this.DefaultImportantList;
 
+            this.Subtasks = new ObservableCollection<Subtask>();
+            initCommand();
+            PropertyUpdated("TasklistList");
+
+        }
+
+        private void initCommand()
+        {
             this.NewTasklistCommand = new NewTasklistCommand(this);
             this.NewTaskCommand = new NewTaskCommand(this);
             this.NewSubtaskCommand = new NewSubtaskCommand(this);
@@ -172,15 +231,7 @@ namespace Task_Managment.ViewModels
 
             this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
 
-            this.SelectSubtaskCommand = new SelectSubtaskCommand(this);
-
+            this.SelectSubtaskCommand = new SelectTaskCommand(this);
         }
-
-        //!Methods
-        public void PropertyUpdated(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
     }
 }

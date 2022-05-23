@@ -11,6 +11,7 @@ namespace Task_Managment.ViewModels
 {
     public class DataAccess
     {
+        #region framework
         #region Singleton
         private static DataAccess _Instance = null;
         public static DataAccess Instance
@@ -25,11 +26,12 @@ namespace Task_Managment.ViewModels
         private DataAccess(DataAccess dt) { }
         #endregion
 
-        private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
+         private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
         private const string MongoDatabase = "Task_Management_Application_DB";
         private const string NotebooksCollection = "Notebooks";
         private const string NotesCollection = "Notes";
         private const string MembersCollection = "Members";
+
 
         private IMongoCollection<T> ConnectToMongo<T>(in string collection)
         {
@@ -44,6 +46,8 @@ namespace Task_Managment.ViewModels
             var _results = await _collection.FindAsync(_ => true);
             return _results.ToList();
         }
+
+        #endregion
 
         #region Notes_Data_Access
         public List<Note> GetAllNotesOfMember(Members currentMember)

@@ -7,6 +7,7 @@
     <viewmodel:CalendarViewModel x:Key="CalendarVM"></viewmodel:CalendarViewModel>
     <viewmodel:EventWindowViewModel x:Key="EventVM"></viewmodel:EventWindowViewModel>
     <viewmodel:UCdayViewModel x:Key="UCdayVM"></viewmodel:UCdayViewModel>
-    <!--<viewmodel:AllToDoTasks x:Key="AllToDoTasksVM"></viewmodel:AllToDoTasks>
-    <viewmodel:TasksViewModel x:Key="TasksViewModelVM"></viewmodel:TasksViewModel>-->
+    
+    <viewmodel:MainWindowViewModel x:Key="MainWindowVM"></viewmodel:MainWindowViewModel>
+   
 </ResourceDictionary>

@@ -7,10 +7,9 @@ using Task_Managment.ViewModels;
 
 namespace Task_Managment.ViewModel.Commands
 {
-    public class NewSubtaskCommand : ICommand
+    public class EndRenameCommand : ICommand
     {
-        //!Fields
-
+        private DataAcessForTask db = DataAcessForTask.Instance;
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
@@ -18,7 +17,7 @@ namespace Task_Managment.ViewModel.Commands
         public event EventHandler CanExecuteChanged;
 
         //!Ctor
-        public NewSubtaskCommand(TasksViewModel tasksViewModel)
+        public EndRenameCommand(TasksViewModel tasksViewModel)
         {
             this.TasksViewModel = tasksViewModel;
         }
@@ -31,19 +30,15 @@ namespace Task_Managment.ViewModel.Commands
 
         public void Execute(object parameter)
         {
-            //parameter is the TasksViewModel object
-
-            //create a new string subtask
-            Subtask newSubtask = new Subtask(this.TasksViewModel.SelectedTask.TaskID)
+            //parameter is the selectedtasklist (not required because we've also bound the textbox to the tasklist name
+            if(parameter is Tasklist)
             {
-                Name = ""
-            };
+                Tasklist currrentTasklist = parameter as Tasklist;
+                db.UpdateSelectedTasklist(currrentTasklist);
+            }
 
-            //add the string to the observable collection
-            this.TasksViewModel.Subtasks.Add(newSubtask);
-
-            //add the string to the subtasks list
-            this.TasksViewModel.SelectedTask.Subtasks.Add(newSubtask);
+            //All I need to do is set this to false
+            this.TasksViewModel.IsTasklistRenaming = false;
         }
     }
 }

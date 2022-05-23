@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Task_Managment.Models;
 using Task_Managment.ViewModels;
@@ -10,6 +11,9 @@ namespace Task_Managment.ViewModel.Commands
 {
     public class MarkImportantCommand : ICommand
     {
+        private DataAcessForTask db = DataAcessForTask.Instance;
+
+
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
@@ -29,6 +33,12 @@ namespace Task_Managment.ViewModel.Commands
         //!Methods
         public bool CanExecute(object parameter)
         {
+            if (parameter is ListViewItem)
+            {
+                ListViewItem item = (ListViewItem)parameter;
+                this.TasksViewModel.SelectedTask = item.Content as Task;
+                return true;
+            }
             //you can only mark important if the task you are trying to mark important == selected task
             if (parameter is string)
             {
@@ -47,6 +57,7 @@ namespace Task_Managment.ViewModel.Commands
 
         public void Execute(object parameter)
         {
+         
             Tasklist importantList = this.TasksViewModel.DefaultImportantList;
 
             if (this.TasksViewModel.SelectedTask.Important == false)
@@ -81,6 +92,9 @@ namespace Task_Managment.ViewModel.Commands
                     importantList.TotalCount = importantList.Tasks.Count.ToString();
                 }
             }
+            db.UpdateSelectedTasklist(importantList);
+            db.UpdateSelectedTask(this.TasksViewModel.SelectedTask);
+            //db.UpdateSelectedTasklist(importantList); because we dont do about 3 default list, so just ignore them
         }
     }
 }
