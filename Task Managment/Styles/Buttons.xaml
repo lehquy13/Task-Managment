@@ -78,7 +78,7 @@
            TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
-       
+        
         <Setter Property="Foreground"
                 Value="Black" />
         <Setter Property="Background"
@@ -105,7 +105,7 @@
                                  Value="True">
                             <Setter TargetName="templateBorder"
                                     Property="Background"
-                                    Value="#E6E6E6" />
+                                    Value="WhiteSmoke" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

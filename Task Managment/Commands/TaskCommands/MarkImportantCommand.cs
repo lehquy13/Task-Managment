@@ -37,11 +37,10 @@ namespace Task_Managment.ViewModel.Commands
             {
                 ListViewItem item = (ListViewItem)parameter;
                 this.TasksViewModel.SelectedTask = item.Content as Task;
-                return true;
-            }
-            //you can only mark important if the task you are trying to mark important == selected task
-            if (parameter is string)
-            {
+
+
+                //you can only mark important if the task you are trying to mark important == selected task
+
                 if (this.TasksViewModel.SelectedTask != null)
                 {
                     if (parameter as string == this.TasksViewModel.SelectedTask.Name)
@@ -57,12 +56,12 @@ namespace Task_Managment.ViewModel.Commands
 
         public void Execute(object parameter)
         {
-         
+
             Tasklist importantList = this.TasksViewModel.DefaultImportantList;
 
             if (this.TasksViewModel.SelectedTask.Important == false)
             {
-                this.TasksViewModel.SelectedTask.Important = true;             
+                this.TasksViewModel.SelectedTask.Important = true;
 
                 //if the important list doesn't contain this task, add it
                 if (importantList.Tasks.Contains(this.TasksViewModel.SelectedTask) == false)
@@ -83,7 +82,7 @@ namespace Task_Managment.ViewModel.Commands
                     importantList.Tasks.Remove(this.TasksViewModel.SelectedTask);
 
                     //if you are in the important list then also remove from the general tasklist collection
-                    if(this.TasksViewModel.SelectedTasklist == importantList)
+                    if (this.TasksViewModel.SelectedTasklist == importantList)
                     {
                         this.TasksViewModel.TasksList.Remove(this.TasksViewModel.SelectedTask);
                     }

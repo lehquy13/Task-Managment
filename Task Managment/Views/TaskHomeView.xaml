@@ -307,7 +307,7 @@
                                   HorizontalContentAlignment="Stretch"
                                   ItemsSource="{Binding TasksList}"
                                   Style="{Binding Source={StaticResource myListviewStyle}}"
-                                  SelectedItem="{Binding SelectedTask, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                  SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="MouseUp">
@@ -383,6 +383,7 @@
                                                 <Button Background="Transparent"
                                                         Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"
                                                         CommandParameter="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}"
+                                                       
                                                         Style="{Binding Source={StaticResource myGreyStarButton}}">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>

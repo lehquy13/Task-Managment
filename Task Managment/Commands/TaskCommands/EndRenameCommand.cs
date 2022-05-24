@@ -35,6 +35,8 @@ namespace Task_Managment.ViewModel.Commands
             {
                 Tasklist currrentTasklist = parameter as Tasklist;
                 db.UpdateSelectedTasklist(currrentTasklist);
+                //db.CreateNewTasklist(currrentTasklist);
+
             }
 
             //All I need to do is set this to false

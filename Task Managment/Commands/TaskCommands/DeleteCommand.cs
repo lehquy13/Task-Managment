@@ -54,8 +54,8 @@ namespace Task_Managment.ViewModel.Commands
                 this.TasksViewModels.SelectedTasklist.Tasks?.Remove(selectedTask);
                 db.DeleteSelectedTask(selectedTask);
                 //update the Totalcount of this.TasksViewModels.SelectedTasklist
-                this.TasksViewModels.SelectedTasklist.TotalCount =
-                this.TasksViewModels.SelectedTasklist.Tasks.Count.ToString();
+                this.TasksViewModels.SelectedTasklist.TotalCount = this.TasksViewModels.SelectedTasklist.Tasks.Count.ToString();
+
                 db.UpdateSelectedTasklist(this.TasksViewModels.SelectedTasklist);
                 this.TasksViewModels.SubtasksPaneVisible = (this.TasksViewModels.SubtasksPaneVisible == true) ? false : true;
             }

@@ -51,7 +51,7 @@ namespace Task_Managment.ViewModel.Commands
             };
 
             //if it's created in the important list then mark it important
-            if (selectedTasklist == TasksViewModel.DefaultImportantList)
+            if (selectedTasklist.TasklistID == TasksViewModel.DefaultImportantList.TasklistID)
             {
                 newTask.Important = true;
             }
