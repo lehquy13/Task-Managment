@@ -383,7 +383,6 @@
                                                 <Button Background="Transparent"
                                                         Command="{Binding Source={StaticResource TasksViewModelVM}, Path=MarkImportantCommand}"
                                                         CommandParameter="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}"
-                                                       
                                                         Style="{Binding Source={StaticResource myGreyStarButton}}">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>

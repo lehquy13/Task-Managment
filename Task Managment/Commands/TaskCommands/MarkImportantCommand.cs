@@ -33,31 +33,26 @@ namespace Task_Managment.ViewModel.Commands
         //!Methods
         public bool CanExecute(object parameter)
         {
-            if (parameter is ListViewItem)
-            {
-                ListViewItem item = (ListViewItem)parameter;
-                this.TasksViewModel.SelectedTask = item.Content as Task;
-
+            
 
                 //you can only mark important if the task you are trying to mark important == selected task
 
-                if (this.TasksViewModel.SelectedTask != null)
-                {
-                    if (parameter as string == this.TasksViewModel.SelectedTask.Name)
-                    {
+    
                         return true;
-                    }
-                    else return false;
-                }
-                else return false;
-            }
-            else return false;
+       
+            
+            
         }
 
         public void Execute(object parameter)
         {
+            if (parameter is ListViewItem)
+            {
+                ListViewItem item = (ListViewItem)parameter;
+                this.TasksViewModel.SelectedTask = item.Content as Task;
+            }
 
-            Tasklist importantList = this.TasksViewModel.DefaultImportantList;
+                Tasklist importantList = this.TasksViewModel.DefaultImportantList;
 
             if (this.TasksViewModel.SelectedTask.Important == false)
             {
