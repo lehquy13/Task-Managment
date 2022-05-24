@@ -42,6 +42,9 @@ namespace Task_Managment.UserControls
         {
             InitializeComponent();
         }
+        public void labelevent(string note){
+            lbevent.Text = note;
+        }
         public void days(int numday)
         {
             lbdays.Text= numday + "";
@@ -54,8 +57,9 @@ namespace Task_Managment.UserControls
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
              static_day= lbdays.Text.ToString();
-            eventwindow e_form = new eventwindow();
-            e_form.ShowDialog();
+            UCdayViewModel a = new UCdayViewModel();
+            a.mouseleft();
+
         }
 
         //private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -69,8 +73,8 @@ namespace Task_Managment.UserControls
         //{
         //    SqlConnection con = new SqlConnection(conn);
         //    con.Open();
-        //    string sql = "select * from tbl_calendar where date = '"+ CalendarViewModel.static_month.ToString() +"/" + lbdays.Content +"/"+CalendarViewModel.static_year.ToString()+"'";
-        //    SqlCommand cmd=con.CreateCommand();
+        //    string sql = "select * from tbl_calendar where date = '" + CalendarViewModel.static_month.ToString() + "/" + lbdays.Content + "/" + CalendarViewModel.static_year.ToString() + "'";
+        //    SqlCommand cmd = con.CreateCommand();
         //    cmd.CommandText = sql;
         //    SqlDataReader reader = cmd.ExecuteReader();
         //    if (reader.Read())

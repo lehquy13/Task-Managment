@@ -66,8 +66,10 @@ namespace Task_Managment.ViewModels
         }
         public void displayevent()
         {
-            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
-            var filter = Builders<MyCalendar>.Filter.Eq("Date", static_month + "/" + "/" + static_year);
+            //CalendarDataaccess db = new CalendarDataaccess();
+            //DateTime a = new DateTime();
+            //a = DateTime.Parse(static_month + "/"+ UserControlDays.static_day + "/" + static_year);
+            //db.GetCalendar(a);
         }
         public ObservableCollection<UserControlDays> GetUserControlDays()
         {
@@ -137,7 +139,6 @@ namespace Task_Managment.ViewModels
         }
         private void NextMonth()
         {
-
             UserControlDays.Clear();
             month++;
             static_month = month;

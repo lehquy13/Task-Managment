@@ -22,11 +22,17 @@ namespace Task_Managment.DataAccess
             var db = client.GetDatabase(DatabaseName);
             return db.GetCollection<T>(collection);
         }
-        public async Task<List<MyCalendar>> GetAllCalendar()
+        //public async Task<List<MyCalendar>> GetAllCalendar()
+        //{
+        //    var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
+        //    var results = await calendarCollection.FindAsync(_ => true);
+        //    return results.ToList();
+        //}
+        public List<MyCalendar> GetAllCalendar()
         {
-            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
-            var results = await calendarCollection.FindAsync(_ => true);
-            return results.ToList();
+            var _collection = ConnectToMongo<MyCalendar>(CalendarCollection);
+            var _results = _collection.Find<MyCalendar>(_=>true);
+            return _results.ToList();
         }
 
         public System.Threading.Tasks.Task SelectCalendar()
@@ -55,11 +61,11 @@ namespace Task_Managment.DataAccess
             return calendarCollection.DeleteOneAsync(c => c.Id == calendar.Id);
         }
 
-        //public Task SelectCalendar(MyCalendar calendar)
-        //{
-        //    var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
-
-
-        //}
+        public async Task<List<MyCalendar>> GetCalendar(DateTime date)
+        {
+            var calendarCollection = ConnectToMongo<MyCalendar>(CalendarCollection);
+            var results = await calendarCollection.FindAsync(x=>x.Date==date);
+            return results.ToList();
+        }
     }
 }

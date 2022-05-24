@@ -364,6 +364,7 @@
     <Resource Include="imagesForWpf\next.png" />
     <Resource Include="imagesForWpf\arrow_down_icon.png" />
     <Resource Include="imagesForWpf\arrow_up_icon.png" />
+    <Resource Include="imagesForWpf\eventwindow.jpg" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
