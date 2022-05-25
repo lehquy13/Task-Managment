@@ -80,6 +80,17 @@ namespace Task_Managment.ViewModels
             }
         }
 
+        private Tasklist _selectedSubtask;
+        public Tasklist SelectedSubtask
+        {
+            get { return _selectedSubtask; }
+            set
+            {
+                _selectedSubtask = value;
+                PropertyUpdated("SelectedSubtask");
+            }
+        }
+
         private string _addaTaskText;
         public string AddaTaskText
         {
