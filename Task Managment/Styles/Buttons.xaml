@@ -105,7 +105,7 @@
                                  Value="True">
                             <Setter TargetName="templateBorder"
                                     Property="Background"
-                                    Value="WhiteSmoke" />
+                                    Value="#E5E5E5" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

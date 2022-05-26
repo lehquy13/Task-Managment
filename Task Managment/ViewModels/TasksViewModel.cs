@@ -76,7 +76,7 @@ namespace Task_Managment.ViewModels
                     _selectedTask = value;
 
                 }              
-                PropertyUpdated("SelectedTask");
+                //PropertyUpdated("SelectedTask");
             }
         }
 
@@ -202,15 +202,12 @@ namespace Task_Managment.ViewModels
                 switch (temp.Name)
                 {
                     case "Important":
-                        this.DefaultImportantList = temp;
                         this.TasklistsList[1] = temp;
                         break;
                     case "My Day":
-                        this.DefaultMyDayList = temp;
                         this.TasklistsList[0] = temp;
                         break;
                     case "Tasks":
-                        this.DefaultTasksList = temp;
                         this.TasklistsList[2] = temp;
                         break;
 
@@ -221,12 +218,10 @@ namespace Task_Managment.ViewModels
                 }
 
             }
-            this.DefaultMyDayList.Tasks = db.GetAllTasksFromTasklist(this.DefaultMyDayList);
-            this.DefaultImportantList.Tasks = db.GetAllTasksFromTasklist(this.DefaultImportantList);
-            this.DefaultTasksList.Tasks = db.GetAllTasksFromTasklist(this.DefaultTasksList);
 
 
-            for (int i = 3; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+
+            for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
             {
                 this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
                 for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
@@ -234,9 +229,11 @@ namespace Task_Managment.ViewModels
                     this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
                 }
             }
-            
 
-           
+            this.DefaultMyDayList = this.TasklistsList[0];
+            this.DefaultImportantList = this.TasklistsList[1];
+            this.DefaultTasksList = this.TasklistsList[2];
+
 
             this.TasksList = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;

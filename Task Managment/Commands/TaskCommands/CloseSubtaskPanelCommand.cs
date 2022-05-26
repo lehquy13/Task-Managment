@@ -15,13 +15,13 @@ namespace Task_Managment.Commands
         public event EventHandler CanExecuteChanged;
         private DataAcessForTask db = DataAcessForTask.Instance;
 
-        TasksViewModel TasksViewModels { get; set; }
+        TasksViewModel TasksViewModel { get; set; }
 
 
         //!Ctor
         public CloseSubtaskPanelCommand(TasksViewModel tasksViewModel)
         {
-            this.TasksViewModels = tasksViewModel;
+            this.TasksViewModel = tasksViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -31,12 +31,13 @@ namespace Task_Managment.Commands
 
         public void Execute(object parameter)
         {
-            if (TasksViewModels.SubtasksPaneVisible == true)
-                TasksViewModels.SubtasksPaneVisible = false;
-            if(parameter is Task)
+            if (TasksViewModel.SubtasksPaneVisible == true)
             {
-                db.UpdateSelectedTask(parameter as Task);
+                TasksViewModel.SubtasksPaneVisible = false;
+                this.TasksViewModel.SelectedSubtask = null;
+                this.TasksViewModel.PropertyUpdated("SubtasksPaneVisible");
             }
+
         }
     }
 }

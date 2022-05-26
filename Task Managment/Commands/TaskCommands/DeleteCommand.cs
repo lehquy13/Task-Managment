@@ -46,8 +46,11 @@ namespace Task_Managment.ViewModel.Commands
             }
             if (parameter is Task || parameter is ListViewItem)
             {
-                this.TasksViewModels.SubtasksPaneVisible = !this.TasksViewModels.SubtasksPaneVisible;
                 Task selectedTask = this.TasksViewModels.SelectedTask;
+                foreach(Subtask subtask in selectedTask.Subtasks)
+                {
+                    db.DeleteSelectedSubTask(subtask);
+                }
                 //remove it from the observable collection if its not null
                 this.TasksViewModels.TasksList?.Remove(selectedTask);
                 //and remove selected task from task list if its not null
@@ -57,7 +60,9 @@ namespace Task_Managment.ViewModel.Commands
                 this.TasksViewModels.SelectedTasklist.TotalCount = this.TasksViewModels.SelectedTasklist.Tasks.Count.ToString();
 
                 db.UpdateSelectedTasklist(this.TasksViewModels.SelectedTasklist);
-                this.TasksViewModels.SubtasksPaneVisible = (this.TasksViewModels.SubtasksPaneVisible == true) ? false : true;
+                this.TasksViewModels.SubtasksPaneVisible = (this.TasksViewModels.SubtasksPaneVisible == true) ? false : false;
+                this.TasksViewModels.SelectedTask = null;
+                this.TasksViewModels.PropertyUpdated("SubtasksPaneVisible");
             }
 
             else if(parameter is Tasklist)
@@ -66,6 +71,8 @@ namespace Task_Managment.ViewModel.Commands
                 db.DeleteSelectedTasklist(selectedTasklist);
                 this.TasksViewModels.TasklistsList?.Remove(selectedTasklist);
             } 
+
+           
         }
     }
 }
