@@ -60,7 +60,8 @@
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
-                            <Grid Margin="0,4,0,5">
+                            <Grid Margin="0,4,0,5"
+                                  Background="Transparent">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40" />
                                     <ColumnDefinition Width="120" />
@@ -99,24 +100,7 @@
                                              Style="{StaticResource myRenamingTextboxStyle}"
                                              Visibility="{Binding Source={StaticResource TasksViewModelVM}, Path=IsTasklistRenaming, 
                                                                   Converter={StaticResource BooltoVis}}" />
-
-
-
-                                    <Grid.ContextMenu>
-
-                                        <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
-                                                     Background="#D8FFFFFF"
-                                                     Foreground="Black">
-                                            <MenuItem Header="Rename list"
-                                                      Command="{Binding StartRenameCommand}"
-                                                      CommandParameter="{Binding SelectedTasklist}" />
-                                            <MenuItem Header="Duplicate list" />
-                                            <Separator />
-                                            <MenuItem Header="Delete list"
-                                                      Command="{Binding DeleteCommand}"
-                                                      CommandParameter="{Binding SelectedTasklist}" />
-                                        </ContextMenu>
-                                    </Grid.ContextMenu>
+                                    
                                 </Grid>
 
                                 <TextBlock Grid.Column="2"
@@ -124,6 +108,20 @@
                                            Foreground="Black"
                                            Margin="0,4,5,0"
                                            Text="{Binding TotalCount}" />
+                                <Grid.ContextMenu>
+                                    <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
+                                                 Background="#D8FFFFFF"
+                                                 Foreground="Black">
+                                        <MenuItem Header="Rename list"
+                                                  Command="{Binding StartRenameCommand}"
+                                                  CommandParameter="{Binding SelectedTasklist}" />
+                                        <MenuItem Header="Duplicate list" />
+                                        <Separator />
+                                        <MenuItem Header="Delete list"
+                                                  Command="{Binding DeleteCommand}"
+                                                  CommandParameter="{Binding SelectedTasklist}" />
+                                    </ContextMenu>
+                                </Grid.ContextMenu>
 
                             </Grid>
                         </DataTemplate>
