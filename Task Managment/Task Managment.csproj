@@ -177,6 +177,7 @@
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
+    <Compile Include="DataAccess\Dataaccesslocal.cs" />
     <Compile Include="DataAccess\DataAcessForTask.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />

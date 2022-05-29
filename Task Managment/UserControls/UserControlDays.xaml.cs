@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Task_Managment.Views;
 using Task_Managment.ViewModels;
+using MongoDB.Driver;
+using Task_Managment.Models;
 
 namespace Task_Managment.UserControls
 {
@@ -23,25 +25,26 @@ namespace Task_Managment.UserControls
     /// </summary>
     public partial class UserControlDays : UserControl
     {
+        public static List<string> list = new List<string>();
+        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        private void test()
+        {
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+        private void dispatcherTimer_Tick(object sender,EventArgs e)
+        {
+            displayevent();
+        }
 
-        //System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        //private void test()
-        //{
-        //    dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-        //    dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-        //    dispatcherTimer.Start();
-        //}
-        //private void dispatcherTimer_Tick(object sender, EventArgs e)
-        //{
-        //    displayevent();
-        //}
-
-        public static string static_day;
-        //string conn = @"Data Source=DESKTOP-KLH8VFB\SQLEXPRESS;Initial Catalog = TaskManagement; Integrated Security = True";
+        public static string static_day,day;
         public UserControlDays()
         {
             InitializeComponent();
+
         }
+        
         public void labelevent(string note){
             lbevent.Text = note;
         }
@@ -56,10 +59,42 @@ namespace Task_Managment.UserControls
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-             static_day= lbdays.Text.ToString();
-            UCdayViewModel a = new UCdayViewModel();
-            a.mouseleft();
+            static_day= lbdays.Text.ToString();
+            test();
+            eventwindow e_form = new eventwindow();
+            e_form.ShowDialog();
 
+        }
+        public List<MyCalendar> GetAllCalendar()
+        {
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase database = client.GetDatabase("Task_Management");
+            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            List<MyCalendar> calendarList = collectionCalendar.AsQueryable().ToList<MyCalendar>();
+            return calendarList;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            displayevent();
+            test();
+        }
+
+        public void displayevent()
+        {
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase database = client.GetDatabase("Task_Management");
+            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            List<MyCalendar> calendar = new List<MyCalendar>();
+            calendar = GetAllCalendar();
+            foreach (MyCalendar myCalendar in calendar)
+            {
+
+                if (CalendarViewModel.static_month.ToString() + "/" + lbdays.Text + "/" + CalendarViewModel.static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
+                {
+                    lbevent.Text = myCalendar.Note; 
+                } 
+            }
         }
 
         //private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
