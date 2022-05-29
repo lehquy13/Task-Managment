@@ -21,8 +21,6 @@ using Task_Managment.Models;
 namespace Task_Managment.UserControls
 {
     /// <summary>
-    /// Interaction logic for UserControlDays.xaml
-    /// </summary>
     public partial class UserControlDays : UserControl
     {
         public static List<string> list = new List<string>();
@@ -87,38 +85,17 @@ namespace Task_Managment.UserControls
             IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
             List<MyCalendar> calendar = new List<MyCalendar>();
             calendar = GetAllCalendar();
+            if (lbevent.Text != null)
+            {
+                lbevent.Text = "";
+            }
             foreach (MyCalendar myCalendar in calendar)
             {
-
                 if (CalendarViewModel.static_month.ToString() + "/" + lbdays.Text + "/" + CalendarViewModel.static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
                 {
                     lbevent.Text = myCalendar.Note; 
                 } 
             }
         }
-
-        //private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    static_day = lbdays.Content.ToString();
-        //    test();
-        //    eventwindow e_form=new eventwindow();
-        //    e_form.ShowDialog();
-        //}
-        //private void displayevent()
-        //{
-        //    SqlConnection con = new SqlConnection(conn);
-        //    con.Open();
-        //    string sql = "select * from tbl_calendar where date = '" + CalendarViewModel.static_month.ToString() + "/" + lbdays.Content + "/" + CalendarViewModel.static_year.ToString() + "'";
-        //    SqlCommand cmd = con.CreateCommand();
-        //    cmd.CommandText = sql;
-        //    SqlDataReader reader = cmd.ExecuteReader();
-        //    if (reader.Read())
-        //    {
-        //        lbevent.Text = reader["event"].ToString();
-        //    }
-        //    reader.Dispose();
-        //    cmd.Dispose();
-        //    con.Close();
-        //}
     }
 }

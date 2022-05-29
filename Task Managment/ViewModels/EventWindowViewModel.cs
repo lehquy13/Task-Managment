@@ -71,7 +71,7 @@ namespace Task_Managment.ViewModels
             List<MyCalendar> calendarList = collectionCalendar.AsQueryable().ToList<MyCalendar>();
             return calendarList;
         }
-        // không thể show được do màn hình chưa show lên nên textboxday đã bị null =)))
+
         public void GetCalendar()
         {
             MongoClient client = new MongoClient("mongodb://localhost:27017");

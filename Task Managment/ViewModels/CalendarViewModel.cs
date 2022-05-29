@@ -33,7 +33,6 @@ namespace Task_Managment.ViewModels
         public CalendarViewModel()
         {
             InitCommands();
-            displayevent();
             GetUserControlDays();
         }
         public string MonthYear
@@ -63,13 +62,6 @@ namespace Task_Managment.ViewModels
             var client = new MongoClient(ConnectionString);
             var db = client.GetDatabase(DatabaseName);
             return db.GetCollection<T>(collection);
-        }
-        public void displayevent()
-        {
-            //CalendarDataaccess db = new CalendarDataaccess();
-            //DateTime a = new DateTime();
-            //a = DateTime.Parse(static_month + "/"+ UserControlDays.static_day + "/" + static_year);
-            //db.GetCalendar(a);
         }
         public ObservableCollection<UserControlDays> GetUserControlDays()
         {
