@@ -69,17 +69,25 @@ namespace Task_Managment.ViewModels
                 if (_selectedTask == null)
                 {
                     _selectedTask = value;
-                    //SelectSubtaskCommand.Execute(value);
+
                 }
                 else if (_selectedTask != value)
                 {
                     _selectedTask = value;
-                    //SelectSubtaskCommand.Execute(value);
-                }
-                //else
-                //{
-                //    SelectSubtaskCommand.Execute(value);
-                //}
+
+                }              
+                //PropertyUpdated("SelectedTask");
+            }
+        }
+
+        private Tasklist _selectedSubtask;
+        public Tasklist SelectedSubtask
+        {
+            get { return _selectedSubtask; }
+            set
+            {
+                _selectedSubtask = value;
+                PropertyUpdated("SelectedSubtask");
             }
         }
 
@@ -174,6 +182,8 @@ namespace Task_Managment.ViewModels
         {
             _currentUser = currentUser;
 
+            //get all the tasks of tripledefaultTasklists
+
             this.TasklistsList = new ObservableCollection<Tasklist>()
             {
                 this.DefaultMyDayList,
@@ -189,10 +199,29 @@ namespace Task_Managment.ViewModels
             
             foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser)) // lấy những tasklist như myday, importtant, untitledlist
             {
-                this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
+                switch (temp.Name)
+                {
+                    case "Important":
+                        this.TasklistsList[1] = temp;
+                        break;
+                    case "My Day":
+                        this.TasklistsList[0] = temp;
+                        break;
+                    case "Tasks":
+                        this.TasklistsList[2] = temp;
+                        break;
+
+                    default:
+                        this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
+                        break;
+
+                }
+
             }
 
-            for(int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+
+
+            for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
             {
                 this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
                 for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
@@ -200,12 +229,11 @@ namespace Task_Managment.ViewModels
                     this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
                 }
             }
-            
 
-            //get all the tasks of tripledefaultTasklists
-            //this.DefaultMyDayList.Tasks = db.GetAllTasksFromTasklist(this.DefaultMyDayList);
-            //this.DefaultImportantList.Tasks = db.GetAllTasksFromTasklist(this.DefaultImportantList);
-            //this.DefaultTasksList.Tasks = db.GetAllTasksFromTasklist(this.DefaultTasksList);
+            this.DefaultMyDayList = this.TasklistsList[0];
+            this.DefaultImportantList = this.TasklistsList[1];
+            this.DefaultTasksList = this.TasklistsList[2];
+
 
             this.TasksList = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;

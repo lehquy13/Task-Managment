@@ -33,36 +33,30 @@ namespace Task_Managment.ViewModel.Commands
         //!Methods
         public bool CanExecute(object parameter)
         {
-            if (parameter is ListViewItem)
-            {
-                ListViewItem item = (ListViewItem)parameter;
-                this.TasksViewModel.SelectedTask = item.Content as Task;
-                return true;
-            }
-            //you can only mark important if the task you are trying to mark important == selected task
-            if (parameter is string)
-            {
-                if (this.TasksViewModel.SelectedTask != null)
-                {
-                    if (parameter as string == this.TasksViewModel.SelectedTask.Name)
-                    {
+            
+
+                //you can only mark important if the task you are trying to mark important == selected task
+
+    
                         return true;
-                    }
-                    else return false;
-                }
-                else return false;
-            }
-            else return false;
+       
+            
+            
         }
 
         public void Execute(object parameter)
         {
-         
-            Tasklist importantList = this.TasksViewModel.DefaultImportantList;
+            if (parameter is ListViewItem)
+            {
+                ListViewItem item = (ListViewItem)parameter;
+                this.TasksViewModel.SelectedTask = item.Content as Task;
+            }
+
+                Tasklist importantList = this.TasksViewModel.DefaultImportantList;
 
             if (this.TasksViewModel.SelectedTask.Important == false)
             {
-                this.TasksViewModel.SelectedTask.Important = true;             
+                this.TasksViewModel.SelectedTask.Important = true;
 
                 //if the important list doesn't contain this task, add it
                 if (importantList.Tasks.Contains(this.TasksViewModel.SelectedTask) == false)
@@ -83,7 +77,7 @@ namespace Task_Managment.ViewModel.Commands
                     importantList.Tasks.Remove(this.TasksViewModel.SelectedTask);
 
                     //if you are in the important list then also remove from the general tasklist collection
-                    if(this.TasksViewModel.SelectedTasklist == importantList)
+                    if (this.TasksViewModel.SelectedTasklist == importantList)
                     {
                         this.TasksViewModel.TasksList.Remove(this.TasksViewModel.SelectedTask);
                     }

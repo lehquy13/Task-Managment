@@ -64,12 +64,11 @@ namespace Task_Managment.Commands
                         }
                     }
                 }
-                TasksViewModel.PropertyUpdated("SelectedTask");
-                return;
+
             }
             if (parameter != TasksViewModel.SelectedTask && this.TasksViewModel.SubtasksPaneVisible == true)
             {
-                 if (TasksViewModel.SelectedTasklist != null)
+                if (TasksViewModel.SelectedTasklist != null)
                 {
                     if (TasksViewModel.SelectedTasklist.Tasks != null)
                     {
@@ -94,8 +93,7 @@ namespace Task_Managment.Commands
                         }
                     }
                 }
-                TasksViewModel.PropertyUpdated("SelectedTask");
-                return;
+
             }
             else
             {
@@ -128,13 +126,12 @@ namespace Task_Managment.Commands
                         }
                     }
                 }
-                TasksViewModel.PropertyUpdated("SelectedTask");
-                
+
 
             }
 
-            //TasksViewModel.PropertyUpdated("SelectedTask");
-            //return;
+            TasksViewModel.PropertyUpdated("SelectedTask");
+            return;
         }
 
         ////create a new string subtask
