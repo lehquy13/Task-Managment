@@ -619,7 +619,7 @@
                         Command="{Binding PreviousCM }"
                         >
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_down_icon.png"/>
+                            <Image Source="\imagesForWpf\CalendarResource\arrow_down_icon.png"/>
                         </StackPanel>
                     </Button>
 
@@ -632,7 +632,7 @@
                             >
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_up_icon.png"/>
+                            <Image Source="\imagesForWpf\CalendarResource\arrow_up_icon.png"/>
                         </StackPanel>
                     </Button>
                 </WrapPanel>
