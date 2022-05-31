@@ -130,6 +130,10 @@ namespace Task_Managment.Commands
 
             }
 
+            if (!this.TasksViewModel.SubtasksPaneVisible)
+            {
+                this.TasksViewModel.SelectedTask = null;
+            }
             TasksViewModel.PropertyUpdated("SelectedTask");
             return;
         }

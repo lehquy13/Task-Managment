@@ -244,8 +244,8 @@
                       HorizontalAlignment="Stretch" 
                       Foreground="Black"
                       VerticalAlignment="Stretch"
-                      ItemsSource="{Binding _notes, Mode=TwoWay}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding _notes, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedNote, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

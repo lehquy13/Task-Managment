@@ -16,7 +16,6 @@
       d:DesignHeight="450"
       d:DesignWidth="800"
       Style="{StaticResource PageTasksStyle}"
-      
       Title="ToDoTasks"
       Background="AliceBlue">
 
@@ -101,7 +100,7 @@
                                              Style="{StaticResource myRenamingTextboxStyle}"
                                              Visibility="{Binding Source={StaticResource TasksViewModelVM}, Path=IsTasklistRenaming, 
                                                                   Converter={StaticResource BooltoVis}}" />
-                                    
+
                                 </Grid>
 
                                 <TextBlock Grid.Column="2"
@@ -219,9 +218,7 @@
                                                 Height="30"
                                                 HorizontalAlignment="Stretch">
                                             <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Style="{Binding Source={StaticResource mySubtaskTextBoxStyle}}"
-                                                     
-                                                     >
+                                                     Style="{Binding Source={StaticResource mySubtaskTextBoxStyle}}">
                                                 <TextBox.InputBindings>
                                                     <KeyBinding Key="Return"
                                                                 Command="{Binding Source={StaticResource TasksViewModelVM}, Path=NewSubtaskCommand}" />
@@ -275,7 +272,8 @@
 
 
 
-                <DockPanel LastChildFill="True">
+                <DockPanel x:Name="TaskDockPanel"
+                           LastChildFill="True">
                     <!--Margin="0 10 0 10"-->
 
                     <!--Add a task -->
@@ -298,13 +296,15 @@
                                 </TextBox.InputBindings>
                             </TextBox>
                         </Grid>
+
                     </StackPanel>
 
-                    <StackPanel>
+                    <DockPanel 
+                               LastChildFill="True">
 
                         <!--Task Title -->
                         <StackPanel Orientation="Horizontal"
-                                    Margin="0,20,5,5"
+                                    Margin="10,20,5,5"
                                     DockPanel.Dock="Top">
                             <Image Source="{Binding SelectedTasklist.IconSource}"
                                    Width="25"
@@ -327,21 +327,22 @@
 
                         </StackPanel>
 
-                        <!--Black separating border-->
 
 
                         <!--Task showlist-->
                         <ListView x:Name="toDoList"
                                   Margin="30,0,35,0"
                                   HorizontalContentAlignment="Stretch"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalContentAlignment="Top"
+                                  ScrollViewer.CanContentScroll="False"
                                   ItemsSource="{Binding TasksList}"
-                                  Style="{Binding Source={StaticResource myListviewStyle}}"
                                   SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="MouseUp">
                                     <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM},
-                                        Path=SelectSubtaskCommand}"
+                                        Path=SelectTaskCommand}"
                                                            CommandParameter="{Binding Source={StaticResource TasksViewModelVM}, 
                                         Path=SelectedTask}" />
                                 </b:EventTrigger>
@@ -460,18 +461,10 @@
 
                         </ListView>
 
-                        <!--Black separating border-->
-                        <StackPanel Orientation="Horizontal"
-                                    DockPanel.Dock="Right">
-                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                                       Margin="0,0,0,0"
-                                       Width="0.5"
-                                       Background="Black"
-                                       Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks},
-                                                                 Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
+                     
 
-                    </StackPanel>
+                    </DockPanel>
+
                 </DockPanel>
 
             </DockPanel>

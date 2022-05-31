@@ -149,7 +149,7 @@ namespace Task_Managment.ViewModels
 
         public CloseSubtaskPanelCommand CloseSubtaskPanelCommand { get; set; }
 
-        public SelectTaskCommand SelectSubtaskCommand { get; set; }
+        public SelectTaskCommand SelectTaskCommand { get; set; }
 
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -264,7 +264,7 @@ namespace Task_Managment.ViewModels
 
             this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
 
-            this.SelectSubtaskCommand = new SelectTaskCommand(this);
+            this.SelectTaskCommand = new SelectTaskCommand(this);
         }
     }
 }

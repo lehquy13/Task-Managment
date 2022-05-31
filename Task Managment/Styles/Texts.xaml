@@ -354,12 +354,11 @@
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border x:Name="textBoxTemplateBorder"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            
                             CornerRadius="10">
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Focusable="True"
-                                      HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden">
+                                      HorizontalScrollBarVisibility="Visible"
+                                      VerticalScrollBarVisibility="Visible">
 
                         </ScrollViewer>
                     </Border>
@@ -368,13 +367,13 @@
                                  Value="True">
                             <Setter TargetName="textBoxTemplateBorder"
                                     Property="Background"
-                                    Value="Transparent" />
+                                    Value="#CEC0C0C0" />
                         </Trigger>
                         <Trigger Property="IsFocused"
                                  Value="True">
                             <Setter TargetName="textBoxTemplateBorder"
                                     Property="Background"
-                                    Value="Transparent" />
+                                    Value="#CEC0C0C0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
