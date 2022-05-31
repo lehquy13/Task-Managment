@@ -19,6 +19,10 @@ namespace Task_Managment.ViewModels
         private string Labeldays;
         private string Labelevents;
     
+        public UCdayViewModel()
+        {
+            
+        }
         public void test()
         {
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
@@ -28,7 +32,7 @@ namespace Task_Managment.ViewModels
        
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            displayevent();
+           // displayevent();
         }
 
         public string LabelDay
@@ -61,21 +65,23 @@ namespace Task_Managment.ViewModels
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
-        public void displayevent()
-        {
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            IMongoDatabase database = client.GetDatabase("Task_Management");
-            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            List<MyCalendar> calendar = new List<MyCalendar>();
-            calendar = GetAllCalendar();
-            foreach (MyCalendar myCalendar in calendar)
-            {
-                if (CalendarViewModel.static_month.ToString() + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy")){
-                   LabelEvent = myCalendar.Note;
-                   OnPropertyChanged("LabelEvent");
-                }
-            }
-        }
+        // không lấy được ngày bên usercontrolday và labelevent gán bằng mycalendar sẽ add vào tất cả các ngày 
+        //public void displayevent()
+        //{
+        //    mongoclient client = new mongoclient("mongodb://localhost:27017");
+        //    imongodatabase database = client.getdatabase("task_management");
+        //    imongocollection<mycalendar> collectioncalendar = database.getcollection<mycalendar>("calendar");
+        //    list<mycalendar> calendar = new list<mycalendar>();
+        //    calendar = getallcalendar();
+        //    foreach (mycalendar mycalendar in calendar)
+        //    {
+
+        //        if (calendarviewmodel.static_month.tostring() + "/" + 16 + "/" + calendarviewmodel.static_year.tostring() == mycalendar.date.tostring("m/d/yyyy"))
+        //        {
+        //            labelevent = mycalendar.note;
+        //        }
+        //    }
+        //}
         public void mouseleft()
         {
             test();

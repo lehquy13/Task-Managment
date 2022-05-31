@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.UserControls;
+using Task_Managment.Views;
 
 namespace Task_Managment.ViewModels
 {
@@ -44,6 +45,10 @@ namespace Task_Managment.ViewModels
         public EventWindowViewModel() 
         {
             initCommand();
+            if(TextBoxDay != null)
+            {
+                GetCalendar();
+            }
         }
 
         public ICommand SaveCM { get; set; }
@@ -66,6 +71,7 @@ namespace Task_Managment.ViewModels
             List<MyCalendar> calendarList = collectionCalendar.AsQueryable().ToList<MyCalendar>();
             return calendarList;
         }
+
         public void GetCalendar()
         {
             MongoClient client = new MongoClient("mongodb://localhost:27017");
@@ -75,7 +81,7 @@ namespace Task_Managment.ViewModels
             calendar = GetAllCalendar();
             foreach (MyCalendar myCalendar in calendar)
             {
-                if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
+                if (myCalendar.Date.ToString("M/d/yyyy") == TextBoxDay)
                 {
                     TextBoxEvent = myCalendar.Note;
                 }
@@ -84,15 +90,17 @@ namespace Task_Managment.ViewModels
         private void SaveCalendar()
         {
             CalendarDataaccess db = new CalendarDataaccess();
-            db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(TextBoxDay), Note =TextBoxEvent });
+            db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(TextBoxDay).AddDays(1), Note =TextBoxEvent });
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = client.GetDatabase("Task_Management");
             IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            MyCalendar calendar = new MyCalendar(){ Date= DateTime.Parse(TextBoxDay), Note = TextBoxEvent };
+            MyCalendar calendar = new MyCalendar(){ Date= DateTime.Parse(TextBoxDay).AddDays(1), Note = TextBoxEvent };
             collectionCalendar.InsertOne(calendar);
+            eventwindow a=new eventwindow();
+            a.Close();
             
         }
-        private async System.Threading.Tasks.Task UpdateCalendarAsync()
+        private void UpdateCalendarAsync()
         {
             CalendarDataaccess db = new CalendarDataaccess();
             List<MyCalendar> calendar1 = new List<MyCalendar>();
@@ -109,7 +117,7 @@ namespace Task_Managment.ViewModels
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = client.GetDatabase("Task_Management");
             IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            var UpdateDef = Builders<MyCalendar>.Update.Set("Date", DateTime.Parse(TextBoxDay)).Set("Note", TextBoxEvent);
+            var UpdateDef = Builders<MyCalendar>.Update.Set("Date", DateTime.Parse(TextBoxDay).AddDays(1)).Set("Note", TextBoxEvent);
             List<MyCalendar> calendar = new List<MyCalendar>();
             calendar = GetAllCalendar();
             foreach(MyCalendar myCalendar in calendar)

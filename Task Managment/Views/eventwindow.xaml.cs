@@ -30,16 +30,5 @@ namespace Task_Managment.Views
             tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year;
 
         }
-
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day+"/"+CalendarViewModel.static_year;
-        //}
-
-        //private void btnsave_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CalendarDataaccess db = new CalendarDataaccess();
-        //    db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(tbxdate.Text), Note = tbxevent.Text });
-        //}
     }
 }

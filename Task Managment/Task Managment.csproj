@@ -177,6 +177,7 @@
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
+    <Compile Include="DataAccess\Dataaccesslocal.cs" />
     <Compile Include="DataAccess\DataAcessForTask.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />
@@ -185,9 +186,6 @@
     <Compile Include="Models\Subtask.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Tasklist.cs" />
-    <Compile Include="UserControls\UserControlBlank.xaml.cs">
-      <DependentUpon>UserControlBlank.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UserControlDays.xaml.cs">
       <DependentUpon>UserControlDays.xaml</DependentUpon>
     </Compile>
@@ -229,10 +227,6 @@
     <Page Include="Styles\Fonts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\UserControlBlank.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\UserControlDays.xaml">
       <Generator>MSBuild:Compile</Generator>
