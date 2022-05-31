@@ -344,31 +344,31 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagesForWpf\closeBtn_MouseOver.png" />
-    <Resource Include="imagesForWpf\img_background.png" />
+    <Resource Include="imagesForWpf\Background\img_background.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ControlStyle\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagesForWpf\img2_background.png" />
+    <Resource Include="imagesForWpf\Background\img2_background.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagesForWpf\circle.png" />
-    <Resource Include="imagesForWpf\day.png" />
+    <Resource Include="imagesForWpf\TaskResource\day.png" />
     <Resource Include="imagesForWpf\Done.png" />
-    <Resource Include="imagesForWpf\greenery.png" />
-    <Resource Include="imagesForWpf\img3_background.png" />
-    <Resource Include="imagesForWpf\important.png" />
-    <Resource Include="imagesForWpf\star.png" />
-    <Resource Include="imagesForWpf\lowerstar.png" />
-    <Resource Include="imagesForWpf\next.png" />
-    <Resource Include="imagesForWpf\arrow_down_icon.png" />
-    <Resource Include="imagesForWpf\arrow_up_icon.png" />
+    <Resource Include="imagesForWpf\TaskResource\greenery.png" />
+    <Resource Include="imagesForWpf\Background\img3_background.png" />
+    <Resource Include="imagesForWpf\TaskResource\important.png" />
+    <Resource Include="imagesForWpf\TaskResource\star.png" />
+    <Resource Include="imagesForWpf\TaskResource\lowerstar.png" />
+    <Resource Include="imagesForWpf\TaskResource\next.png" />
+    <Resource Include="imagesForWpf\CalendarResource\arrow_down_icon.png" />
+    <Resource Include="imagesForWpf\CalendarResource\arrow_up_icon.png" />
     <Resource Include="imagesForWpf\eventwindow.jpg" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
-    <Resource Include="imagesForWpf\img4_background.jpg" />
+    <Resource Include="imagesForWpf\Background\img4_background.jpg" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

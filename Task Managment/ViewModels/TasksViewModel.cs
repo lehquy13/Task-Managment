@@ -15,10 +15,10 @@ namespace Task_Managment.ViewModels
         public Members _currentUser { get; set; }
         private DataAcessForTask db = DataAcessForTask.Instance;
         //!Fields
-        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\"); 
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\").Replace("\\bin\\Debug\\", "\\");
 
         //!Properties
-        public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; } 
+        public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; }
 
         public ObservableCollection<Tasklist> TasklistsList { get; set; }
 
@@ -26,24 +26,25 @@ namespace Task_Managment.ViewModels
 
         public ObservableCollection<Subtask> Subtasks { get; set; }
 
-        public Tasklist DefaultMyDayList     { get; set; } = new Tasklist() { Name = "My Day",    IconSource = new Uri(Path.Combine(ImagesPath, "day.png")) };
-        public Tasklist DefaultImportantList { get; set; } = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")) };
-        public Tasklist DefaultTasksList     { get; set; } = new Tasklist() { Name = "Tasks",     IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")) };
+        public Tasklist DefaultMyDayList { get; set; }
+
+        public Tasklist DefaultImportantList { get; set; }
+        public Tasklist DefaultTasksList { get; set; }
 
         private Tasklist _selectedTasklist;
         public Tasklist SelectedTasklist
         {
             get { return _selectedTasklist; }
-            set 
-            { 
+            set
+            {
                 _selectedTasklist = value;
 
                 this.TasksList.Clear();
-                if(SelectedTasklist != null)
+                if (SelectedTasklist != null)
                 {
-                    if(SelectedTasklist.Tasks != null)
+                    if (SelectedTasklist.Tasks != null)
                     {
-                        if(SelectedTasklist.Tasks.Count > 0)
+                        if (SelectedTasklist.Tasks.Count > 0)
                         {
                             this.SelectedTask = null;
                             this.SubtasksPaneVisible = !this.SubtasksPaneVisible;
@@ -54,7 +55,7 @@ namespace Task_Managment.ViewModels
                             }
                         }
                     }
-                }          
+                }
                 PropertyUpdated("SelectedTasklist");
                 this.SubtasksPaneVisible = false;
             }
@@ -75,7 +76,7 @@ namespace Task_Managment.ViewModels
                 {
                     _selectedTask = value;
 
-                }              
+                }
                 //PropertyUpdated("SelectedTask");
             }
         }
@@ -95,19 +96,19 @@ namespace Task_Managment.ViewModels
         public string AddaTaskText
         {
             get { return _addaTaskText; }
-            set 
+            set
             {
                 _addaTaskText = value;
                 PropertyUpdated("AddaTaskText");
             }
-        }     
+        }
 
         private bool _isTasklistRenaming;
         public bool IsTasklistRenaming
         {
             get { return _isTasklistRenaming; }
-            set 
-            { 
+            set
+            {
                 _isTasklistRenaming = value;
                 PropertyUpdated("IsTasklistRenaming");
             }
@@ -128,8 +129,8 @@ namespace Task_Managment.ViewModels
         public bool SubtasksPaneVisible
         {
             get { return _subtasksPaneVisible; }
-            set 
-            { 
+            set
+            {
                 _subtasksPaneVisible = value;
                 PropertyUpdated("SubtasksPaneVisible");
             }
@@ -140,14 +141,14 @@ namespace Task_Managment.ViewModels
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
 
         public StartRenameCommand StartRenameCommand { get; set; }
-        public EndRenameCommand EndRenameCommand {get; set; }
+        public EndRenameCommand EndRenameCommand { get; set; }
 
         public DeleteCommand DeleteCommand { get; set; }
 
         public MarkImportantCommand MarkImportantCommand { get; set; }
 
         public CloseSubtaskPanelCommand CloseSubtaskPanelCommand { get; set; }
-        
+
         public SelectTaskCommand SelectSubtaskCommand { get; set; }
 
         //!Events
@@ -171,7 +172,7 @@ namespace Task_Managment.ViewModels
 
         }
 
-        
+
         //!Methods
         public void PropertyUpdated(string propertyName)
         {
@@ -184,55 +185,61 @@ namespace Task_Managment.ViewModels
 
             //get all the tasks of tripledefaultTasklists
 
-            this.TasklistsList = new ObservableCollection<Tasklist>()
-            {
-                this.DefaultMyDayList,
-                this.DefaultImportantList,
-                this.DefaultTasksList
-            };
-           
+            this.TasklistsList = new ObservableCollection<Tasklist>();
+         
+
 
             //this.TasklistsList =  new ObservableCollection<Tasklist>();
             //this.TasklistsList.Add(this.DefaultMyDayList);
             //this.TasklistsList.Add(this.DefaultImportantList);
             //this.TasklistsList.Add(this.DefaultTasksList);
-            
-            foreach(Tasklist temp in db.GetAllTasklistOfMember(currentUser)) // lấy những tasklist như myday, importtant, untitledlist
+
+            List<Tasklist> tempList = db.GetAllTasklistOfMember(currentUser);
+            if (tempList.Count > 0)
             {
-                switch (temp.Name)
+                this.TasklistsList = new ObservableCollection<Tasklist>();
+                foreach (Tasklist temp in tempList) // lấy những tasklist như myday, importtant, untitledlist
                 {
-                    case "Important":
-                        this.TasklistsList[1] = temp;
-                        break;
-                    case "My Day":
-                        this.TasklistsList[0] = temp;
-                        break;
-                    case "Tasks":
-                        this.TasklistsList[2] = temp;
-                        break;
+                    switch (temp.Name)
+                    {
+                    
+                        default:
+                            this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
+                            break;
 
-                    default:
-                        this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
-                        break;
-
+                    }
+                }
+                for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+                {
+                    this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
+                    for (int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
+                    {
+                        this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
+                    }
                 }
 
-            }
+                this.DefaultMyDayList = this.TasklistsList[0];
+                this.DefaultImportantList = this.TasklistsList[1];
+                this.DefaultTasksList = this.TasklistsList[2];
 
-            for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+
+            }
+            else
             {
-                this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
-                for(int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
-                {
-                    this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
-                }
+                DefaultMyDayList = new Tasklist() { Name = "My Day", IconSource = new Uri(Path.Combine(ImagesPath, "day.png")), MemberId = _currentUser.Email };
+                DefaultImportantList = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")), MemberId = _currentUser.Email };
+                DefaultTasksList = new Tasklist() { Name = "Tasks", IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")), MemberId = _currentUser.Email };
+                db.CreateNewTasklist(DefaultMyDayList);
+                db.CreateNewTasklist(DefaultImportantList);
+                db.CreateNewTasklist(DefaultTasksList);
+                this.TasklistsList = new ObservableCollection<Tasklist>()
+            {
+                this.DefaultMyDayList,
+                this.DefaultImportantList,
+                this.DefaultTasksList
+            };
+
             }
-
-            this.DefaultMyDayList = this.TasklistsList[0];
-            this.DefaultImportantList = this.TasklistsList[1];
-            this.DefaultTasksList = this.TasklistsList[2];
-
-
             this.TasksList = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
 

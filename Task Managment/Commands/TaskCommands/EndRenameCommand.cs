@@ -40,19 +40,27 @@ namespace Task_Managment.ViewModel.Commands
             }
             else
             {
-                ListViewItem item = (ListViewItem)parameter;
-
-                switch (item.Content.GetType().ToString().Substring(22))
+                if(parameter is Tasklist)
                 {
-                    case "Subtask":
-                        Subtask currrentSubtasklist = item.Content as Subtask;
-                        db.UpdateSelectedSubTask(currrentSubtasklist);
-                        break;
-                    case "Tasklist":
-                        Tasklist currrentTasklist = item.Content as Tasklist;
-                        db.UpdateSelectedTasklist(currrentTasklist);
-                        break;
+                    db.UpdateSelectedTasklist(this.TasksViewModel.SelectedTasklist);
                 }
+                else
+                {
+                    ListViewItem item = (ListViewItem)parameter;
+
+                    switch (item.Content.GetType().ToString().Substring(22))
+                    {
+                        case "Subtask":
+                            Subtask currrentSubtasklist = item.Content as Subtask;
+                            db.UpdateSelectedSubTask(currrentSubtasklist);
+                            break;
+                        case "Tasklist":
+                            Tasklist currrentTasklist = item.Content as Tasklist;
+                            db.UpdateSelectedTasklist(currrentTasklist);
+                            break;
+                    }
+                }
+            
             }
 
             this.TasksViewModel.IsTasklistRenaming = false;

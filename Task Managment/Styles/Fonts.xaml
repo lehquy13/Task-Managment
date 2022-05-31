@@ -3,6 +3,6 @@
     <Style TargetType="{x:Type Page}"
            x:Key="PageTasksStyle">
         <Setter Property="FontFamily"
-                Value="Segoe UI" />
+                Value="OpenSans" />
     </Style>
 </ResourceDictionary>

@@ -337,9 +337,9 @@
         <Setter Property="BorderBrush"
                 Value="Transparent" />
         <Setter Property="Height"
-                Value="20" />
+                Value="25" />
         <Setter Property="Width"
-                Value="Auto" />
+                Value="200" />
         <Setter Property="FontSize"
                 Value="12" />
         <Setter Property="Margin"

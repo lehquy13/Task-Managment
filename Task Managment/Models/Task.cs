@@ -61,6 +61,18 @@ namespace Task_Managment.Models
             this.Subtasks = new List<Subtask>();
         }
 
+        public Task(Task taskTemp)
+        {
+            //this.TaskID = Guid.NewGuid().ToString();
+            this.TasklistID = taskTemp.TasklistID;
+            //this.TaskID = taskTemp.TaskID;
+            this.Subtasks = taskTemp.Subtasks;
+            this.Completed = taskTemp.Completed;
+            this.Name = taskTemp.Name;
+            this.Notes = taskTemp.Notes;
+            this.Date = taskTemp.Date;
+            this.Important = taskTemp.Important;
+        }
         //!Methods
         public void PropertyUpdated(string propertyName)
         {

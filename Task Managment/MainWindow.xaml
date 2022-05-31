@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Task_Managment"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="1080"
-        Width="1920"
-        ResizeMode="NoResize"
+        Height="900"
+        Width="1600"
+        ResizeMode="CanResize"
         Topmost="False"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -193,14 +193,12 @@
 
             <!--// App Close Button //-->
 
-
-
             <!--// Navigation Panel //-->
 
             <Grid   x:Name="nav_pnl"
                     HorizontalAlignment="Left"
                     Width="65"
-                    Background="WhiteSmoke">
+                    Background="Black">
 
                 <StackPanel x:Name="st_pnl">
 
@@ -418,6 +416,12 @@
                         </ListView.ItemContainerStyle>
 
                     </ListView>
+                    <Button x:Name="buttonOpenTask"
+                            Command="{Binding openTaskViewCommand}"
+                            CommandParameter="{Binding ElementName=FrameWithinGrid}"
+                            Background="Silver">
+
+                    </Button>
 
                     <Button x:Name="buttonTesting"
                             Command="{Binding openNoteViewCommand}"
@@ -433,8 +437,9 @@
         </Grid>
         
         <Frame Name="FrameWithinGrid"
-               Background="Purple"
+               Background="#FAFAD2"
                Source="{Binding FrameSource}"
+               NavigationUIVisibility="Hidden"
                >
         </Frame>
 
