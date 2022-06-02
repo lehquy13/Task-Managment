@@ -37,9 +37,9 @@ namespace Task_Managment.Models
         //}
 
         public string MemberId { get; set; }
-        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
 
-        public static readonly string DefaultIcon = "menu.png";
+        public static readonly string DefaultIcon = "defaultTask.png";
 
         //!Properties
    

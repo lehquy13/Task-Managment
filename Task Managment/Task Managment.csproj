@@ -170,6 +170,7 @@
     <Compile Include="Commands\TaskCommands\NewSubtaskCommand.cs" />
     <Compile Include="Commands\TaskCommands\NewTaskCommand.cs" />
     <Compile Include="Commands\TaskCommands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\TaskCommands\PickTaskIconCommand.cs" />
     <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\TaskCommands\StartRenameCommand.cs" />
@@ -206,6 +207,9 @@
     <Compile Include="Views\eventwindow.xaml.cs">
       <DependentUpon>eventwindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PickingTaskIcon.xaml.cs">
+      <DependentUpon>PickingTaskIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\pNoteHomeView.xaml.cs" />
     <Compile Include="Views\wndLogin.xaml.cs">
       <DependentUpon>wndLogin.xaml</DependentUpon>
@@ -239,6 +243,10 @@
     <Page Include="Views\eventwindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PickingTaskIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\pNoteHomeView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -347,12 +355,7 @@
     <Resource Include="imagesForWpf\Background\img2_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagesForWpf\circle.png" />
-    <Resource Include="imagesForWpf\TaskResource\day.png" />
-    <Resource Include="imagesForWpf\Done.png" />
-    <Resource Include="imagesForWpf\TaskResource\greenery.png" />
     <Resource Include="imagesForWpf\Background\img3_background.png" />
-    <Resource Include="imagesForWpf\TaskResource\important.png" />
     <Resource Include="imagesForWpf\TaskResource\star.png" />
     <Resource Include="imagesForWpf\TaskResource\lowerstar.png" />
     <Resource Include="imagesForWpf\TaskResource\next.png" />
@@ -363,6 +366,41 @@
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Resource Include="imagesForWpf\Background\img4_background.jpg" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\baseball.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\basketball.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\call.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\car.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\christmas.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\church.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\clothes.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\computer.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\confetti.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\earth.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\food.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\fuel.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\game.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\gift.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\hospital.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\like.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\love.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\mom.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\muscle.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\music.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\party.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\plan.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\school.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\shopping.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\soccer.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\sunday.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\sunflower.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\support.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\defaultTask.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\day.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\important.png" />
+    <Resource Include="imagesForWpf\TaskResource\circle.png" />
+    <Resource Include="imagesForWpf\TaskResource\close.png" />
+    <Resource Include="imagesForWpf\TaskResource\done.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\greenery.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

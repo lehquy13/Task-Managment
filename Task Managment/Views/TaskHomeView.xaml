@@ -176,7 +176,7 @@
                                 Margin="0 0 10 0">
                             <Image Width="20"
                                    Height="20"
-                                   Source="/imagesForWpf/arrow_down_icon.png" />
+                                   Source="\imagesForWpf\TaskResource\close.png" />
                             <!--<materialDesign:PackIcon Kind="Close" />-->
                         </Button>
 
@@ -299,8 +299,7 @@
 
                     </StackPanel>
 
-                    <DockPanel 
-                               LastChildFill="True">
+                    <DockPanel LastChildFill="True">
 
                         <!--Task Title -->
                         <StackPanel Orientation="Horizontal"
@@ -309,14 +308,14 @@
                             <Image Source="{Binding SelectedTasklist.IconSource}"
                                    Width="25"
                                    Height="25"
-                                   Margin="0,3,14,0" />
+                                   Margin="0,3,14,0">
+                            
+                            </Image>
                             <Grid Width="Auto">
                                 <Border Background="Transparent"
                                         BorderThickness="2"
                                         CornerRadius="10">
-
                                 </Border>
-
 
                                 <TextBlock Text="{Binding SelectedTasklist.Name}"
                                            Foreground="#EEEEEE"
@@ -380,12 +379,12 @@
                                                             <Setter Property="Cursor"
                                                                     Value="Hand" />
                                                             <Setter Property="Image.Source"
-                                                                    Value="\imagesForWpf\circle.png" />
+                                                                    Value="imagesForWpf\TaskResource\circle.png" />
                                                             <Style.Triggers>
                                                                 <Trigger Property="IsMouseOver"
                                                                          Value="True">
                                                                     <Setter Property="Image.Source"
-                                                                            Value="\imagesForWpf\Done.png">
+                                                                            Value="imagesForWpf\TaskResource\done.png">
                                                                     </Setter>
                                                                     <Setter Property="FocusManager.FocusedElement"
                                                                             Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}}"></Setter>
@@ -461,7 +460,7 @@
 
                         </ListView>
 
-                     
+
 
                     </DockPanel>
 

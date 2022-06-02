@@ -15,7 +15,7 @@ namespace Task_Managment.ViewModels
         public Members _currentUser { get; set; }
         private DataAcessForTask db = DataAcessForTask.Instance;
         //!Fields
-        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\").Replace("\\bin\\Debug\\", "\\");
+        public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
 
         //!Properties
         public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; }
@@ -186,13 +186,6 @@ namespace Task_Managment.ViewModels
             //get all the tasks of tripledefaultTasklists
 
             this.TasklistsList = new ObservableCollection<Tasklist>();
-         
-
-
-            //this.TasklistsList =  new ObservableCollection<Tasklist>();
-            //this.TasklistsList.Add(this.DefaultMyDayList);
-            //this.TasklistsList.Add(this.DefaultImportantList);
-            //this.TasklistsList.Add(this.DefaultTasksList);
 
             List<Tasklist> tempList = db.GetAllTasklistOfMember(currentUser);
             if (tempList.Count > 0)
