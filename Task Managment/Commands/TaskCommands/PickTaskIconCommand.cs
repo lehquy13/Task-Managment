@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,16 +51,24 @@ namespace Task_Managment.Commands.TaskCommands
                 {
                     Image image = (Image)parameter;
                     this.TasksViewModel.SelectedTasklist.IconSource = new Uri(image.Source.ToString());
-                    this.TasksViewModel.PropertyUpdated("SelectedTasklist");
-                    db.UpdateSelectedTasklist(this.TasksViewModel.SelectedTasklist);
+                    Tasklist temp = this.TasksViewModel.SelectedTasklist;
+                    ObservableCollection<Tasklist> TasklistsListTemp = new ObservableCollection<Tasklist>(this.TasksViewModel.TasklistsList);
+               
 
-                    this.TasksViewModel.InitUserTasklist();
+
+                    db.UpdateSelectedTasklist(this.TasksViewModel.SelectedTasklist);
+                    this.TasksViewModel.TasklistsList.Clear();
+
+                    this.TasksViewModel.TasklistsList = TasklistsListTemp;
+                    this.TasksViewModel.PropertyUpdated("TasklistsList");
+                    this.TasksViewModel.SelectedTasklist = temp;
+                    this.TasksViewModel.PropertyUpdated("SelectedTaskList");
 
                 }
+
             }
             this.TasksViewModel.IconPaneVisible = !this.TasksViewModel.IconPaneVisible;
             this.TasksViewModel.PropertyUpdated("IconPaneVisible");
-
 
         }
     }

@@ -54,7 +54,7 @@
 
                     <!--TaskList list-->
                     <ListView Margin="25,5,10,5"
-                              ItemsSource="{Binding TasklistsList}"
+                              ItemsSource="{Binding TasklistsList,UpdateSourceTrigger=PropertyChanged}"
                               Style="{Binding Source={StaticResource myListviewStyle}}"
                               SelectedItem="{Binding SelectedTasklist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
@@ -76,7 +76,7 @@
                                                Width="18"
                                                Height="18"
                                                Margin="10,0,0,0"
-                                               Source="{Binding Path=IconSource}" />
+                                               Source="{Binding Path=IconSource }" />
                                     </Grid>
 
                                     <Grid Grid.Column="1"

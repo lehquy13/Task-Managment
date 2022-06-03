@@ -33,7 +33,7 @@ namespace Task_Managment.ViewModels
         public Tasklist DefaultTasksList { get; set; }
 
         public ObservableCollection<TaskIcon> IconTaskList { get; set; }
-     
+
 
 
         private Tasklist _selectedTasklist;
@@ -209,13 +209,14 @@ namespace Task_Managment.ViewModels
             this.Subtasks = new ObservableCollection<Subtask>();
             InitCommand();
             InitIcon();
-            PropertyUpdated("TasklistList");
+           
 
         }
 
         public void InitUserTasklist()
         {
-
+            if(this.TasklistsList != null)
+                this.TasklistsList.Clear();
             this.TasklistsList = new ObservableCollection<Tasklist>();
 
             List<Tasklist> tempList = db.GetAllTasklistOfMember(_currentUser);
@@ -269,79 +270,11 @@ namespace Task_Managment.ViewModels
         private void InitIcon()
         {
             IconTaskList = new ObservableCollection<TaskIcon>();
-                IconTaskList.Clear();
+            IconTaskList.Clear();
 
-            #region nothing
-            //    string[] iconPath ={
+          
 
-            //       Path.GetFullPath("\\imagesForWpf\\TaskResource\\iconForTasks\\baseball.png"),
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\basketball.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\call.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\car.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\christmas.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\church.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\clothes.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\computer.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\confetti.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\day.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\defaultTask.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\earth.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\food.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\fuel.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\game.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\gift.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\greenery.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\hospital.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\important.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\like.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\love.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\mom.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\muscle.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\music.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\party.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\plan.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\school.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\shopping.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\soccer.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\sunday.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\sunflower.png",
-
-            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\support.png"
-
-            //};
-            #endregion
-
-            string[] iconPath ={
+            string[] icon ={
 
                "baseball.png",
 
@@ -408,7 +341,8 @@ namespace Task_Managment.ViewModels
                 "support.png"
 
         };
-            foreach (string temp in iconPath)
+
+            foreach (string temp in icon)
             {
                 IconTaskList.Add(new TaskIcon(temp));
             }
