@@ -192,7 +192,6 @@
 
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="25" />

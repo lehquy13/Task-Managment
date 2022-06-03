@@ -52,6 +52,9 @@ namespace Task_Managment.Commands.TaskCommands
                     this.TasksViewModel.SelectedTasklist.IconSource = new Uri(image.Source.ToString());
                     this.TasksViewModel.PropertyUpdated("SelectedTasklist");
                     db.UpdateSelectedTasklist(this.TasksViewModel.SelectedTasklist);
+
+                    this.TasksViewModel.InitUserTasklist();
+
                 }
             }
             this.TasksViewModel.IconPaneVisible = !this.TasksViewModel.IconPaneVisible;

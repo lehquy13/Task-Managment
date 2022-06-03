@@ -42,9 +42,9 @@ namespace Task_Managment.Models
 
         public ImageSource i { get; set; }
 
-        public TaskIcon(string path)
+        public TaskIcon(string name)
         {
-            Name = Path.GetFileName(path);
+            Name = name;
             FullPath = ImagesPath+Name;
             i = new BitmapImage(new Uri((FullPath)));
         }

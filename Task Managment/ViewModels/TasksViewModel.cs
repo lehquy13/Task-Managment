@@ -202,9 +202,23 @@ namespace Task_Managment.ViewModels
 
             //get all the tasks of tripledefaultTasklists
 
+            InitUserTasklist();
+            this.TasksList = new ObservableCollection<Task>();
+            this.SelectedTasklist = this.DefaultImportantList;
+
+            this.Subtasks = new ObservableCollection<Subtask>();
+            InitCommand();
+            InitIcon();
+            PropertyUpdated("TasklistList");
+
+        }
+
+        public void InitUserTasklist()
+        {
+
             this.TasklistsList = new ObservableCollection<Tasklist>();
 
-            List<Tasklist> tempList = db.GetAllTasklistOfMember(currentUser);
+            List<Tasklist> tempList = db.GetAllTasklistOfMember(_currentUser);
             if (tempList.Count > 0)
             {
                 this.TasklistsList = new ObservableCollection<Tasklist>();
@@ -250,14 +264,6 @@ namespace Task_Managment.ViewModels
             };
 
             }
-            this.TasksList = new ObservableCollection<Task>();
-            this.SelectedTasklist = this.DefaultImportantList;
-
-            this.Subtasks = new ObservableCollection<Subtask>();
-            InitCommand();
-            InitIcon();
-            PropertyUpdated("TasklistList");
-
         }
 
         private void InitIcon()
@@ -265,75 +271,144 @@ namespace Task_Managment.ViewModels
             IconTaskList = new ObservableCollection<TaskIcon>();
                 IconTaskList.Clear();
 
-            string[] iconPath = {
+            #region nothing
+            //    string[] iconPath ={
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\baseball.png",
+            //       Path.GetFullPath("\\imagesForWpf\\TaskResource\\iconForTasks\\baseball.png"),
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\basketball.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\basketball.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\call.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\call.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\car.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\car.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\christmas.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\christmas.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\church.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\church.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\clothes.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\clothes.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\computer.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\computer.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\confetti.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\confetti.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\day.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\day.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\defaultTask.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\defaultTask.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\earth.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\earth.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\food.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\food.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\fuel.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\fuel.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\game.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\game.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\gift.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\gift.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\greenery.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\greenery.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\hospital.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\hospital.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\important.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\important.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\like.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\like.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\love.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\love.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\mom.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\mom.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\muscle.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\muscle.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\music.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\music.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\party.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\party.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\plan.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\plan.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\school.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\school.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\shopping.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\shopping.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\soccer.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\soccer.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\sunday.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\sunday.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\sunflower.png",
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\sunflower.png",
 
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\support.png"
+            //        "\\imagesForWpf\\TaskResource\\iconForTasks\\support.png"
+
+            //};
+            #endregion
+
+            string[] iconPath ={
+
+               "baseball.png",
+
+                "basketball.png",
+
+                "call.png",
+
+                "car.png",
+
+                "christmas.png",
+
+                "church.png",
+
+                "clothes.png",
+
+                "computer.png",
+
+                "confetti.png",
+
+                "day.png",
+
+                "defaultTask.png",
+
+                "earth.png",
+
+                "food.png",
+
+                "fuel.png",
+
+                "game.png",
+
+                "gift.png",
+
+                "greenery.png",
+
+                "hospital.png",
+
+                "important.png",
+
+                "like.png",
+
+                "love.png",
+
+                "mom.png",
+
+                "muscle.png",
+
+                "music.png",
+
+                "party.png",
+
+                "plan.png",
+
+                "school.png",
+
+                "shopping.png",
+
+                "soccer.png",
+
+                "sunday.png",
+
+                "sunflower.png",
+
+                "support.png"
 
         };
-
-            foreach(string temp in iconPath)
+            foreach (string temp in iconPath)
             {
                 IconTaskList.Add(new TaskIcon(temp));
             }
