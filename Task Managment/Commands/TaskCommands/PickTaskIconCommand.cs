@@ -20,16 +20,16 @@ namespace Task_Managment.Commands.TaskCommands
         private DataAcessForTask db = DataAcessForTask.Instance; // 1.
 
         //!Properties
-        TasksViewModel TasksViewModels { get; set; }
+        TasksViewModel TasksViewModel { get; set; }
 
         //!Events
         public event EventHandler CanExecuteChanged;
-       
+
 
         //!Ctor
         public PickTaskIconCommand(TasksViewModel tasksViewModel)
         {
-            this.TasksViewModels = tasksViewModel;
+            this.TasksViewModel = tasksViewModel;
         }
 
         //!Methods
@@ -40,8 +40,24 @@ namespace Task_Managment.Commands.TaskCommands
 
         public void Execute(object parameter)
         {
-            PickingTaskIcon pickTaskIconWindow = new PickingTaskIcon();
-            pickTaskIconWindow.Show();
+            if (parameter is Tasklist)
+            {
+                this.TasksViewModel.PropertyUpdated("IconTaskList");
+            }
+            else
+            {
+                if (parameter is Image)
+                {
+                    Image image = (Image)parameter;
+                    this.TasksViewModel.SelectedTasklist.IconSource = new Uri(image.Source.ToString());
+                    this.TasksViewModel.PropertyUpdated("SelectedTasklist");
+                    db.UpdateSelectedTasklist(this.TasksViewModel.SelectedTasklist);
+                }
+            }
+            this.TasksViewModel.IconPaneVisible = !this.TasksViewModel.IconPaneVisible;
+            this.TasksViewModel.PropertyUpdated("IconPaneVisible");
+
+
         }
     }
 

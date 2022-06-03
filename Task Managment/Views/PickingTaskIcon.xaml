@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Task_Managment.Views"
         mc:Ignorable="d"
         Title="PickingTaskIcon" Height="250" Width="250">
-    <WrapPanel>
+    <!--<WrapPanel>
         <Image Source="\imagesForWpf\TaskResource\iconForTasks\baseball.png" Width="30" Margin="5" />
         <Image Source="\imagesForWpf\TaskResource\iconForTasks\basketball.png"
                Width="30"
@@ -104,5 +104,9 @@
         
         
 
-    </WrapPanel>
+    </WrapPanel>-->
+
+    <ListBox>
+        
+    </ListBox>
 </Window>

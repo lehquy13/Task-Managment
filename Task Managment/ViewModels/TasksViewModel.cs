@@ -7,6 +7,8 @@ using System.IO;
 using Task_Managment.Models;
 using Task_Managment.ViewModel.Commands;
 using Task_Managment.Commands;
+using Task_Managment.Commands.TaskCommands;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Task_Managment.ViewModels
 {
@@ -18,7 +20,6 @@ namespace Task_Managment.ViewModels
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
 
         //!Properties
-        public ObservableCollection<Tasklist> TripleDefaultTaskList { get; set; }
 
         public ObservableCollection<Tasklist> TasklistsList { get; set; }
 
@@ -30,6 +31,10 @@ namespace Task_Managment.ViewModels
 
         public Tasklist DefaultImportantList { get; set; }
         public Tasklist DefaultTasksList { get; set; }
+
+        public ObservableCollection<TaskIcon> IconTaskList { get; set; }
+     
+
 
         private Tasklist _selectedTasklist;
         public Tasklist SelectedTasklist
@@ -136,6 +141,17 @@ namespace Task_Managment.ViewModels
             }
         }
 
+        private bool _iconPaneVisible;
+        public bool IconPaneVisible
+        {
+            get { return _iconPaneVisible; }
+            set
+            {
+                _iconPaneVisible = value;
+                PropertyUpdated("IconPaneVisible");
+            }
+        }
+
         public NewTasklistCommand NewTasklistCommand { get; set; }
         public NewTaskCommand NewTaskCommand { get; set; }
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
@@ -151,6 +167,7 @@ namespace Task_Managment.ViewModels
 
         public SelectTaskCommand SelectTaskCommand { get; set; }
 
+        public PickTaskIconCommand PickTaskIconCommand { get; set; }
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -195,7 +212,7 @@ namespace Task_Managment.ViewModels
                 {
                     switch (temp.Name)
                     {
-                    
+
                         default:
                             this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
                             break;
@@ -237,12 +254,92 @@ namespace Task_Managment.ViewModels
             this.SelectedTasklist = this.DefaultImportantList;
 
             this.Subtasks = new ObservableCollection<Subtask>();
-            initCommand();
+            InitCommand();
+            InitIcon();
             PropertyUpdated("TasklistList");
 
         }
 
-        private void initCommand()
+        private void InitIcon()
+        {
+            IconTaskList = new ObservableCollection<TaskIcon>();
+                IconTaskList.Clear();
+
+            string[] iconPath = {
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\baseball.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\basketball.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\call.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\car.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\christmas.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\church.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\clothes.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\computer.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\confetti.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\day.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\defaultTask.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\earth.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\food.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\fuel.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\game.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\gift.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\greenery.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\hospital.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\important.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\like.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\love.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\mom.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\muscle.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\music.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\party.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\plan.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\school.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\shopping.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\soccer.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\sunday.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\sunflower.png",
+
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\support.png"
+
+        };
+
+            foreach(string temp in iconPath)
+            {
+                IconTaskList.Add(new TaskIcon(temp));
+            }
+        }
+
+        private void InitCommand()
         {
             this.NewTasklistCommand = new NewTasklistCommand(this);
             this.NewTaskCommand = new NewTaskCommand(this);
@@ -258,6 +355,8 @@ namespace Task_Managment.ViewModels
             this.CloseSubtaskPanelCommand = new CloseSubtaskPanelCommand(this);
 
             this.SelectTaskCommand = new SelectTaskCommand(this);
+
+            this.PickTaskIconCommand = new PickTaskIconCommand(this);
         }
     }
 }
