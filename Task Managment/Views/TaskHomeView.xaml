@@ -39,7 +39,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Width="230"
                             HorizontalAlignment="Center"
-                            Background="#FFFFFF"
+                            Background="#F1F1F1"
                             Grid.RowSpan="2">
 
                     <TextBlock Text="Tasks To Do"
@@ -158,10 +158,11 @@
 
                     <!--Subtask's details Panel!!! -->
                     <Border DockPanel.Dock="Right"
-                            Margin="0 0 0 0"
+                            Margin="0 -2 0 -2"
                             BorderThickness="2"
                             BorderBrush="White"
                             Width="270"
+                            
                             Background="#34FFFFFF"
                             Visibility="{Binding SubtasksPaneVisible, Converter={StaticResource BooltoVisSubtasks}, 
                                                       Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -184,7 +185,7 @@
                             <!--<uc:TitlebarMenuButtons />-->
 
                             <!--list of subtaks!!-->
-                            <ListView Margin="15,3,10,5"
+                            <ListView Margin="15,0,10,0"
                                       ItemsSource="{Binding Subtasks}"
                                       HorizontalContentAlignment="Stretch"
                                       Style="{Binding Source={StaticResource myListviewStyle}}"
@@ -401,17 +402,23 @@
 
                                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
                                                          StaysOpen="False"
-                                                         DockPanel.Dock="Right">
+                                                         DockPanel.Dock="Right"
+                                                         Margin="0 0 10 0">
                                     <materialDesign:PopupBox.ToggleContent>
                                         <materialDesign:PackIcon Kind="DotsHorizontalCircleOutline"
                                                                  Width="30"
                                                                  Height="30" />
                                     </materialDesign:PopupBox.ToggleContent>
-                                    <Border    Height="200"
-                                               Width="150"
-                                               Background="CornflowerBlue"
-                                               CornerRadius="7">
-
+                                    <DockPanel    Height="200"
+                                               Width="200"
+                                               Background="White"
+                                               LastChildFill="True"
+                                               Margin="5 0 5 0">
+                                        <TextBlock Text="Theme"
+                                                   DockPanel.Dock="Top"
+                                                   FontSize="18"
+                                                   Foreground="Black"
+                                                   />
                                         <ListView ItemsSource="{Binding BackgroundList}"
                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -424,9 +431,11 @@
 
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Image Width="30"
-                                                           Height="30"
-                                                           Source="{Binding i, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <Image Width="40"
+                                                           Height="40"
+                                                           Source="{Binding i, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           Stretch="Fill"
+                                                           >
                                                         <b:Interaction.Triggers>
                                                             <b:EventTrigger EventName="MouseUp">
                                                                 <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM},Path=PickTaskThemeCommand}"
@@ -441,7 +450,7 @@
 
 
 
-                                    </Border>
+                                    </DockPanel>
                                 </materialDesign:PopupBox>
                             </DockPanel>
 
@@ -467,7 +476,7 @@
                                 <ListView.ItemTemplate>
 
                                     <DataTemplate>
-                                        <Border Background="#CEEAE8E4"
+                                        <Border Background="#CEEBEFEF"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 HorizontalAlignment="Stretch">
@@ -552,7 +561,7 @@
                                                 <!--right mouse click on the item-->
                                                 <Grid.ContextMenu>
                                                     <ContextMenu DataContext="{StaticResource TasksViewModelVM}"
-                                                                 Background="#CEF0F8FF"
+                                                                 Background="#FFFFFF"
                                                                  Foreground="Black">
                                                         <MenuItem Header="Add to My Day" />
                                                         <Separator />

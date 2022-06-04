@@ -23,7 +23,7 @@
         <Setter Property="Opacity"
                 Value="1" />
         <Setter Property="Background"
-                Value="#EDBDB76B" />
+                Value="#FFFFFF" />
         <Setter Property="Foreground"
                 Value="Black" />
        
@@ -86,7 +86,7 @@
         <Setter Property="Opacity"
                 Value="1" />
         <Setter Property="Background"
-                Value="#EBBDB76B" />
+                Value="#FFFFFF" />
         <Setter Property="Foreground"
                 Value="Black" />
         <Setter Property="BorderThickness"
@@ -367,13 +367,13 @@
                                  Value="True">
                             <Setter TargetName="textBoxTemplateBorder"
                                     Property="Background"
-                                    Value="#CEC0C0C0" />
+                                    Value="#E8E8E8" />
                         </Trigger>
                         <Trigger Property="IsFocused"
                                  Value="True">
                             <Setter TargetName="textBoxTemplateBorder"
                                     Property="Background"
-                                    Value="#CEC0C0C0" />
+                                    Value="#E8E8E8" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
