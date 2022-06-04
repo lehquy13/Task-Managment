@@ -13,7 +13,7 @@ namespace Task_Managment.Commands
     public class CloseSubtaskPanelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
 
         TasksViewModel TasksViewModel { get; set; }
 

@@ -11,7 +11,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewTaskCommand : ICommand
     {
         //!Properties
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
         public TasksViewModel TasksViewModel { get; set; }
 
         //!Events
@@ -59,7 +59,7 @@ namespace Task_Managment.ViewModel.Commands
             
             //add this directly to the observable collection
             //add it to the list of tasks against the task list as well
-            this.TasksViewModel.TasksList.Add(newTask);
+            this.TasksViewModel.TasksLists.Add(newTask);
             this.TasksViewModel.SelectedTasklist.Tasks.Add(newTask);
 
             ////set the selected task to the newly created task

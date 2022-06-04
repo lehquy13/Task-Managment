@@ -10,7 +10,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewSubtaskCommand : ICommand
     {
         //!Fields
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 

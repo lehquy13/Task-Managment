@@ -11,7 +11,7 @@ namespace Task_Managment.ViewModel.Commands
 {
     public class MarkImportantCommand : ICommand
     {
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
 
 
         //!Properties

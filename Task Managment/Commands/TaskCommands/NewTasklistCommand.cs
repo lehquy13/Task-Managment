@@ -11,7 +11,7 @@ namespace Task_Managment.ViewModel.Commands
     public class NewTasklistCommand : ICommand
     {
         //!Fields
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
         private const int MaxNumberofTaskLists = 15;
 
         //!Properties

@@ -18,7 +18,7 @@ namespace Task_Managment.Commands.TaskCommands
 
 
         //!Fields
-        private DataAcessForTask db = DataAcessForTask.Instance; // 1.
+        private TaskDataAccess db = TaskDataAccess.Instance; // 1.
 
         //!Properties
         TasksViewModel TasksViewModel { get; set; }

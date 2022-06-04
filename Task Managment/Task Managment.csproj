@@ -171,6 +171,7 @@
     <Compile Include="Commands\TaskCommands\NewTaskCommand.cs" />
     <Compile Include="Commands\TaskCommands\NewTasklistCommand.cs" />
     <Compile Include="Commands\TaskCommands\PickTaskIconCommand.cs" />
+    <Compile Include="Commands\TaskCommands\PickTaskThemeCommand.cs" />
     <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\TaskCommands\StartRenameCommand.cs" />
@@ -179,7 +180,8 @@
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="DataAccess\Dataaccesslocal.cs" />
-    <Compile Include="DataAccess\DataAcessForTask.cs" />
+    <Compile Include="DataAccess\TaskDataAccess.cs" />
+    <Compile Include="DataAccess\UserSettingDataAccess.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />
     <Compile Include="Models\Note.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskIcon.cs" />
     <Compile Include="Models\Tasklist.cs" />
+    <Compile Include="Models\UserSetting.cs" />
     <Compile Include="UserControls\UserControlDays.xaml.cs">
       <DependentUpon>UserControlDays.xaml</DependentUpon>
     </Compile>
@@ -347,16 +350,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagesForWpf\closeBtn_MouseOver.png" />
-    <Resource Include="imagesForWpf\Background\img_background.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\img_background.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ControlStyle\" />
+    <Folder Include="imagesForWpf\Background\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagesForWpf\Background\img2_background.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\img2_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imagesForWpf\Background\img3_background.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\img3_background.png" />
     <Resource Include="imagesForWpf\TaskResource\star.png" />
     <Resource Include="imagesForWpf\TaskResource\lowerstar.png" />
     <Resource Include="imagesForWpf\TaskResource\next.png" />
@@ -366,7 +370,6 @@
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
-    <Resource Include="imagesForWpf\Background\img4_background.jpg" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\baseball.png" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\basketball.png" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\call.png" />
@@ -402,6 +405,7 @@
     <Resource Include="imagesForWpf\TaskResource\close.png" />
     <Resource Include="imagesForWpf\TaskResource\done.png" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\greenery.png" />
+    <Resource Include="imagesForWpf\TaskResource\iconForTasks\img4_background.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

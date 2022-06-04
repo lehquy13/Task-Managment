@@ -5,108 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Managment.Views"
         mc:Ignorable="d"
-        Title="PickingTaskIcon" Height="250" Width="250">
-    <!--<WrapPanel>
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\baseball.png" Width="30" Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\basketball.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\call.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\car.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\christmas.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\church.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\clothes.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\computer.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\confetti.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\day.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\defaultTask.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\earth.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\food.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\fuel.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\game.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\gift.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\greenery.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\hospital.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\important.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\like.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\love.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\mom.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\muscle.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\music.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\party.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\plan.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\school.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\shopping.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\soccer.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\sunday.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\sunflower.png"
-               Width="30"
-               Margin="5" />
-        <Image Source="\imagesForWpf\TaskResource\iconForTasks\support.png"
-               Width="30"
-               Margin="5" />
-        
-        
+        Title="PickingTaskIcon" Height="300" Width="300">
+    <Border    Height="200"
+               Width="150"
+               
+               Background="Purple"
+               CornerRadius="7"
+               
+               >
 
-    </WrapPanel>-->
+        <ListView ItemsSource="{Binding BackgroundList}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  ItemContainerStyle="{StaticResource FileItemStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
 
-    <ListBox>
-        
-    </ListBox>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Image Width="30"
+                           Height="30"
+                           Source="{Binding i, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                       
+                    </Image>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<b:Interaction.Triggers>
+            <b:EventTrigger EventName="MouseUp">
+                <b:InvokeCommandAction Command="{Binding Source={StaticResource TasksViewModelVM},
+                                        Path=PickTaskIconCommand}"
+                                       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Image}}}" />
+            </b:EventTrigger>
+        </b:Interaction.Triggers>-->
+
+
+    </Border>
+
+
 </Window>

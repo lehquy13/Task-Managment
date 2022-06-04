@@ -9,21 +9,23 @@ using Task_Managment.ViewModel.Commands;
 using Task_Managment.Commands;
 using Task_Managment.Commands.TaskCommands;
 using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Task_Managment.ViewModels
 {
     public class TasksViewModel : INotifyPropertyChanged
     {
         public Members _currentUser { get; set; }
-        private DataAcessForTask db = DataAcessForTask.Instance;
+        private TaskDataAccess db = TaskDataAccess.Instance;
         //!Fields
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
 
         //!Properties
-
+        #region TasklistList 
         public ObservableCollection<Tasklist> TasklistsList { get; set; }
 
-        public ObservableCollection<Task> TasksList { get; set; }
+        public ObservableCollection<Task> TasksLists { get; set; }
 
         public ObservableCollection<Subtask> Subtasks { get; set; }
 
@@ -31,11 +33,15 @@ namespace Task_Managment.ViewModels
 
         public Tasklist DefaultImportantList { get; set; }
         public Tasklist DefaultTasksList { get; set; }
+        #endregion
 
+        #region ImageList & UserSetting
         public ObservableCollection<TaskIcon> IconTaskList { get; set; }
+        public ObservableCollection<TaskIcon> BackgroundList { get; set; }
 
+        public ImageSource background { get; set; }
 
-
+        #endregion
         private Tasklist _selectedTasklist;
         public Tasklist SelectedTasklist
         {
@@ -44,7 +50,7 @@ namespace Task_Managment.ViewModels
             {
                 _selectedTasklist = value;
 
-                this.TasksList.Clear();
+                this.TasksLists.Clear();
                 if (SelectedTasklist != null)
                 {
                     if (SelectedTasklist.Tasks != null)
@@ -56,7 +62,7 @@ namespace Task_Managment.ViewModels
 
                             foreach (Task task in this.SelectedTasklist.Tasks)
                             {
-                                this.TasksList.Add(task);
+                                this.TasksLists.Add(task);
                             }
                         }
                     }
@@ -152,6 +158,17 @@ namespace Task_Managment.ViewModels
             }
         }
 
+        private bool _morePaneVisible;
+        public bool MorePaneVisible
+        {
+            get { return _morePaneVisible; }
+            set
+            {
+                _morePaneVisible = value;
+                PropertyUpdated("MorePaneVisible");
+            }
+        }
+
         public NewTasklistCommand NewTasklistCommand { get; set; }
         public NewTaskCommand NewTaskCommand { get; set; }
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
@@ -168,6 +185,8 @@ namespace Task_Managment.ViewModels
         public SelectTaskCommand SelectTaskCommand { get; set; }
 
         public PickTaskIconCommand PickTaskIconCommand { get; set; }
+
+        public PickTaskThemeCommand PickTaskThemeCommand { get; set; }
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -203,19 +222,19 @@ namespace Task_Managment.ViewModels
             //get all the tasks of tripledefaultTasklists
 
             InitUserTasklist();
-            this.TasksList = new ObservableCollection<Task>();
+            this.TasksLists = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
 
             this.Subtasks = new ObservableCollection<Subtask>();
             InitCommand();
-            InitIcon();
-           
+            InitIconAndBackground();
+
 
         }
 
         public void InitUserTasklist()
         {
-            if(this.TasklistsList != null)
+            if (this.TasklistsList != null)
                 this.TasklistsList.Clear();
             this.TasklistsList = new ObservableCollection<Tasklist>();
 
@@ -267,12 +286,13 @@ namespace Task_Managment.ViewModels
             }
         }
 
-        private void InitIcon()
+        private void InitIconAndBackground()
         {
             IconTaskList = new ObservableCollection<TaskIcon>();
             IconTaskList.Clear();
 
-          
+            BackgroundList = new ObservableCollection<TaskIcon>();
+            BackgroundList.Clear();
 
             string[] icon ={
 
@@ -346,6 +366,23 @@ namespace Task_Managment.ViewModels
             {
                 IconTaskList.Add(new TaskIcon(temp));
             }
+
+            string[] backgroundOptions =
+            {
+                "img_background.png",
+                "img2_background.png",
+                "img3_background.png",
+                "img4_background.png"
+            };
+
+            foreach (string temp in backgroundOptions)
+            {
+                BackgroundList.Add(new TaskIcon(temp));
+            }
+
+            background = new BitmapImage(new Uri((ImagesPath + _currentUser.Setting.taskBackground)));
+
+
         }
 
         private void InitCommand()
@@ -366,6 +403,8 @@ namespace Task_Managment.ViewModels
             this.SelectTaskCommand = new SelectTaskCommand(this);
 
             this.PickTaskIconCommand = new PickTaskIconCommand(this);
+
+            PickTaskThemeCommand = new PickTaskThemeCommand(this);  
         }
     }
 }

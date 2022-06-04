@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Task_Managment.DataAccess;
 
 namespace Task_Managment.Models
 {
@@ -17,11 +18,18 @@ namespace Task_Managment.Models
         public string UserName { get; set; }
         public string Password { get; set; }
 
+
+         UserSettingDataAccess db = UserSettingDataAccess.Instance;
+        public UserSetting Setting { get; set; }
+
         public Members(string email, string username, string password)
         {
             Email = email;
             UserName = username;
             Password = password;
+            Setting = db.GetUserSetting(email);
+            //Setting = new UserSetting(email);
+            // db.CreateNewUserSetting(Setting);
         }
 
         public Members(Members refObj)
@@ -29,6 +37,7 @@ namespace Task_Managment.Models
             Email = refObj.Email;
             UserName = refObj.UserName;
             Password = refObj.Password;
+            Setting = db.GetUserSetting(Email);
         }
     }
 }
