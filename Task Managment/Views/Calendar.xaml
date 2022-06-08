@@ -14,7 +14,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignLightBackground}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Calendar" Height="450" Width="868" 
+        Title="Calendar" Height="600" Width="1200" 
         x:Name="Cldar"
         DataContext="{StaticResource CalendarVM}">
     <Window.Resources >

@@ -294,9 +294,9 @@ namespace Task_Managment.ViewModels
             BackgroundList = new ObservableCollection<TaskIcon>();
             BackgroundList.Clear();
 
-            string[] icon ={
+            string[] icon = {
 
-               "baseball.png",
+                "baseball.png",
 
                 "basketball.png",
 
@@ -369,10 +369,10 @@ namespace Task_Managment.ViewModels
 
             string[] backgroundOptions =
             {
-                "img_background.png",
-                "img2_background.png",
-                "img3_background.png",
-                "img4_background.png"
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img2_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img3_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img4_background.png"
             };
 
             foreach (string temp in backgroundOptions)

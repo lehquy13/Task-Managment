@@ -16,7 +16,7 @@
     <Grid>
         <Border>
             <Border.Background>
-                <ImageBrush ImageSource="D:\c#\Task-Managment\Task Managment\imagesForWpf\eventwindow.jpg"/>
+                <ImageBrush ImageSource="\imagesForWpf\eventwindow.jpg"/>
             </Border.Background>
         </Border>
         <StackPanel>

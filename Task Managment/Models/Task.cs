@@ -29,6 +29,8 @@ namespace Task_Managment.Models
         //!Properties
         public DateTime Date { get; set; }
 
+        public DateTime Expiretime { get; set; }
+
         public string Name { get; set; }
 
         public bool Completed { get; set; }
@@ -72,6 +74,7 @@ namespace Task_Managment.Models
             this.Notes = taskTemp.Notes;
             this.Date = taskTemp.Date;
             this.Important = taskTemp.Important;
+            this.Expiretime= taskTemp.Expiretime;
         }
         //!Methods
         public void PropertyUpdated(string propertyName)
