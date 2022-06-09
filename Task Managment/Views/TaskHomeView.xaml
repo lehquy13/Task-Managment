@@ -112,7 +112,7 @@
 
                                 </Grid>
                             </DataTemplate>
-                            
+
                         </ListView.ItemTemplate>
                     </ListView>
 
@@ -236,47 +236,9 @@
                                     Margin="15,5,5,5"
                                     Foreground="#1E90FF" />
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Date, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
-                                           VerticalAlignment="Center"
-                                           FontSize="24" />
-                                <Button Margin="8 0 0 0"
-                                        Content="..."
-                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                                        materialDesign:DialogHost.DialogOpenedAttached="CombinedDialogOpenedEventHandler"
-                                        materialDesign:DialogHost.DialogClosingAttached="CombinedDialogClosingEventHandler">
-                                    <Button.CommandParameter>
-                                        <Grid Margin="-1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0"
-                                                        Orientation="Horizontal">
-                                                <Calendar x:Name="CombinedCalendar"
-                                                          Margin="-1 -4 -1 0" />
-                                                <materialDesign:Clock x:Name="CombinedClock"
-                                                                      DisplayAutomation="CycleWithSeconds"
-                                                                      Is24Hours="True" />
-                                            </StackPanel>
-                                            <StackPanel Grid.Row="1"
-                                                        Margin="8"
-                                                        HorizontalAlignment="Right"
-                                                        Orientation="Horizontal">
-                                                <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                        CommandParameter="0"
-                                                        Content="CANCEL" />
-                                                <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                        CommandParameter="1"
-                                                        Content="OK" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Button.CommandParameter>
-                                </Button>
-                            </StackPanel>
 
+
+                         
 
                             <!--Note text to get more details of subtasks-->
                             <Grid>
@@ -295,6 +257,84 @@
                                     </b:Interaction.Triggers>
                                 </TextBox>
                             </Grid>
+
+                            <DockPanel 
+                                       LastChildFill="true">
+                                <Rectangle HorizontalAlignment="Stretch"
+                                           Fill="AliceBlue"
+                                           DockPanel.Dock="Left"
+                                           Height="4"
+                                           Width="40" />
+
+                                <Rectangle HorizontalAlignment="Stretch"
+                                           Fill="AliceBlue"
+                                           DockPanel.Dock="Right"
+                                           Width="40"
+                                           Height="4" />
+                                <TextBlock Text="{Binding SelectedTime,StringFormat='dd-MM-yyyy HH:mm ',UpdateSourceTrigger=PropertyChanged}"
+                                           FontSize="18"
+                                           DockPanel.Dock="Left"
+                                           HorizontalAlignment="Center"
+                                           Margin=" 0 0 0 0" />
+
+                            </DockPanel>
+                            <materialDesign:DialogHost Name="PopupAddCustom"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       IsOpen="False">
+                                <materialDesign:DialogHost.DialogContent>
+                                    <Grid Margin="-1"
+                                          Background="#F1F1F1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0"
+                                                    Orientation="Horizontal">
+                                            <Calendar x:Name="CombinedCalendar"
+                                                      materialDesign:CalendarAssist.HeaderBackground="#F1F1F1"
+                                                      materialDesign:CalendarAssist.HeaderForeground="Black"
+                                                      materialDesign:CalendarAssist.Orientation="Horizontal"
+                                                      Margin="0"
+                                                      Background="White"
+                                                      Foreground="Black"
+                                                      SelectedDate="{Binding SelectedCalendarDate}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1"
+                                                    Margin="8"
+                                                    HorizontalAlignment="Right"
+                                                    Orientation="Horizontal"
+                                                    Background="#F1F1F1">
+                                            <materialDesign:TimePicker Width="70"
+                                                                       materialDesign:HintAssist.Hint="Pick time"
+                                                                       materialDesign:HintAssist.Foreground="Black"
+                                                                       materialDesign:HintAssist.HintOpacity="100"
+                                                                       Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                                       Background="Black"
+                                                                       Foreground="Black"
+                                                                       Is24Hours="True"
+                                                                       SelectedTime="{Binding SelectedClockTime}" />
+
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="0"
+                                                    Content="CANCEL" />
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="1"
+                                                    Content="OK" />
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:DialogHost.DialogContent>
+                            </materialDesign:DialogHost>
+                            <Button Margin="8 0 0 0"
+                                    Content="Set your time here"
+                                    IsEnabled="True"
+                                    Width="200"
+                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                    DockPanel.Dock="Left"
+                                    CommandTarget="{Binding ElementName=PopupAddCustom}">
+                            </Button>
 
                         </StackPanel>
 
@@ -384,8 +424,7 @@
                                     </Border>
                                 </materialDesign:PopupBox>
 
-                                <Grid 
-                                      DockPanel.Dock="Left">
+                                <Grid DockPanel.Dock="Left">
                                     <Border Background="Transparent"
                                             BorderThickness="2"
                                             CornerRadius="10">

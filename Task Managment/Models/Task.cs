@@ -61,6 +61,7 @@ namespace Task_Managment.Models
             //this.TaskID = Guid.NewGuid().ToString();
             this.TasklistID = tasklistId;
             this.Subtasks = new List<Subtask>();
+            this.Expiretime = DateTime.Now;
         }
 
         public Task(Task taskTemp)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.IO;
 using Task_Managment.Models;
@@ -42,6 +43,70 @@ namespace Task_Managment.ViewModels
         public ImageSource background { get; set; }
 
         #endregion
+
+        #region datetime handling
+
+        private DateTime _selectedClockTime;
+
+        public DateTime SelectedClockTime
+        {
+            get => _selectedClockTime;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedClockTime = value;
+                    _selectedTime = _selectedTime.AddHours(_selectedClockTime.Hour - _selectedTime.Hour);
+                    _selectedTime = _selectedTime.AddMinutes(_selectedClockTime.Minute - _selectedTime.Minute);
+
+
+                    PropertyUpdated("ClockTime");
+                    PropertyUpdated("Time");
+                }
+
+            }
+        }
+
+        private DateTime _selectedCalendarDate;
+
+        public DateTime SelectedCalendarDate
+        {
+            get => _selectedCalendarDate;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedCalendarDate = value;
+                    _selectedTime = _selectedTime.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(_selectedTime.Day.ToString()));
+                    _selectedTime = _selectedTime.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(_selectedTime.Month.ToString()));
+                    _selectedTime = _selectedTime.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(_selectedTime.Year.ToString()));
+                    PropertyUpdated("CalendarDate");
+                    PropertyUpdated("Time");
+                }
+
+            }
+        }
+
+        private DateTime _selectedTime;
+
+        public DateTime SelectedTime
+        {
+            get => _selectedTime;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedTime = value;
+                    _selectedTask.Expiretime = _selectedTime;
+                    db.UpdateSelectedTask(SelectedTask);
+                    PropertyUpdated("Time");
+                }
+
+            }
+        }
+
+        #endregion
+
         private Tasklist _selectedTasklist;
         public Tasklist SelectedTasklist
         {
@@ -88,7 +153,12 @@ namespace Task_Managment.ViewModels
                     _selectedTask = value;
 
                 }
-                //PropertyUpdated("SelectedTask");
+                if (_selectedTask != null)
+                    if (_selectedTask.Expiretime != null)
+                        _selectedTime = _selectedTask.Expiretime;
+                    else _selectedTime = DateTime.Now;
+                
+                PropertyUpdated("SelectedTime");
             }
         }
 
@@ -99,6 +169,7 @@ namespace Task_Managment.ViewModels
             set
             {
                 _selectedSubtask = value;
+              
                 PropertyUpdated("SelectedSubtask");
             }
         }
@@ -224,8 +295,8 @@ namespace Task_Managment.ViewModels
             InitUserTasklist();
             this.TasksLists = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
-
             this.Subtasks = new ObservableCollection<Subtask>();
+          
             InitCommand();
             InitIconAndBackground();
 
@@ -284,6 +355,7 @@ namespace Task_Managment.ViewModels
             };
 
             }
+
         }
 
         private void InitIconAndBackground()
@@ -404,7 +476,23 @@ namespace Task_Managment.ViewModels
 
             this.PickTaskIconCommand = new PickTaskIconCommand(this);
 
-            PickTaskThemeCommand = new PickTaskThemeCommand(this);  
+            PickTaskThemeCommand = new PickTaskThemeCommand(this);
         }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+
     }
 }
