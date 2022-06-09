@@ -258,6 +258,8 @@ namespace Task_Managment.ViewModels
         public PickTaskIconCommand PickTaskIconCommand { get; set; }
 
         public PickTaskThemeCommand PickTaskThemeCommand { get; set; }
+
+        public NotifyCommand NotifyCommand { get; set; }
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -476,7 +478,10 @@ namespace Task_Managment.ViewModels
 
             this.PickTaskIconCommand = new PickTaskIconCommand(this);
 
-            PickTaskThemeCommand = new PickTaskThemeCommand(this);
+            this.PickTaskThemeCommand = new PickTaskThemeCommand(this);
+
+            this.NotifyCommand = new NotifyCommand(this);
+
         }
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

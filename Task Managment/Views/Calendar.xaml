@@ -1,4 +1,4 @@
-﻿<Window x:Class="Task_Managment.Views.Calendar"   
+﻿<Page x:Class="Task_Managment.Views.Calendar"   
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +17,7 @@
         Title="Calendar" Height="600" Width="1200" 
         x:Name="Cldar"
         DataContext="{StaticResource CalendarVM}">
-    <Window.Resources >
+    <Page.Resources >
         <ControlTemplate x:Key="CalendarItemTemplate1" TargetType="{x:Type CalendarItem}">
             <ControlTemplate.Resources>
                 <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
@@ -582,7 +582,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
     
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -619,7 +619,7 @@
                         Command="{Binding PreviousCM }"
                         >
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_down_icon.png"/>
+                            <Image Source="\imagesForWpf\CalendarResource\arrow_down_icon.png"/>
                         </StackPanel>
                     </Button>
 
@@ -632,7 +632,7 @@
                             >
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\c#\Task-Managment\Task Managment\imagesForWpf\arrow_up_icon.png"/>
+                            <Image Source="\imagesForWpf\CalendarResource\arrow_up_icon.png"/>
                         </StackPanel>
                     </Button>
                 </WrapPanel>
@@ -662,4 +662,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</Window>
+</Page>

@@ -77,6 +77,11 @@ namespace Task_Managment.Models
             this.Important = taskTemp.Important;
             this.Expiretime= taskTemp.Expiretime;
         }
+
+        public Task()
+        {
+        }
+
         //!Methods
         public void PropertyUpdated(string propertyName)
         {

@@ -429,6 +429,13 @@
 
                     </Button>
 
+                    <Button x:Name="buttonOpenCalendar"
+                            Background="Sienna"
+                            Command="{Binding openCalendarCommand}"
+                            CommandParameter="{Binding ElementName=FrameWithinGrid}">
+
+                    </Button>
+
                 </StackPanel>
 
 

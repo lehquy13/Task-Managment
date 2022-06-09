@@ -99,6 +99,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -164,6 +165,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -191,6 +193,7 @@
     <Compile Include="Commands\TaskCommands\NewSubtaskCommand.cs" />
     <Compile Include="Commands\TaskCommands\NewTaskCommand.cs" />
     <Compile Include="Commands\TaskCommands\NewTasklistCommand.cs" />
+    <Compile Include="Commands\TaskCommands\NotifyCommand.cs" />
     <Compile Include="Commands\TaskCommands\PickTaskIconCommand.cs" />
     <Compile Include="Commands\TaskCommands\PickTaskThemeCommand.cs" />
     <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
@@ -212,6 +215,9 @@
     <Compile Include="Models\TaskIcon.cs" />
     <Compile Include="Models\Tasklist.cs" />
     <Compile Include="Models\UserSetting.cs" />
+    <Compile Include="Service\INotificationService.cs" />
+    <Compile Include="Service\NotifyIconNotificationService.cs" />
+    <Compile Include="Stores\TimerStore.cs" />
     <Compile Include="UserControls\UserControlDays.xaml.cs">
       <DependentUpon>UserControlDays.xaml</DependentUpon>
     </Compile>
@@ -383,10 +389,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imagesForWpf\closeBtn_MouseOver.png" />
+    <Resource Include="imagesForWpf\iconMail.png" />
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ControlStyle\" />
     <Folder Include="imagesForWpf\Background\" />
   </ItemGroup>
   <ItemGroup>
