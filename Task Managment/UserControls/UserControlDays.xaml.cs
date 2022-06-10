@@ -75,8 +75,8 @@ namespace Task_Managment.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            displayevent();
-            test();
+            //displayevent();
+            //test();
         }
 
         public void displayevent()
@@ -95,6 +95,7 @@ namespace Task_Managment.UserControls
             }
             foreach (Task myCalendar in calendar)
             {
+                
                 if (CalendarViewModel.static_month.ToString() + "/" + lbdays.Text + "/" + CalendarViewModel.static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
                 {
                     lbevent.Text = myCalendar.Notes; 
