@@ -5,7 +5,7 @@ using System.Timers;
 using Forms = System.Windows.Forms;
 using TrayIcon.Services;
 
-namespace TrayIcon.Stores
+namespace Task_Managment.Stores
 {
     public class TimerStore : IDisposable
     {

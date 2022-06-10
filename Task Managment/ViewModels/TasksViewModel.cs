@@ -12,16 +12,16 @@ using Task_Managment.Commands.TaskCommands;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Task_Managment.Stores;
 
 namespace Task_Managment.ViewModels
 {
-    public class TasksViewModel : INotifyPropertyChanged
+    public class TasksViewModel : INotifyPropertyChanged, IDisposable
     {
         public Members _currentUser { get; set; }
         private TaskDataAccess db = TaskDataAccess.Instance;
         //!Fields
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
-
         //!Properties
         #region TasklistList 
         public ObservableCollection<Tasklist> TasklistsList { get; set; }
@@ -107,6 +107,28 @@ namespace Task_Managment.ViewModels
 
         #endregion
 
+        #region duration and timestore
+        private TimerStore _timerStore;
+
+        private int _duration;
+        public int Duration
+        {
+            get
+            {
+                return _duration;
+            }
+            set
+            {
+                _duration = value;
+               
+            }
+        }
+
+        public double RemainingSeconds => _timerStore.RemainingSeconds;
+
+        #endregion
+
+        #region view selected item
         private Tasklist _selectedTasklist;
         public Tasklist SelectedTasklist
         {
@@ -157,7 +179,7 @@ namespace Task_Managment.ViewModels
                     if (_selectedTask.Expiretime != null)
                         _selectedTime = _selectedTask.Expiretime;
                     else _selectedTime = DateTime.Now;
-                
+
                 PropertyUpdated("SelectedTime");
             }
         }
@@ -169,7 +191,7 @@ namespace Task_Managment.ViewModels
             set
             {
                 _selectedSubtask = value;
-              
+
                 PropertyUpdated("SelectedSubtask");
             }
         }
@@ -239,7 +261,9 @@ namespace Task_Managment.ViewModels
                 PropertyUpdated("MorePaneVisible");
             }
         }
+        #endregion
 
+        #region commmands
         public NewTasklistCommand NewTasklistCommand { get; set; }
         public NewTaskCommand NewTaskCommand { get; set; }
         public NewSubtaskCommand NewSubtaskCommand { get; set; }
@@ -260,11 +284,16 @@ namespace Task_Managment.ViewModels
         public PickTaskThemeCommand PickTaskThemeCommand { get; set; }
 
         public NotifyCommand NotifyCommand { get; set; }
+        public StartCommand StartCommand { get; private set; }
+
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //!Ctor
+        #endregion
 
+
+        //!Ctor
+        #region constructors
         public TasksViewModel()
         {
             //init commands
@@ -280,20 +309,19 @@ namespace Task_Managment.ViewModels
             init(currentUser);
 
         }
-
+        #endregion
 
         //!Methods
-        public void PropertyUpdated(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+     
+        #region init
         public void init(Members currentUser)
         {
             _currentUser = currentUser;
 
-            //get all the tasks of tripledefaultTasklists
+            _timerStore = MainWindowViewModel.TimerStoreInstance;
+            _duration = 10;
 
+            //get all the tasks of tripledefaultTasklists
             InitUserTasklist();
             this.TasksLists = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
@@ -304,6 +332,8 @@ namespace Task_Managment.ViewModels
 
 
         }
+
+        
 
         public void InitUserTasklist()
         {
@@ -482,8 +512,13 @@ namespace Task_Managment.ViewModels
 
             this.NotifyCommand = new NotifyCommand(this);
 
+            this.StartCommand = new StartCommand(this);
+
         }
 
+        #endregion
+
+        #region utilities
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))
@@ -496,8 +531,16 @@ namespace Task_Managment.ViewModels
             return false;
         }
 
+        public void PropertyUpdated(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
+        public void Dispose()
+        {
+            //_timerStore.RemainingSecondsChanged -= TimerStore_RemainingSecondsChanged;
+        }
 
-
+        #endregion
     }
 }

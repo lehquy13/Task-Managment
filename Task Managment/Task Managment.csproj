@@ -198,6 +198,7 @@
     <Compile Include="Commands\TaskCommands\PickTaskThemeCommand.cs" />
     <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\TaskCommands\StartCommand.cs" />
     <Compile Include="Commands\TaskCommands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="ViewModels\login\Register.cs" />
     <Compile Include="ViewModels\RichTextboxHelper.cs" />
     <Compile Include="ViewModels\TasksViewModel.cs" />
+    <Compile Include="ViewModels\TimerViewModel.cs" />
     <Compile Include="ViewModels\UCdayViewModel.cs" />
     <Compile Include="ViewModels\vmNoteHomeView.cs" />
     <Compile Include="Views\Calendar.xaml.cs">
@@ -394,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="imagesForWpf\Background\" />
+    <Folder Include="ViewModels\Task\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img2_background.png" />

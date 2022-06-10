@@ -337,7 +337,7 @@
                             </Button>
 
                             <Button Margin="8 0 0 0"
-                                    Content="Set your time here"
+                                    Content="Set your time here1"
                                     IsEnabled="True"
                                     Width="200"
                                     Command="{Binding NotifyCommand}"
@@ -345,6 +345,18 @@
                                     CommandTarget="{Binding ElementName=PopupAddCustom}">
                                 
                                 
+                            </Button>
+
+                            <Button Margin="8 0 0 0"
+                                    Background="BurlyWood"
+                                    Content="Set your time here2"
+                                    IsEnabled="True"
+                                    Width="200"
+                                    Command="{Binding StartCommand}"
+                                    DockPanel.Dock="Left"
+                                    CommandTarget="{Binding ElementName=PopupAddCustom}">
+
+
                             </Button>
 
                         </StackPanel>

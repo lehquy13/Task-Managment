@@ -10,17 +10,15 @@ namespace Task_Managment.ViewModel.Commands
 {
     public class NotifyCommand : ICommand
     {
-        private readonly NotifyIcon _notifyIcon;
         TasksViewModel TasksViewModels { get; set; }
+
+        private readonly NotifyIcon _notifyIcon;
+
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
         public NotifyCommand(TasksViewModel tasksViewModel)
         {
-            _notifyIcon =  new System.Windows.Forms.NotifyIcon();
-            _notifyIcon.Icon = new Icon(ImagesPath+"\\info.ico");
 
-            //_notifyIcon.Visible = true;
-
-          
+            _notifyIcon = MainWindowViewModel.NotifyIconInstance;
             this.TasksViewModels = tasksViewModel;
         }
 
