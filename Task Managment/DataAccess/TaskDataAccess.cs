@@ -74,6 +74,12 @@ namespace Task_Managment.Models
             );
             return _results.ToList();
         }
+        public List<Task> GetAllTasksCld()
+        {
+            var _collection = ConnectToMongo<Task>(TasksCollection);
+            var _results = _collection.Find<Task>(_ => true);
+            return _results.ToList();
+        }
 
         //get list of subtasks (means many subtasks of that task)
         public List<Subtask> GetAllSubTasksFromTask(Task selectedTask)

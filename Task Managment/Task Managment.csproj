@@ -392,6 +392,7 @@
   <ItemGroup>
     <Resource Include="imagesForWpf\closeBtn_MouseOver.png" />
     <Resource Include="imagesForWpf\iconMail.png" />
+    <Resource Include="imagesForWpf\calendar.jpg" />
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img_background.png" />
   </ItemGroup>
   <ItemGroup>

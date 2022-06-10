@@ -11,6 +11,7 @@ using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.UserControls;
 using Task_Managment.Views;
+using Task = Task_Managment.Models.Task;
 
 namespace Task_Managment.ViewModels
 {
@@ -58,9 +59,9 @@ namespace Task_Managment.ViewModels
 
         private void initCommand()
         {
-            SaveCM=new RelayCommand<MyCalendar>(p => true, p =>SaveCalendar());
-            EditCM = new RelayCommand<MyCalendar>(p => true, p => UpdateCalendarAsync());
-            DeleteCM = new RelayCommand<MyCalendar>(p => true, p => DeleteCalendar());
+            SaveCM=new RelayCommand<Task>(p => true, p =>SaveCalendar());
+            EditCM = new RelayCommand<Task>(p => true, p => UpdateCalendarAsync());
+            DeleteCM = new RelayCommand<Task>(p => true, p => DeleteCalendar());
         }
 
         public List<MyCalendar> GetAllCalendar()
@@ -89,70 +90,74 @@ namespace Task_Managment.ViewModels
         }
         private void SaveCalendar()
         {
-            CalendarDataaccess db = new CalendarDataaccess();
-            db.CreateCalendar(new MyCalendar() { Date = DateTime.Parse(TextBoxDay).AddDays(1), Note =TextBoxEvent });
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            IMongoDatabase database = client.GetDatabase("Task_Management");
-            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            MyCalendar calendar = new MyCalendar(){ Date= DateTime.Parse(TextBoxDay).AddDays(1), Note = TextBoxEvent };
-            collectionCalendar.InsertOne(calendar);
-            eventwindow a=new eventwindow();
-            a.Close();
+            TaskDataAccess db = new TaskDataAccess();
+            db.CreateNewTaskToTaskList(new Task() { Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes =TextBoxEvent });
+            //MongoClient client = new MongoClient("mongodb://localhost:27017");
+            //IMongoDatabase database = client.GetDatabase("Task_Management");
+            //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            //MyCalendar calendar = new MyCalendar(){ Date= DateTime.Parse(TextBoxDay).AddDays(1), Note = TextBoxEvent };
+            //collectionCalendar.InsertOne(calendar);
+            textboxevent = "";
+            OnPropertyChanged("TextBoxEvent");
             
         }
         private void UpdateCalendarAsync()
         {
-            CalendarDataaccess db = new CalendarDataaccess();
-            List<MyCalendar> calendar1 = new List<MyCalendar>();
-            calendar1 = db.GetAllCalendar();
-            foreach (MyCalendar myCalendar in calendar1)
+            TaskDataAccess db = new TaskDataAccess();
+            List<Task> calendar1 = new List<Task>();
+            calendar1 = db.GetAllTasksCld();
+            foreach (Task myCalendar in calendar1)
             {
                 if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
                 {
-                    myCalendar.Note = TextBoxEvent;
-                    db.UpdateCalendar(myCalendar);
+                    myCalendar.Notes = TextBoxEvent;
+                    db.UpdateSelectedTask(myCalendar);
                 }
             }
 
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            IMongoDatabase database = client.GetDatabase("Task_Management");
-            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            var UpdateDef = Builders<MyCalendar>.Update.Set("Date", DateTime.Parse(TextBoxDay).AddDays(1)).Set("Note", TextBoxEvent);
-            List<MyCalendar> calendar = new List<MyCalendar>();
-            calendar = GetAllCalendar();
-            foreach(MyCalendar myCalendar in calendar)
-            {
-                if(myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
-                {
-                    collectionCalendar.UpdateOne(b => b.Id == myCalendar.Id, UpdateDef);
-                }
-            }
+            //MongoClient client = new MongoClient("mongodb://localhost:27017");
+            //IMongoDatabase database = client.GetDatabase("Task_Management");
+            //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            //var UpdateDef = Builders<MyCalendar>.Update.Set("Date", DateTime.Parse(TextBoxDay).AddDays(1)).Set("Note", TextBoxEvent);
+            //List<MyCalendar> calendar = new List<MyCalendar>();
+            //calendar = GetAllCalendar();
+            //foreach(MyCalendar myCalendar in calendar)
+            //{
+            //    if(myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
+            //    {
+            //        collectionCalendar.UpdateOne(b => b.Id == myCalendar.Id, UpdateDef);
+            //    }
+            //}
+            textboxevent = "";
+            OnPropertyChanged("TextBoxEvent");
         } 
         private void DeleteCalendar()
         {
-            CalendarDataaccess db = new CalendarDataaccess();
-            List<MyCalendar> calendar1 = new List<MyCalendar>();
-            calendar1 = db.GetAllCalendar();
-            foreach (MyCalendar myCalendar in calendar1)
+            TaskDataAccess db = new TaskDataAccess();
+            List<Task> calendar1 = new List<Task>();
+            calendar1 = db.GetAllTasksCld();
+            foreach (Task myCalendar in calendar1)
             {
                 if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
                 {
-                    db.DeleteCalendar(myCalendar);
+                    db.DeleteSelectedTask(myCalendar);
                 }
             }
 
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            IMongoDatabase database = client.GetDatabase("Task_Management");
-            List<MyCalendar> calendar = new List<MyCalendar>();
-            calendar = GetAllCalendar();
-            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            foreach (MyCalendar myCalendar in calendar)
-            {
-                if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
-                {
-                    collectionCalendar.DeleteOne(b => b.Id == myCalendar.Id);
-                }
-            }
+            //MongoClient client = new MongoClient("mongodb://localhost:27017");
+            //IMongoDatabase database = client.GetDatabase("Task_Management");
+            //List<MyCalendar> calendar = new List<MyCalendar>();
+            //calendar = GetAllCalendar();
+            //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            //foreach (MyCalendar myCalendar in calendar)
+            //{
+            //    if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
+            //    {
+            //        collectionCalendar.DeleteOne(b => b.Id == myCalendar.Id);
+            //    }
+            //}
+            textboxevent = "";
+            OnPropertyChanged("TextBoxEvent");
         }
     }
 }
