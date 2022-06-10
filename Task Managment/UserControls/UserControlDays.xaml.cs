@@ -17,6 +17,7 @@ using Task_Managment.Views;
 using Task_Managment.ViewModels;
 using MongoDB.Driver;
 using Task_Managment.Models;
+using Task = Task_Managment.Models.Task;
 
 namespace Task_Managment.UserControls
 {
@@ -80,20 +81,23 @@ namespace Task_Managment.UserControls
 
         public void displayevent()
         {
-            MongoClient client = new MongoClient("mongodb://localhost:27017");
-            IMongoDatabase database = client.GetDatabase("Task_Management");
-            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
-            List<MyCalendar> calendar = new List<MyCalendar>();
-            calendar = GetAllCalendar();
+            //MongoClient client = new MongoClient("mongodb://localhost:27017");
+            //IMongoDatabase database = client.GetDatabase("Task_Management");
+            //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            //List<MyCalendar> calendar = new List<MyCalendar>();
+            //calendar = GetAllCalendar();
+            TaskDataAccess db = new TaskDataAccess();
+            List<Task> calendar = new List<Task>();
+            calendar = db.GetAllTasksCld();
             if (lbevent.Text != null)
             {
                 lbevent.Text = "";
             }
-            foreach (MyCalendar myCalendar in calendar)
+            foreach (Task myCalendar in calendar)
             {
                 if (CalendarViewModel.static_month.ToString() + "/" + lbdays.Text + "/" + CalendarViewModel.static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
                 {
-                    lbevent.Text = myCalendar.Note; 
+                    lbevent.Text = myCalendar.Notes; 
                 } 
             }
         }
