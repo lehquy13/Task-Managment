@@ -70,8 +70,8 @@ namespace Task_Managment.Models
         {
             var _collection = ConnectToMongo<Task>(TasksCollection);
             var _results = _collection.Find<Task>(
-                c => c.Date == dateTime
-            );
+                c => c.Date== dateTime
+            ); ;
             return _results.ToList();
         }
         public List<Task> GetAllTasksCld()
