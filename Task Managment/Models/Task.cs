@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Task_Managment.Stores;
+using Task_Managment.ViewModels;
+using TrayIcon.Services;
 
 namespace Task_Managment.Models
 {
@@ -30,6 +33,10 @@ namespace Task_Managment.Models
         public DateTime Date { get; set; }
 
         public DateTime Expiretime { get; set; }
+
+        public bool IsNotifify { get; set; }
+
+        public  TimerStore TimerStore;
 
         public string Name { get; set; }
 
@@ -62,6 +69,9 @@ namespace Task_Managment.Models
             this.TasklistID = tasklistId;
             this.Subtasks = new List<Subtask>();
             this.Expiretime = DateTime.Now;
+            this.IsNotifify = true;
+            this.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)));
+                       
         }
 
         public Task(Task taskTemp)

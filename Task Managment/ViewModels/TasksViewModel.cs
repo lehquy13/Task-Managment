@@ -13,6 +13,8 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Task_Managment.Stores;
+using TrayIcon.Services;
+using System.Windows.Forms;
 
 namespace Task_Managment.ViewModels
 {
@@ -56,12 +58,15 @@ namespace Task_Managment.ViewModels
                 if (value != null)
                 {
                     _selectedClockTime = value;
-                    _selectedTime = _selectedTime.AddHours(_selectedClockTime.Hour - _selectedTime.Hour);
-                    _selectedTime = _selectedTime.AddMinutes(_selectedClockTime.Minute - _selectedTime.Minute);
-
+                    DateTime temp = _selectedTime;
+                    temp = temp.AddHours(_selectedClockTime.Hour - temp.Hour);
+                    temp = temp.AddMinutes(_selectedClockTime.Minute - temp.Minute);
+                    temp = temp.AddSeconds(0 - temp.Second);
+                    if (SelectedTask != null)
+                        this.SelectedTime = temp;
 
                     PropertyUpdated("ClockTime");
-                    PropertyUpdated("Time");
+                    
                 }
 
             }
@@ -77,11 +82,19 @@ namespace Task_Managment.ViewModels
                 if (value != null)
                 {
                     _selectedCalendarDate = value;
-                    _selectedTime = _selectedTime.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(_selectedTime.Day.ToString()));
-                    _selectedTime = _selectedTime.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(_selectedTime.Month.ToString()));
-                    _selectedTime = _selectedTime.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(_selectedTime.Year.ToString()));
+                    DateTime temp = _selectedTime;
+                    temp = temp.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(temp.Day.ToString()));
+                    temp = temp.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(temp.Month.ToString()));
+                    temp = temp.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(temp.Year.ToString()));
+                    
+                    if(SelectedTask != null)
+                    this.SelectedTime = temp;
+
                     PropertyUpdated("CalendarDate");
-                    PropertyUpdated("Time");
+
+                    //this.SelectedTask.Expiretime = _selectedTime;
+                    //db.UpdateSelectedTask(SelectedTask);
+                    //PropertyUpdated("SelectedTime");
                 }
 
             }
@@ -98,8 +111,12 @@ namespace Task_Managment.ViewModels
                 {
                     _selectedTime = value;
                     _selectedTask.Expiretime = _selectedTime;
+                    this.SelectedTask.Expiretime = _selectedTime;
+                    this.SelectedTask.IsNotifify = false;
                     db.UpdateSelectedTask(SelectedTask);
-                    PropertyUpdated("Time");
+                    
+                    this.SelectedTask.TimerStore.Start((int)(TimeSpan.FromTicks(SelectedTask.Expiretime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds));
+                    PropertyUpdated("SelectedTime");
                 }
 
             }
@@ -108,7 +125,7 @@ namespace Task_Managment.ViewModels
         #endregion
 
         #region duration and timestore
-        private TimerStore _timerStore;
+        
 
         private int _duration;
         public int Duration
@@ -124,7 +141,7 @@ namespace Task_Managment.ViewModels
             }
         }
 
-        public double RemainingSeconds => _timerStore.RemainingSeconds;
+        
 
         #endregion
 
@@ -318,9 +335,10 @@ namespace Task_Managment.ViewModels
         {
             _currentUser = currentUser;
 
-            _timerStore = MainWindowViewModel.TimerStoreInstance;
+            
             _duration = 10;
 
+          
             //get all the tasks of tripledefaultTasklists
             InitUserTasklist();
             this.TasksLists = new ObservableCollection<Task>();
@@ -330,10 +348,39 @@ namespace Task_Managment.ViewModels
             InitCommand();
             InitIconAndBackground();
 
+            SelectedCalendarDate = DateTime.Now;
+            SelectedClockTime = DateTime.Now;
+            //PropertyUpdated("SelectedCalendarDate");
+
+            //begin to countdown for notification
+            foreach (Tasklist temp in this.TasklistsList)
+            {
+                foreach (Task task in temp.Tasks)
+                {
+                    task.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)));
+
+                    if (task.IsNotifify)
+                    {
+                        continue;
+                    }
+                    int durationTemp = (int)(TimeSpan.FromTicks(task.Expiretime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds);
+                    if (durationTemp > 0)
+                        task.TimerStore.Start(durationTemp);
+                    else
+                    {
+                        task.IsNotifify = true;
+                        db.UpdateSelectedTask(task);
+                        MainWindowViewModel.NotifyIconInstance.ShowBalloonTip(3000, task.Name, task.Expiretime.ToString(), ToolTipIcon.Info);
+
+                    }
+
+                }
+            }
+
 
         }
 
-        
+
 
         public void InitUserTasklist()
         {

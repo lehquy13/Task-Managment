@@ -50,6 +50,7 @@ namespace Task_Managment.Stores
             {
                 _notificationService.Notify("Timer", "The timer has completed.", 
                     3000, NotificationType.RestartTimer, Forms.ToolTipIcon.Info);
+                // mark the task that is done!
             }
 
             _wasRunning = IsRunning;

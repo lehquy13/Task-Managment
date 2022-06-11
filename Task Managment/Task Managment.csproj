@@ -209,6 +209,7 @@
     <Compile Include="DataAccess\UserSettingDataAccess.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />
+    <Compile Include="Models\MyNotifyIcon.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\NotebookModel.cs" />
     <Compile Include="Models\Subtask.cs" />

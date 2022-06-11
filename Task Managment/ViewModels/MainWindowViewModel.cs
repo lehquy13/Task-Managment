@@ -66,7 +66,8 @@ namespace Task_Managment.ViewModels
         {
             currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
             _notifyIconInstance = new System.Windows.Forms.NotifyIcon();
-            _notifyIconInstance.Icon = new Icon(ImagesPath + "\\app.ico");
+            string temp = ImagesPath + "\\app.ico";
+            _notifyIconInstance.Icon = new Icon(temp);
             _notifyIconInstance.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.Email);
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);

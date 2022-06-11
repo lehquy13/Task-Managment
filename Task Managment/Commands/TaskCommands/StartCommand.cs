@@ -6,6 +6,8 @@ using Task_Managment.ViewModels;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Forms;
+using Task_Managment.Models;
+using TrayIcon.Services;
 
 namespace Task_Managment.Commands
 {
@@ -31,7 +33,16 @@ namespace Task_Managment.Commands
 
         public  void Execute(object parameter)
         {
-            _timerStore.Start(TasksViewModels.Duration);
+            //foreach (Tasklist temp in this.TasksViewModels.TasklistsList)
+            //{
+            //    foreach (Task task in temp.Tasks)
+            //    {
+            //        (new TimerStore((new NotifyIconNotificationService(_notifyIcon))))
+            //            .Start((int)(TimeSpan.FromTicks(task.Expiretime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds)
+            //            );
+            //    }
+            //}
+
         }
     }
 }

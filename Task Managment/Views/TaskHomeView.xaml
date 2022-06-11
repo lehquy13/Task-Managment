@@ -305,14 +305,14 @@
                                                     HorizontalAlignment="Right"
                                                     Orientation="Horizontal"
                                                     Background="#F1F1F1">
-                                            <materialDesign:TimePicker Width="70"
+                                            <materialDesign:TimePicker Width="100"
                                                                        materialDesign:HintAssist.Hint="Pick time"
                                                                        materialDesign:HintAssist.Foreground="Black"
                                                                        materialDesign:HintAssist.HintOpacity="100"
-                                                                       Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                                       Style="{StaticResource MaterialDesignFilledTimePicker}"
                                                                        Background="Black"
                                                                        Foreground="Black"
-                                                                       Is24Hours="True"
+                                                                       
                                                                        SelectedTime="{Binding SelectedClockTime}" />
 
                                             <Button Style="{StaticResource MaterialDesignFlatButton}"
