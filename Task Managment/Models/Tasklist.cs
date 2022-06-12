@@ -16,8 +16,8 @@ namespace Task_Managment.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         private string _tasklistID;
-    
-        public string TasklistID 
+
+        public string TasklistID
         {
             get { return _tasklistID; }
 
@@ -42,7 +42,7 @@ namespace Task_Managment.Models
         public static readonly string DefaultIcon = "defaultTask.png";
 
         //!Properties
-   
+
 
         public List<Task> Tasks { get; set; }
 
@@ -57,8 +57,12 @@ namespace Task_Managment.Models
             }
         }
 
-        public Uri IconSource { get; set; }
+        public Uri IconSource
+        {
+            get { return new Uri(ImagesPath + IconName); }
 
+        }
+        public string IconName { get; set; }
         private string _totalCount;
         public string TotalCount
         {
@@ -84,7 +88,7 @@ namespace Task_Managment.Models
 
             this.Name = "Untitled list";
             this.Tasks = new List<Task>();
-            this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
+            this.IconName = DefaultIcon;
             //this.IconSource = new Uri(Path.Combine(ImagesPath, DefaultIcon));
         }
 
@@ -97,7 +101,7 @@ namespace Task_Managment.Models
 
             this.Name = "Untitled list";
             this.Tasks = _tasks;
-            this.IconSource = new Uri(Path.Combine(ImagesPath,DefaultIcon));
+            this.IconName = DefaultIcon;
         }
 
         //!Events

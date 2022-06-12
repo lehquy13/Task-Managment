@@ -197,7 +197,7 @@ namespace Task_Managment.ViewModels
                 }
                 if (_selectedTask != null)
                     if (_selectedTask.Expiretime != null)
-                        _selectedTime = _selectedTask.Expiretime;
+                        _selectedTime = _selectedTask.Expiretime.ToLocalTime();
                     else _selectedTime = DateTime.Now;
 
                 PropertyUpdated("SelectedTime");
@@ -425,10 +425,10 @@ namespace Task_Managment.ViewModels
             }
             else
             {
-                DefaultMyDayList = new Tasklist() { Name = "My Day", IconSource = new Uri(Path.Combine(ImagesPath, "day.png")), MemberId = _currentUser.Email };
-                DefaultImportantList = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")), MemberId = _currentUser.Email };
-                DefaultTasksList = new Tasklist() { Name = "Tasks", IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")), MemberId = _currentUser.Email };
-                CalendarTaskList = new Tasklist() { Name = "Calenadr", IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")), MemberId = _currentUser.Email };
+                DefaultMyDayList = new Tasklist() { Name = "My Day", IconName = "day.png", MemberId = _currentUser.Email };
+                DefaultImportantList = new Tasklist() { Name = "Important", IconName="important.png", MemberId = _currentUser.Email };
+                DefaultTasksList = new Tasklist() { Name = "Tasks", IconName = "greenery.png", MemberId = _currentUser.Email };
+                CalendarTaskList = new Tasklist() { Name = "Calenadr", IconName = "greenery.png", MemberId = _currentUser.Email };
 
                 db.CreateNewTasklist(DefaultMyDayList);
                 db.CreateNewTasklist(DefaultImportantList);
