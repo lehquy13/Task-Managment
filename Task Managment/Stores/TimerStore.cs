@@ -19,6 +19,7 @@ namespace Task_Managment.Stores
         private int _lastDurationInSeconds;
 
         Task task;
+        private TaskDataAccess db = TaskDataAccess.Instance;
 
         private double EndTimeCurrentTimeSecondsDifference => TimeSpan.FromTicks(_endTime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds;
         public double RemainingSeconds => EndTimeCurrentTimeSecondsDifference > 0 ? EndTimeCurrentTimeSecondsDifference : 0;
@@ -30,6 +31,7 @@ namespace Task_Managment.Stores
         public TimerStore(INotificationService notificationService, Task task)
         {
             this.task = task;
+            
             _notificationService = notificationService;
             _notificationService.NotificationAccepted += NotificationService_NotificationAccepted;
 
@@ -53,9 +55,10 @@ namespace Task_Managment.Stores
 
             if(_wasRunning && !IsRunning)
             {
-                _notificationService.Notify(this.task.Name, this.task.Expiretime.ToString(), 
+                _notificationService.Notify(this.task.Name, this.task.Expiretime.ToLocalTime().ToString(), 
                     3000, NotificationType.RestartTimer, Forms.ToolTipIcon.Info);
                 this.task.IsNotifify = true;
+                db.UpdateSelectedTask(this.task);
                 // mark the task that is done!
             }
 

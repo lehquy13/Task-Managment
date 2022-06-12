@@ -281,7 +281,8 @@
                             <materialDesign:DialogHost Name="PopupAddCustom"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
-                                                       IsOpen="False">
+                                                       IsOpen="{Binding isDialogOpen}"
+                                                       >
                                 <materialDesign:DialogHost.DialogContent>
                                     <Grid Margin="-1"
                                           Background="#F1F1F1">
@@ -312,15 +313,14 @@
                                                                        Style="{StaticResource MaterialDesignFilledTimePicker}"
                                                                        Background="Black"
                                                                        Foreground="Black"
-                                                                       
                                                                        SelectedTime="{Binding SelectedClockTime}" />
 
                                             <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    Command="{Binding CloseDialogCommand}"
                                                     CommandParameter="0"
                                                     Content="CANCEL" />
                                             <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    Command="{Binding CloseDialogCommand}"
                                                     CommandParameter="1"
                                                     Content="OK" />
                                         </StackPanel>
@@ -331,33 +331,12 @@
                                     Content="Set your time here"
                                     IsEnabled="True"
                                     Width="200"
-                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                    Command="{Binding OpenDiaLogCommand}"
                                     DockPanel.Dock="Left"
                                     CommandTarget="{Binding ElementName=PopupAddCustom}">
                             </Button>
 
-                            <Button Margin="8 0 0 0"
-                                    Content="Set your time here1"
-                                    IsEnabled="True"
-                                    Width="200"
-                                    Command="{Binding NotifyCommand}"
-                                    DockPanel.Dock="Left"
-                                    CommandTarget="{Binding ElementName=PopupAddCustom}">
-                                
-                                
-                            </Button>
 
-                            <Button Margin="8 0 0 0"
-                                    Background="BurlyWood"
-                                    Content="Set your time here2"
-                                    IsEnabled="True"
-                                    Width="200"
-                                    Command="{Binding StartCommand}"
-                                    DockPanel.Dock="Left"
-                                    CommandTarget="{Binding ElementName=PopupAddCustom}">
-
-
-                            </Button>
 
                         </StackPanel>
 

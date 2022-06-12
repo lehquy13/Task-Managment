@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using Task_Managment.Stores;
 using TrayIcon.Services;
 using System.Windows.Forms;
+using MaterialDesignThemes.Wpf;
 
 namespace Task_Managment.ViewModels
 {
@@ -38,6 +39,7 @@ namespace Task_Managment.ViewModels
         public Tasklist DefaultTasksList { get; set; }
 
         public Tasklist CalendarTaskList { get; set; }
+
         #endregion
 
         #region ImageList & UserSetting
@@ -50,6 +52,8 @@ namespace Task_Managment.ViewModels
 
         #region datetime handling
 
+        public bool isDialogOpen { get; set; }
+
         private DateTime _selectedClockTime;
 
         public DateTime SelectedClockTime
@@ -60,15 +64,15 @@ namespace Task_Managment.ViewModels
                 if (value != null)
                 {
                     _selectedClockTime = value;
-                    DateTime temp = _selectedTime;
-                    temp = temp.AddHours(_selectedClockTime.Hour - temp.Hour);
-                    temp = temp.AddMinutes(_selectedClockTime.Minute - temp.Minute);
-                    temp = temp.AddSeconds(0 - temp.Second);
-                    if (SelectedTask != null)
-                        this.SelectedTime = temp;
+                    //DateTime temp = _selectedTime;
+                    //temp = temp.AddHours(_selectedClockTime.Hour - temp.Hour);
+                    //temp = temp.AddMinutes(_selectedClockTime.Minute - temp.Minute);
+                    //temp = temp.AddSeconds(0 - temp.Second);
+                    //if (SelectedTask != null)
+                    //    this.SelectedTime = temp;
 
-                    PropertyUpdated("ClockTime");
-                    
+                    PropertyUpdated("SelectedClockTime");
+
                 }
 
             }
@@ -84,15 +88,15 @@ namespace Task_Managment.ViewModels
                 if (value != null)
                 {
                     _selectedCalendarDate = value;
-                    DateTime temp = _selectedTime;
-                    temp = temp.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(temp.Day.ToString()));
-                    temp = temp.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(temp.Month.ToString()));
-                    temp = temp.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(temp.Year.ToString()));
-                    
-                    if(SelectedTask != null)
-                    this.SelectedTime = temp;
+                    //DateTime temp = _selectedTime;
+                    //temp = temp.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(temp.Day.ToString()));
+                    //temp = temp.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(temp.Month.ToString()));
+                    //temp = temp.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(temp.Year.ToString()));
 
-                    PropertyUpdated("CalendarDate");
+                    //if (SelectedTask != null)
+                    //    this.SelectedTime = temp;
+
+                    PropertyUpdated("SelectedCalendarDate");
 
                     //this.SelectedTask.Expiretime = _selectedTime;
                     //db.UpdateSelectedTask(SelectedTask);
@@ -117,7 +121,7 @@ namespace Task_Managment.ViewModels
                     this.SelectedTask.Expiretime = _selectedTime;
                     this.SelectedTask.IsNotifify = false;
                     db.UpdateSelectedTask(SelectedTask);
-                    
+
                     this.SelectedTask.TimerStore.Start((int)(TimeSpan.FromTicks(SelectedTask.Expiretime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds));
                     PropertyUpdated("SelectedTime");
                 }
@@ -128,7 +132,7 @@ namespace Task_Managment.ViewModels
         #endregion
 
         #region duration and timestore
-        
+
 
         private int _duration;
         public int Duration
@@ -140,11 +144,11 @@ namespace Task_Managment.ViewModels
             set
             {
                 _duration = value;
-               
+
             }
         }
 
-        
+
 
         #endregion
 
@@ -304,13 +308,16 @@ namespace Task_Managment.ViewModels
         public PickTaskThemeCommand PickTaskThemeCommand { get; set; }
 
         public NotifyCommand NotifyCommand { get; set; }
-        public StartCommand StartCommand { get; private set; }
+        public StartCommand StartCommand { get;  set; }
+
+        public CloseDialogCommand CloseDialogCommand { get;  set; }
+
+        public OpenDiaLogCommand OpenDiaLogCommand { get; set; }
 
         //!Events
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-
 
         //!Ctor
         #region constructors
@@ -332,35 +339,33 @@ namespace Task_Managment.ViewModels
         #endregion
 
         //!Methods
-     
+
         #region init
         public void init(Members currentUser)
         {
             _currentUser = currentUser;
 
-            
+           isDialogOpen = false;
             _duration = 10;
 
-          
+
             //get all the tasks of tripledefaultTasklists
             InitUserTasklist();
             this.TasksLists = new ObservableCollection<Task>();
             this.SelectedTasklist = this.DefaultImportantList;
             this.Subtasks = new ObservableCollection<Subtask>();
-          
+
             InitCommand();
             InitIconAndBackground();
 
-            SelectedCalendarDate = DateTime.Now;
-            SelectedClockTime = DateTime.Now;
-            //PropertyUpdated("SelectedCalendarDate");
+            InitClockAndCalendar();
 
             //begin to countdown for notification
             foreach (Tasklist temp in this.TasklistsList)
             {
                 foreach (Task task in temp.Tasks)
                 {
-                    task.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)),task);
+                    task.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)), task);
 
                     if (task.IsNotifify)
                     {
@@ -375,7 +380,7 @@ namespace Task_Managment.ViewModels
                     {
                         task.IsNotifify = true;
                         db.UpdateSelectedTask(task);
-                        MainWindowViewModel.NotifyIconInstance.ShowBalloonTip(3000, task.Name, task.Expiretime.ToString(), ToolTipIcon.Info);
+                        MainWindowViewModel.NotifyIconInstance.ShowBalloonTip(3000, task.Name, task.Expiretime.ToLocalTime().ToString(), ToolTipIcon.Info);
 
                     }
 
@@ -385,7 +390,12 @@ namespace Task_Managment.ViewModels
 
         }
 
-
+        public void InitClockAndCalendar()
+        {
+            SelectedCalendarDate = DateTime.Now;
+            SelectedClockTime = DateTime.Now;
+            SelectedClockTime = SelectedClockTime.AddMinutes(1);
+        }
 
         public void InitUserTasklist()
         {
@@ -399,24 +409,52 @@ namespace Task_Managment.ViewModels
                 this.TasklistsList = new ObservableCollection<Tasklist>();
                 foreach (Tasklist temp in tempList) // lấy những tasklist như myday, importtant, untitledlist
                 {
-                    switch (temp.Name)
+                    //if (temp.Name == ("Calendar" + _currentUser.Email))
+                    //{
+                    //    temp.Tasks = db.GetAllTasksFromTasklist(temp);
+                    //    for (int j = 0; j < temp.Tasks.Count; j++)
+                    //    {
+                    //        if (temp.Tasks[j].Expiretime == DateTime.UtcNow)
+                    //            temp.Tasks[j].Important = true;
+                    //        this.TasklistsList[0].Tasks.Add(temp.Tasks[j]);// get subtasks
+                    //    }
+                    //}
+                    //else
                     {
-
-                        default:
-                            this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
-                            break;
-
+                        this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
                     }
+
+
+
                 }
                 for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
                 {
+                    //if (this.TasklistsList[i].Name == ("Calendar" + _currentUser.Email))
+                    //{
+                    //    continue;
+                    //}
                     this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
+
                     for (int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
                     {
                         this.TasklistsList[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
                     }
                 }
 
+
+                for (int j = 0; j < this.TasklistsList[1].Tasks.Count; j++)
+                {
+                    if (this.TasklistsList[1].Tasks[j].Expiretime == DateTime.UtcNow)
+                    {
+                        Task tempTask = new Task(this.TasklistsList[1].Tasks[j]);
+                        tempTask.Important = true;
+                        this.TasklistsList[0].Tasks.Add(tempTask);// get subtasks
+
+                    }
+                }
+               
+               this.CalendarTaskList = this.TasklistsList[1];
+                this.TasklistsList.RemoveAt(1);
                 this.DefaultMyDayList = this.TasklistsList[0];
                 this.DefaultImportantList = this.TasklistsList[1];
                 this.DefaultTasksList = this.TasklistsList[2];
@@ -426,9 +464,9 @@ namespace Task_Managment.ViewModels
             else
             {
                 DefaultMyDayList = new Tasklist() { Name = "My Day", IconName = "day.png", MemberId = _currentUser.Email };
-                DefaultImportantList = new Tasklist() { Name = "Important", IconName="important.png", MemberId = _currentUser.Email };
+                DefaultImportantList = new Tasklist() { Name = "Important", IconName = "important.png", MemberId = _currentUser.Email };
                 DefaultTasksList = new Tasklist() { Name = "Tasks", IconName = "greenery.png", MemberId = _currentUser.Email };
-                CalendarTaskList = new Tasklist() { Name = "Calenadr", IconName = "greenery.png", MemberId = _currentUser.Email };
+                CalendarTaskList = new Tasklist() { Name = "Calendar" + _currentUser.Email, IconName = "greenery.png", MemberId = _currentUser.Email };
 
                 db.CreateNewTasklist(DefaultMyDayList);
                 db.CreateNewTasklist(DefaultImportantList);
@@ -438,8 +476,7 @@ namespace Task_Managment.ViewModels
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,
-                this.DefaultTasksList,
-                this.CalendarTaskList
+                this.DefaultTasksList
             };
 
             }
@@ -569,6 +606,10 @@ namespace Task_Managment.ViewModels
             this.NotifyCommand = new NotifyCommand(this);
 
             this.StartCommand = new StartCommand(this);
+
+            this.OpenDiaLogCommand = new OpenDiaLogCommand(this);
+            
+            this.CloseDialogCommand = new CloseDialogCommand(this);
 
         }
 

@@ -186,6 +186,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\TaskCommands\OpenDialogCommand.cs" />
+    <Compile Include="Commands\TaskCommands\CloseDialogCommand.cs" />
     <Compile Include="Commands\TaskCommands\CloseSubtaskPanelCommand.cs" />
     <Compile Include="Commands\TaskCommands\DeleteCommand.cs" />
     <Compile Include="Commands\TaskCommands\EndRenameCommand.cs" />
