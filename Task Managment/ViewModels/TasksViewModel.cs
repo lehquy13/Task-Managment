@@ -36,6 +36,8 @@ namespace Task_Managment.ViewModels
 
         public Tasklist DefaultImportantList { get; set; }
         public Tasklist DefaultTasksList { get; set; }
+
+        public Tasklist CalendarTaskList { get; set; }
         #endregion
 
         #region ImageList & UserSetting
@@ -110,6 +112,7 @@ namespace Task_Managment.ViewModels
                 if (value != null)
                 {
                     _selectedTime = value;
+                    _selectedTime = _selectedTime.ToLocalTime();
                     _selectedTask.Expiretime = _selectedTime;
                     this.SelectedTask.Expiretime = _selectedTime;
                     this.SelectedTask.IsNotifify = false;
@@ -357,7 +360,7 @@ namespace Task_Managment.ViewModels
             {
                 foreach (Task task in temp.Tasks)
                 {
-                    task.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)));
+                    task.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)),task);
 
                     if (task.IsNotifify)
                     {
@@ -365,7 +368,9 @@ namespace Task_Managment.ViewModels
                     }
                     int durationTemp = (int)(TimeSpan.FromTicks(task.Expiretime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds);
                     if (durationTemp > 0)
+                    {
                         task.TimerStore.Start(durationTemp);
+                    }
                     else
                     {
                         task.IsNotifify = true;
@@ -423,14 +428,18 @@ namespace Task_Managment.ViewModels
                 DefaultMyDayList = new Tasklist() { Name = "My Day", IconSource = new Uri(Path.Combine(ImagesPath, "day.png")), MemberId = _currentUser.Email };
                 DefaultImportantList = new Tasklist() { Name = "Important", IconSource = new Uri(Path.Combine(ImagesPath, "important.png")), MemberId = _currentUser.Email };
                 DefaultTasksList = new Tasklist() { Name = "Tasks", IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")), MemberId = _currentUser.Email };
+                CalendarTaskList = new Tasklist() { Name = "Calenadr", IconSource = new Uri(Path.Combine(ImagesPath, "greenery.png")), MemberId = _currentUser.Email };
+
                 db.CreateNewTasklist(DefaultMyDayList);
                 db.CreateNewTasklist(DefaultImportantList);
                 db.CreateNewTasklist(DefaultTasksList);
+                db.CreateNewTasklist(CalendarTaskList);
                 this.TasklistsList = new ObservableCollection<Tasklist>()
             {
                 this.DefaultMyDayList,
                 this.DefaultImportantList,
-                this.DefaultTasksList
+                this.DefaultTasksList,
+                this.CalendarTaskList
             };
 
             }

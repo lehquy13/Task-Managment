@@ -4,6 +4,8 @@ using System.Text;
 using System.Timers;
 using Forms = System.Windows.Forms;
 using TrayIcon.Services;
+using Task_Managment.ViewModels;
+using Task_Managment.Models;
 
 namespace Task_Managment.Stores
 {
@@ -16,6 +18,8 @@ namespace Task_Managment.Stores
         private bool _wasRunning;
         private int _lastDurationInSeconds;
 
+        Task task;
+
         private double EndTimeCurrentTimeSecondsDifference => TimeSpan.FromTicks(_endTime.Ticks).TotalSeconds - TimeSpan.FromTicks(DateTime.Now.Ticks).TotalSeconds;
         public double RemainingSeconds => EndTimeCurrentTimeSecondsDifference > 0 ? EndTimeCurrentTimeSecondsDifference : 0;
 
@@ -23,8 +27,9 @@ namespace Task_Managment.Stores
 
         public event Action RemainingSecondsChanged;
 
-        public TimerStore(INotificationService notificationService)
+        public TimerStore(INotificationService notificationService, Task task)
         {
+            this.task = task;
             _notificationService = notificationService;
             _notificationService.NotificationAccepted += NotificationService_NotificationAccepted;
 
@@ -48,8 +53,9 @@ namespace Task_Managment.Stores
 
             if(_wasRunning && !IsRunning)
             {
-                _notificationService.Notify("Timer", "The timer has completed.", 
+                _notificationService.Notify(this.task.Name, this.task.Expiretime.ToString(), 
                     3000, NotificationType.RestartTimer, Forms.ToolTipIcon.Info);
+                this.task.IsNotifify = true;
                 // mark the task that is done!
             }
 

@@ -38,15 +38,6 @@ namespace Task_Managment.ViewModels
             }
         }
 
-        private static TimerStore _timerStoreInstance;
-        public static TimerStore TimerStoreInstance
-        {
-            get
-            {
-                if (_timerStoreInstance == null) _timerStoreInstance = new TimerStore((new NotifyIconNotificationService(_notifyIconInstance)));
-                return _timerStoreInstance;
-            }
-        }
 
 
         private Uri _frameSource;

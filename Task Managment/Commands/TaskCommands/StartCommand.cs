@@ -27,7 +27,6 @@ namespace Task_Managment.Commands
         public StartCommand(TasksViewModel tasksViewModel)
         {
             _notifyIcon = MainWindowViewModel.NotifyIconInstance;
-            _timerStore = MainWindowViewModel.TimerStoreInstance;
             this.TasksViewModels = tasksViewModel;
         }
 

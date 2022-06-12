@@ -66,11 +66,14 @@ namespace Task_Managment.Models
         public Task(string tasklistId)
         {
             //this.TaskID = Guid.NewGuid().ToString();
-            this.TasklistID = tasklistId;
+            this.TasklistID = tasklistId;   
             this.Subtasks = new List<Subtask>();
+
+            this.Date = DateTime.Now; // utc datetime format
+            //this.Expiretime = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Local);
             this.Expiretime = DateTime.Now;
             this.IsNotifify = true;
-            this.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)));
+            this.TimerStore = new TimerStore((new NotifyIconNotificationService(MainWindowViewModel.NotifyIconInstance)),this);
                        
         }
 
