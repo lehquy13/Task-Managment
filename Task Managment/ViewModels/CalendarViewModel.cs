@@ -123,6 +123,10 @@ namespace Task_Managment.ViewModels
         {
             UserControlDays.Clear();
             month--;
+            if (month <= 0)
+            {
+                month = 12;
+            }
             static_month = month;
             static_year = year;
             DateTime now = DateTime.Now;
@@ -150,6 +154,10 @@ namespace Task_Managment.ViewModels
         {
             UserControlDays.Clear();
             month++;
+            if (month > 12)
+            {
+                month = 1;
+            }
             static_month = month;
             static_year = year;
             DateTime now = DateTime.Now;

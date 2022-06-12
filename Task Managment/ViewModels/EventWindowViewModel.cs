@@ -91,7 +91,16 @@ namespace Task_Managment.ViewModels
         private void SaveCalendar()
         {
             TaskDataAccess db = new TaskDataAccess();
-            db.CreateNewTaskToTaskList(new Task() { Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes =TextBoxEvent });
+            List<Tasklist> tasks = new List<Tasklist>();
+            tasks = db.GetAllTask();
+            foreach (Tasklist tasklist in tasks)
+            {
+                if (tasklist.Name == "Calenadr")
+                {
+                    db.CreateNewTaskToTaskList(new Task() { TasklistID=tasklist.TasklistID, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                }
+            }
+ 
             //MongoClient client = new MongoClient("mongodb://localhost:27017");
             //IMongoDatabase database = client.GetDatabase("Task_Management");
             //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");

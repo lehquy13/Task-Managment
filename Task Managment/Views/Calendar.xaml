@@ -603,14 +603,17 @@
                 <WrapPanel>
                     <TextBlock 
                         x:Name="tblmonthyear" 
+                        Margin="0,0,20,0"
                         TextAlignment="Center" 
-                        Padding="600,0,0,0" 
+                        Padding="500,0,0,0" 
+                        HorizontalAlignment="Center"
                         FontSize="20" 
                         Foreground="DeepSkyBlue"
                         Text="{Binding MonthYear}"
                         />
                     <Button 
                         Name="btnprevious" 
+                        Margin="0,0,10,0"
                         HorizontalAlignment="Stretch" 
                         Background="White" 
                         BorderBrush="White"
@@ -635,7 +638,7 @@
                 </WrapPanel>
             </materialDesign:Card>
             <materialDesign:Card Grid.Row="1" Background="White">
-                <WrapPanel>
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Sunday" Margin="5 5 15 5" Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
                     <TextBlock Text="Monday" Margin="5 5 15 5"  Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
                     <TextBlock Text="Tuesday" Margin="5 5 15 5"  Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
@@ -643,7 +646,7 @@
                     <TextBlock Text="Thursday" Margin="5 5 15 5"  Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
                     <TextBlock Text="Friday" Margin="5 5 15 5"  Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
                     <TextBlock Text="Saturday" Margin="5 5 15 5"  Width="160" FontWeight="Normal" TextAlignment="Center" FontSize="20" Foreground="Black"></TextBlock>
-                </WrapPanel>
+                </StackPanel>
             </materialDesign:Card>
             <ItemsControl Grid.Row="2" ItemsSource="{Binding UserControlDays}">
                 <ItemsControl.ItemsPanel>
