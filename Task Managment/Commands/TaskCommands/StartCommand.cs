@@ -18,8 +18,7 @@ namespace Task_Managment.Commands
         private readonly NotifyIcon _notifyIcon;
 
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
-        private readonly TimerStore _timerStore; 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged = null;
         public bool CanExecute(object parameter)
         {
             return true;

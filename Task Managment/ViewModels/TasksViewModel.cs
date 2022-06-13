@@ -409,17 +409,7 @@ namespace Task_Managment.ViewModels
                 this.TasklistsList = new ObservableCollection<Tasklist>();
                 foreach (Tasklist temp in tempList) // lấy những tasklist như myday, importtant, untitledlist
                 {
-                    //if (temp.Name == ("Calendar" + _currentUser.Email))
-                    //{
-                    //    temp.Tasks = db.GetAllTasksFromTasklist(temp);
-                    //    for (int j = 0; j < temp.Tasks.Count; j++)
-                    //    {
-                    //        if (temp.Tasks[j].Expiretime == DateTime.UtcNow)
-                    //            temp.Tasks[j].Important = true;
-                    //        this.TasklistsList[0].Tasks.Add(temp.Tasks[j]);// get subtasks
-                    //    }
-                    //}
-                    //else
+             
                     {
                         this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
                     }
@@ -429,10 +419,7 @@ namespace Task_Managment.ViewModels
                 }
                 for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
                 {
-                    //if (this.TasklistsList[i].Name == ("Calendar" + _currentUser.Email))
-                    //{
-                    //    continue;
-                    //}
+ 
                     this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
 
                     for (int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
