@@ -34,6 +34,9 @@ namespace Task_Managment.ViewModels
         public DateTime a;
         public Itemhandler itemhandler = new Itemhandler();
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        List<Task> calendar = new List<Task>();
+        TaskDataAccess db = new TaskDataAccess();
+
         public CalendarViewModel()
         {
             InitCommands();
@@ -56,9 +59,7 @@ namespace Task_Managment.ViewModels
         }
         public ItemCld displayevent(ItemCld cld)
         {
-            TaskDataAccess db = new TaskDataAccess();
-            List<Task> calendar = new List<Task>();
-            calendar = db.GetAllTasksCld();
+            
             if (cld.labelevent!= null)
             {
                 cld.labelevent = "";
@@ -186,6 +187,7 @@ namespace Task_Managment.ViewModels
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
+            calendar = db.GetAllTasksCld();
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -239,6 +241,9 @@ namespace Task_Managment.ViewModels
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
+
+            calendar = db.GetAllTasksCld();
+
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -266,7 +271,10 @@ namespace Task_Managment.ViewModels
             int days = DateTime.DaysInMonth(year, month);
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
+
             OnPropertyChanged("A");
+            calendar = db.GetAllTasksCld();
+
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
