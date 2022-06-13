@@ -27,7 +27,7 @@ namespace Task_Managment.Views
         public eventwindow()
         {
             InitializeComponent();
-            tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year;
+            tbxdate.Text = CalendarViewModel.static_month + "/" + CalendarViewModel.date + "/" + CalendarViewModel.static_year;
         }
     }
 }
