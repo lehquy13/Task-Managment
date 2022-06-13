@@ -26,7 +26,8 @@ namespace Task_Managment.ViewModels
         public ICommand openCalendarCommand { get; set; }
         public ICommand openTaskViewCommand { get; set; }
         public ICommand openHomeViewCommand { get; set; }
-        public ICommand onClose { get; set; }
+        public ICommand onCloseCommand { get; set; }
+        public ICommand onMinimizeCommand { get; set; }
 
         private static NotifyIcon _notifyIconInstance = null;
         public static NotifyIcon NotifyIconInstance
@@ -65,7 +66,21 @@ namespace Task_Managment.ViewModels
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);
             _notifyIconInstance.Visible = true;
             _notifyIconInstance.BalloonTipClicked += NotifyIcon_BalloonTipClicked;
+           // _notifyIconInstance.DoubleClick += NotifyIcon_DoubleClick;
+            _notifyIconInstance.Click += _notifyIconInstance_Click;
             init(currentUser);
+        }
+
+        private void _notifyIconInstance_Click(object sender, EventArgs e)
+        {
+            App.Current.MainWindow.Show();
+            App.Current.MainWindow.WindowState = WindowState.Normal;
+        }
+
+        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            App.Current.MainWindow.ShowDialog();
+            App.Current.MainWindow.WindowState = WindowState.Normal;
         }
 
         private void init(Members currentUser)
@@ -75,7 +90,8 @@ namespace Task_Managment.ViewModels
             openTaskViewCommand = new RelayCommand<Frame>(p => true, p => OpenTaskView());
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
-            onClose = new RelayCommand<Frame>(p => true, p => Dispose());
+            onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
+            onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnClose(p));
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -113,8 +129,18 @@ namespace Task_Managment.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public void OnClose(Window p)
+        {
+            if(App.Current.MainWindow.WindowState == WindowState.Minimized)
+                App.Current.MainWindow.Hide();
+            else if (App.Current.MainWindow.WindowState == WindowState.Normal)
+            {
+               
+            }
 
-        public void Dispose()
+        }
+
+        public void Dispose(Window p)
         {
             _notifyIconInstance.Dispose();
         }
