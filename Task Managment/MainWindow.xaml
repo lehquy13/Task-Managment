@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Task_Managment"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="900"
-        Width="1600"
+        Height="728"
+        Width="1366"
         ResizeMode="CanResize"
         Topmost="False"
         WindowStyle="None"
@@ -427,6 +427,11 @@
                             Command="{Binding openNoteViewCommand}"
                             CommandParameter="{Binding ElementName=FrameWithinGrid}">
 
+                    </Button>
+
+                    <Button x:Name="buttonNotebook"
+                            Command="{Binding openNotebookViewCommand}"
+                            CommandParameter="{Binding ElementName=FrameWithinGrid}">
                     </Button>
 
                 </StackPanel>

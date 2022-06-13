@@ -27,76 +27,76 @@ namespace Task_Managment.Views
         {
             InitializeComponent();
 
-            btnClose.Click += BtnClose_onClick;
-            btnRegister.Click += BtnRegister_onClick;
-            tbEmail.LostFocus += TbEmail_onLostFocus;
-            pbPassVerify.LostFocus += PbPassVerify_onLostFocus;
+            //btnClose.Click += BtnClose_onClick;
+            //btnRegister.Click += BtnRegister_onClick;
+            //tbEmail.LostFocus += TbEmail_onLostFocus;
+            //pbPassVerify.LostFocus += PbPassVerify_onLostFocus;
 
-            registerHandler = new Register();
-            isValidAccount = true;
+            //registerHandler = new Register();
+            //isValidAccount = true;
         }
 
-        private void PbPassVerify_onLostFocus(object sender, RoutedEventArgs e)
-        {
-            string Password = pbPassWord.Password;
-            string verifyPass = pbPassVerify.Password;
+        //private void PbPassVerify_onLostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    string Password = pbPassWord.Password;
+        //    string verifyPass = pbPassVerify.Password;
 
-            registerHandler.isPasswordValid(Password, verifyPass, ref isValidAccount);
-        }
+        //    registerHandler.isPasswordValid(Password, verifyPass, ref isValidAccount);
+        //}
 
-        private void TbEmail_onLostFocus(object sender, RoutedEventArgs e)
-        {
-            string Email = tbEmail.Text;
-            string Username = tbUserName.Text;
+        //private void TbEmail_onLostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    string Email = tbEmail.Text;
+        //    string Username = tbUserName.Text;
 
-            registerHandler.isValidatePatternCheck(Email, ref isValidAccount);
+        //    registerHandler.isValidatePatternCheck(Email, ref isValidAccount);
             
-            if (!isValidAccount) return;
+        //    if (!isValidAccount) return;
 
-            registerHandler.isExistedCheck(Email, ref isValidAccount);
-        }
+        //    registerHandler.isExistedCheck(Email, ref isValidAccount);
+        //}
 
-        private void BtnRegister_onClick(object sender, RoutedEventArgs e)
-        {
-            if (!isValidAccount) return;
+        //private void BtnRegister_onClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (!isValidAccount) return;
 
-            string Email = tbEmail.Text;
-            string Username = tbUserName.Text;
-            string Password = pbPassWord.Password;
-            string verifyPass = pbPassVerify.Password;
+        //    string Email = tbEmail.Text;
+        //    string Username = tbUserName.Text;
+        //    string Password = pbPassWord.Password;
+        //    string verifyPass = pbPassVerify.Password;
 
-            try 
-            {
-                string verificationCode = registerHandler.GenerateVerficationCode();
+        //    try 
+        //    {
+        //        string verificationCode = registerHandler.GenerateVerficationCode();
 
-                registerHandler.SendVerificationCode(verificationCode ,Email);
+        //        registerHandler.SendVerificationCode(verificationCode ,Email);
 
-                wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
-                newWindow.ShowDialog();
-                if (newWindow.DialogResult == false) return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+        //        wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
+        //        newWindow.ShowDialog();
+        //        if (newWindow.DialogResult == false) return;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.ToString());
+        //    }
 
-            try
-            {
-                registerHandler.AddNewMember(Email, Username, Password);
+        //    try
+        //    {
+        //        registerHandler.AddNewMember(Email, Username, Password);
 
-                wndLogin newWindow = new wndLogin();
-                newWindow.Show();
-                Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+        //        wndLogin newWindow = new wndLogin();
+        //        newWindow.Show();
+        //        Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.ToString());
+        //    }
+        //}
 
-        private void BtnClose_onClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        //private void BtnClose_onClick(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
     }
 }

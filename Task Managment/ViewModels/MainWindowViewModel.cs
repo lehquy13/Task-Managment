@@ -17,6 +17,7 @@ namespace Task_Managment.ViewModels
         public ICommand openNoteViewCommand { get; set; }
         public ICommand openTaskViewCommand { get; set; }
         public ICommand openHomeViewCommand { get; set; }
+        public ICommand openNotebookViewCommand { get; set; }
 
         private Uri _frameSource;
         public Uri FrameSource
@@ -44,6 +45,12 @@ namespace Task_Managment.ViewModels
             openNoteViewCommand = new RelayCommand<Frame>(p => true, p => OpenNoteView());
             openTaskViewCommand = new RelayCommand<Frame>(p => true, p => OpenTaskView());
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
+            openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => openNotebookView());
+        }
+
+        private void openNotebookView()
+        {
+            FrameSource = new Uri("/Views/pNotebookHomeView.xaml", UriKind.Relative);
         }
 
         private void OpenNoteView()

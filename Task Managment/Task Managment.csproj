@@ -69,8 +69,8 @@
     <Reference Include="MongoDB.Driver.Core, Version=2.15.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Driver.Core.2.15.1\lib\net472\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Libmongocrypt, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Libmongocrypt.1.3.0\lib\net472\MongoDB.Libmongocrypt.dll</HintPath>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.5.2\lib\net472\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero2, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\PresentationFramework.Aero2.1.0.1\lib\PresentationFramework.Aero2.dll</HintPath>
@@ -89,8 +89,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
@@ -204,6 +204,7 @@
     <Compile Include="ViewModels\RichTextboxHelper.cs" />
     <Compile Include="ViewModels\TasksViewModel.cs" />
     <Compile Include="ViewModels\UCdayViewModel.cs" />
+    <Compile Include="ViewModels\vmNotebookHomeView.cs" />
     <Compile Include="ViewModels\vmNoteHomeView.cs" />
     <Compile Include="Views\Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
@@ -213,6 +214,9 @@
     </Compile>
     <Compile Include="Views\PickingTaskIcon.xaml.cs">
       <DependentUpon>PickingTaskIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\pNotebookHomeView.xaml.cs">
+      <DependentUpon>pNotebookHomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\pNoteHomeView.xaml.cs" />
     <Compile Include="Views\wndLogin.xaml.cs">
@@ -249,6 +253,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PickingTaskIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\pNotebookHomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -360,6 +368,7 @@
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\img2_background.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="mongocrypt.dll" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\img3_background.png" />
     <Resource Include="imagesForWpf\TaskResource\star.png" />
     <Resource Include="imagesForWpf\TaskResource\lowerstar.png" />
@@ -406,18 +415,17 @@
     <Resource Include="imagesForWpf\TaskResource\done.png" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\greenery.png" />
     <Resource Include="imagesForWpf\TaskResource\iconForTasks\img4_background.png" />
-    <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.5.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.5.0\build\MaterialDesignThemes.targets'))" />
     <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.15.1\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.15.1\build\MongoDB.Driver.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets'))" />
   </Target>
-  <Import Project="..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
   <Import Project="..\packages\MaterialDesignThemes.4.5.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.5.0\build\MaterialDesignThemes.targets')" />
   <Import Project="..\packages\MongoDB.Driver.Core.2.15.1\build\MongoDB.Driver.Core.targets" Condition="Exists('..\packages\MongoDB.Driver.Core.2.15.1\build\MongoDB.Driver.Core.targets')" />
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets')" />
 </Project>

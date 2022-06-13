@@ -13,177 +13,138 @@
         TextOptions.TextRenderingMode="Auto"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">    <Grid>
-        <Button
-            Name="btnClose"
-            Background="Transparent"
-            BorderThickness="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Content="X"/>
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-        <Canvas
-            Width="400"
-            Height="400"
-            Margin="50"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center">
+        <Grid Grid.Column="0"
+              Background="Black">
 
-            <Ellipse Width="400" Height="400">
+        </Grid>
 
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="D:/Galleries/Avatar.png" Stretch="Fill"></ImageBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-        </Canvas>
-
-        <StackPanel
-            Width="400"
-            Height="400"
-            Margin="50"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center">
+        <Grid Grid.Column="1">
+            <Button
+                Name="btnClose"
+                Background="Transparent"
+                Foreground="Gray"
+                BorderThickness="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="X">
+            </Button>
 
             <TextBlock
-                Text="Create Your Account"
-                FontSize="30" Foreground="White"/>
+                Name="tblLoginText"
+                FontSize="40"
+                FontFamily="Arial"
+                Margin="50 100"
+                Foreground="Black"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+                <Bold>Sign In</Bold>
+            </TextBlock>
 
-            <materialDesign:Card
-                BorderThickness="1"
-                BorderBrush="White"
-                Width="auto"
-                Height="50"
-                Padding="6"
-                Margin="0 40 0 5"
-                UniformCornerRadius="6">
+            <TextBox
+                Name="tbEmail"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Margin="50 170"
+                BorderBrush="DarkBlue"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Width="300"
+                TextWrapping="Wrap"
+                materialDesign:TextFieldAssist.CharacterCounterVisibility="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxTextCountComboBox, Converter={StaticResource BooleanToVisibilityConverter}}"
+                VerticalScrollBarVisibility="Auto"
+                materialDesign:HintAssist.Hint="Email">
+            </TextBox>
 
-                <StackPanel
-                    Width="375"
-                    Orientation="Horizontal">
+            <PasswordBox
+                Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                BorderBrush="DarkBlue"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="50 230"
+                Width="300"
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedPasswordBoxEnabledComboBox}"
+                materialDesign:HintAssist.Hint="Password">
+            </PasswordBox>
 
-                    <materialDesign:PackIcon 
-                        Kind="AccountCircle" 
-                        Width="40"
-                        Height="40"
-                        Foreground="Snow"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
-
-                    <TextBox
-                        Name="tbUserName"
-                        VerticalAlignment="Center"
-                        Margin="10 0"
-                        Width="320"
-                        FontSize="20"
-                        TextWrapping="WrapWithOverflow"/>
-                </StackPanel>
-            </materialDesign:Card>
-
-            <materialDesign:Card
-                BorderThickness="1"
-                BorderBrush="White"
-                Width="auto"
-                Height="50"
-                Padding="6"
-                Margin="0 5 0 5"
-                UniformCornerRadius="6">
-
-                <StackPanel
-                    Width="375"
-                    Orientation="Horizontal">
-
-                    <materialDesign:PackIcon 
-                        Kind="Email" 
-                        Width="40"
-                        Height="40"
-                        Foreground="Snow"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
-
-                    <TextBox 
-                        Name="tbEmail"
-                        VerticalAlignment="Center"
-                        Margin="10 0"
-                        Width="320"
-                        FontSize="20"
-                        TextWrapping="WrapWithOverflow"/>
-                </StackPanel>
-            </materialDesign:Card>
-
-            <materialDesign:Card
-                BorderThickness="1"
-                BorderBrush="White"
-                Width="auto"
-                Height="50"
-                Padding="6"
-                Margin="0 5 0 5"
-                UniformCornerRadius="6">
-
-                <StackPanel
-                    Width="375"
-                    Orientation="Horizontal">
-
-                    <materialDesign:PackIcon 
-                        Kind="Key" 
-                        Width="40"
-                        Height="40"
-                        Foreground="Snow"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
-
-                    <PasswordBox 
-                        Name="pbPassWord"
-                        VerticalAlignment="Center"
-                        Margin="10 0"
-                        Width="320"
-                        Foreground="White"
-                        FontSize="20"/>
-                </StackPanel>
-            </materialDesign:Card>
-
-            <materialDesign:Card
-                BorderThickness="1"
-                BorderBrush="White"
-                Width="auto"
-                Height="50"
-                Padding="6"
-                Margin="0 5 0 5"
-                UniformCornerRadius="6">
-
-                <StackPanel
-                    Width="375"
-                    Orientation="Horizontal">
-
-                    <materialDesign:PackIcon 
-                        Kind="KeyOutline" 
-                        Width="40"
-                        Height="40"
-                        Foreground="Snow"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
-
-                    <PasswordBox 
-                        Name="pbPassVerify"                        
-                        VerticalAlignment="Center"
-                        Margin="10 0"
-                        Width="320"
-                        Foreground="White"
-                        FontSize="20"/>
-                </StackPanel>
-
-            </materialDesign:Card>
+            <CheckBox
+                Name="ckbRememberMe"
+                Content="Remember me"
+                Foreground="Black"
+                Margin="50"
+                HorizontalAlignment="Left">
+            </CheckBox>
 
             <Button
-                Name="btnRegister"
-                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                Height="40"
-                materialDesign:ButtonAssist.CornerRadius="15"
-                ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
-                <TextBlock Text="Register" />
+                Name="btnForgotPassword"
+                Content="Forgot Password?"
+                TextBlock.FontSize="10"
+                TextBlock.FontStyle="Oblique"
+                Margin="50 0"
+                Padding="-1"
+                HorizontalAlignment="Right"
+                Height="{Binding ElementName=btnCreateNewAccount, Path=FontSize}"
+                Background="Transparent"
+                Foreground="Blue"
+                BorderThickness="0">
             </Button>
-        </StackPanel>
+
+            <Button
+                Name="btnSignIn"
+                Content="Sign In"
+                BorderThickness="0"
+                Background="#FF00A82D"
+                Width="300"
+                Height="auto"
+                Margin="0 250"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom">
+            </Button>
+
+            <Button
+                Name="btnSignInAsGuest"
+                Content="Sign In as Guest"
+                BorderThickness="0"
+                Background="DarkBlue"
+                Width="300"
+                Height="auto"
+                Margin="0 200"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom">
+            </Button>
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="50 150">
+                <TextBlock
+                    Name="tblNotRegistereddYet"
+                    FontSize="10"
+                    Foreground="Black"
+                    FontFamily="Arial">
+                    <Bold>Not registered yet?</Bold>
+                </TextBlock>
+
+                <Button
+                    Name="btnCreateNewAccount"
+                    Content="Create new Account!"
+                    TextBlock.FontSize="10"
+                    TextBlock.FontStyle="Oblique"
+                    Margin="6 0"
+                    Padding="-1"
+                    Height="{Binding ElementName=btnCreateNewAccount, Path=FontSize}"
+                    Background="Transparent"
+                    Foreground="Blue"
+                    BorderThickness="0">
+                </Button>
+
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
-

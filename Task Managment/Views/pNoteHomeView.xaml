@@ -31,11 +31,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Name="spInfo" 
-                    Grid.Column="0"
-                    HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Stretch" 
-                    Background="#FFE9E9E9">
+        <DockPanel Name="dpInfo" 
+                   Grid.Column="0"
+                   HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch" 
+                   Background="#FFE9E9E9">
             <Grid Name="grdPageName"
                   DockPanel.Dock="Top"
                   HorizontalAlignment="Stretch"
