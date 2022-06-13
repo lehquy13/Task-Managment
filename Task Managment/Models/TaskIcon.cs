@@ -44,7 +44,7 @@ namespace Task_Managment.Models
 
         public TaskIcon(string name)
         {
-            Name = name;
+            Name = Path.GetFileName(name );
             FullPath = ImagesPath+Name;
             i = new BitmapImage(new Uri((FullPath)));
         }

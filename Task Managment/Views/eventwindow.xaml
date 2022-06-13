@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
          TextElement.Foreground="{DynamicResource MaterialDesignDarkForeground}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="13"
@@ -16,7 +17,7 @@
     <Grid>
         <Border>
             <Border.Background>
-                <ImageBrush ImageSource="D:\c#\Task-Managment\Task Managment\imagesForWpf\eventwindow.jpg"/>
+                <ImageBrush ImageSource="\imagesForWpf\calendar.jpg"/>
             </Border.Background>
         </Border>
         <StackPanel>
@@ -27,7 +28,7 @@
                Margin= "50,40,0,0" 
                VerticalAlignment="Top" 
                Grid.Column="1" 
-               Foreground="Black"/>
+               Foreground="White"/>
             <materialDesign:PackIcon
                   Kind="Calendar" 
                         Width="40"
@@ -43,7 +44,7 @@
                 Height="30"
                  FontSize="18"
                  Text="{Binding TextBoxDay,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                 Foreground="Black"
+                 Foreground="White"
                  />
 
         </StackPanel>
@@ -55,7 +56,7 @@
                Grid.Column="1"
                FontSize="20"
                FontWeight="Bold"
-               Foreground="Black"/>
+               Foreground="White"/>
             <materialDesign:PackIcon
                   Kind="TextBox" 
                         Width="40"
@@ -72,17 +73,19 @@
                      FontSize="18"
                  Grid.Column="1"
                  Text="{Binding TextBoxEvent}"
-                 Foreground="Black"
+                 Foreground="White"
                  />
         </StackPanel>
         <Button x:Name="btnsave"
                 Content="Save"
+                Foreground="Black"
                 HorizontalAlignment="Left"
                 Margin="130,280,0,0" 
                 VerticalAlignment="Top" 
                 Command="{Binding SaveCM}" 
                 Width="100"
                 Height="40"
+                Background="White"
                 materialDesign:ButtonAssist.CornerRadius="15"
                 ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                 />
@@ -93,12 +96,16 @@
                 VerticalAlignment="Top" 
                 Command="{Binding EditCM}" 
                 Width="100"
+                Background="White"
+                Foreground="Black"
                 Height="40"
                 materialDesign:ButtonAssist.CornerRadius="15"
                 ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
                 />
         <Button x:Name="btndelete"
                 Content="Delete"
+                Background="White"
+                Foreground="Black"
                 HorizontalAlignment="Left"
                 Margin="380,280,0,0" 
                 VerticalAlignment="Top" 

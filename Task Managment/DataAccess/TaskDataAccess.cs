@@ -65,13 +65,27 @@ namespace Task_Managment.Models
             );
             return _results.ToList();
         }
-
+        public List<Tasklist> GetAllTask()
+        {
+            var _collection = ConnectToMongo<Tasklist>(TasklistsCollection);
+            var _results = _collection.Find<Tasklist>(
+                c => true
+            );
+            return _results.ToList();
+        }
         public List<Task> GetAllTasksFromDate(DateTime dateTime)
         {
             var _collection = ConnectToMongo<Task>(TasksCollection);
             var _results = _collection.Find<Task>(
-                c => c.Date == dateTime
+                c => c.Date== dateTime
             );
+            return _results.ToList();
+        }
+        public List<Task> GetAllTasksCld()
+        {
+            var _collection = ConnectToMongo<Task>(TasksCollection);
+            var _results = _collection.Find<Task>(
+                c=>true);
             return _results.ToList();
         }
 
@@ -95,7 +109,6 @@ namespace Task_Managment.Models
             var _collection = ConnectToMongo<Tasklist>(TasklistsCollection);
             return _collection.InsertOneAsync(newTasklist);
         }
-
         public System.Threading.Tasks.Task UpdateSelectedTasklist(Tasklist selectedTaskist)
         {
             var _collection = ConnectToMongo<Tasklist>(TasklistsCollection);
@@ -118,14 +131,13 @@ namespace Task_Managment.Models
             var _collection = ConnectToMongo<Task>(TasksCollection);
             return _collection.InsertOneAsync(newTask);
         }
-
+      
         public System.Threading.Tasks.Task UpdateSelectedTask(Task selectedTask)
         {
             var _collection = ConnectToMongo<Task>(TasksCollection);
             var _filter = Builders<Task>.Filter.Eq("TaskID", selectedTask.TaskID);
             return _collection.ReplaceOneAsync(_filter, selectedTask, new ReplaceOptions { IsUpsert = true });
         }
-
         public System.Threading.Tasks.Task DeleteSelectedTask(Task selectedTask)
         {
             var _collection = ConnectToMongo<Task>(TasksCollection);

@@ -28,12 +28,25 @@ namespace Task_Managment.ViewModels
         private const string ConnectionString = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/TestDB?retryWrites=true&w=majority";
         private const string DatabaseName = "Task_Management_Application_DB";
         private const string CalendarCollection = "Calendar";
+        public DateTime a;
 
-     
         public CalendarViewModel()
         {
             InitCommands();
             GetUserControlDays();
+        }
+        public DateTime A
+        {
+            get
+            {
+                return a;
+            }
+            set
+            {
+
+                a = value;
+                OnPropertyChanged("A");
+            }
         }
         public string MonthYear
         {
@@ -75,6 +88,8 @@ namespace Task_Managment.ViewModels
             DateTime startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
+            a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
+            OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
                 UserControlDays a = new UserControlDays();
@@ -108,6 +123,10 @@ namespace Task_Managment.ViewModels
         {
             UserControlDays.Clear();
             month--;
+            if (month <= 0)
+            {
+                month = 12;
+            }
             static_month = month;
             static_year = year;
             DateTime now = DateTime.Now;
@@ -116,6 +135,8 @@ namespace Task_Managment.ViewModels
             DateTime startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
+            a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
+            OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
                 UserControlDays a = new UserControlDays();
@@ -133,6 +154,10 @@ namespace Task_Managment.ViewModels
         {
             UserControlDays.Clear();
             month++;
+            if (month > 12)
+            {
+                month = 1;
+            }
             static_month = month;
             static_year = year;
             DateTime now = DateTime.Now;
@@ -141,6 +166,8 @@ namespace Task_Managment.ViewModels
             DateTime startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
+            a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
+            OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
                 UserControlDays a = new UserControlDays();

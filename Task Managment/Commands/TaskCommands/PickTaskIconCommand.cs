@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,8 @@ namespace Task_Managment.Commands.TaskCommands
                 if (parameter is Image)
                 {
                     Image image = (Image)parameter;
-                    this.TasksViewModel.SelectedTasklist.IconSource = new Uri(image.Source.ToString());
+                    //this.TasksViewModel.SelectedTasklist.IconSource = new Uri(image.Source.ToString());
+                    this.TasksViewModel.SelectedTasklist.IconName =  Path.GetFileName(image.Source.ToString());
                     Tasklist temp = this.TasksViewModel.SelectedTasklist;
                     ObservableCollection<Tasklist> TasklistsListTemp = new ObservableCollection<Tasklist>(this.TasksViewModel.TasklistsList);
                

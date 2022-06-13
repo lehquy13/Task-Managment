@@ -21,7 +21,7 @@ namespace Task_Managment.Views
     /// <summary>
     /// Interaction logic for Calendar.xaml
     /// </summary>
-    public partial class Calendar : Window
+    public partial class Calendar : Page
     {
 
         public Calendar()
@@ -30,5 +30,6 @@ namespace Task_Managment.Views
 
 
         }
+
     }
 }

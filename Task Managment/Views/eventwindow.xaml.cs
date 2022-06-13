@@ -28,7 +28,6 @@ namespace Task_Managment.Views
         {
             InitializeComponent();
             tbxdate.Text = CalendarViewModel.static_month + "/" + UserControlDays.static_day + "/" + CalendarViewModel.static_year;
-
         }
     }
 }

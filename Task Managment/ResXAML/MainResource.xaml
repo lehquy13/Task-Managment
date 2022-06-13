@@ -4,6 +4,8 @@
                     >
 
     <viewmodel:TasksViewModel x:Key="TasksViewModelVM"></viewmodel:TasksViewModel>
+    <viewmodel:HomeViewModel x:Key="HomeViewModelVM"></viewmodel:HomeViewModel>
+    
     <viewmodel:CalendarViewModel x:Key="CalendarVM"></viewmodel:CalendarViewModel>
     <viewmodel:EventWindowViewModel x:Key="EventVM"></viewmodel:EventWindowViewModel>
     <viewmodel:UCdayViewModel x:Key="UCdayVM"></viewmodel:UCdayViewModel>
