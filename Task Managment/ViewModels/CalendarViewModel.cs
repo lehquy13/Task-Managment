@@ -14,6 +14,8 @@ using Task_Managment.DataAccess;
 using System.Collections.ObjectModel;
 using MongoDB.Driver;
 using Task_Managment.Models;
+using Task_Managment.Views;
+using Task = Task_Managment.Models.Task;
 
 namespace Task_Managment.ViewModels
 {
@@ -21,6 +23,7 @@ namespace Task_Managment.ViewModels
     {
         private string monthyear;
         int month, year;
+        public static string date;
         public static int static_month, static_year;
         ObservableCollection<UserControlDays> userControlDays = new ObservableCollection<UserControlDays>();
         public static string static_day;
@@ -29,11 +32,104 @@ namespace Task_Managment.ViewModels
         private const string DatabaseName = "Task_Management_Application_DB";
         private const string CalendarCollection = "Calendar";
         public DateTime a;
-
+        public Itemhandler itemhandler = new Itemhandler();
+        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         public CalendarViewModel()
         {
             InitCommands();
             GetUserControlDays();
+        }
+        private void test()
+        {
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < itemhandler.items.Count; i++)
+            {
+                itemhandler.items[i] = displayevent(itemhandler.items[i]);
+                itemhandler.items[i].UpdatePropertyChanged("LabelEvent");
+            }
+
+        }
+        public ItemCld displayevent(ItemCld cld)
+        {
+            TaskDataAccess db = new TaskDataAccess();
+            List<Task> calendar = new List<Task>();
+            calendar = db.GetAllTasksCld();
+            if (cld.labelevent!= null)
+            {
+                cld.labelevent = "";
+            }
+            foreach (Task myCalendar in calendar)
+            {
+                if (static_month.ToString() + "/" + cld.labelday+ "/" + static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
+                {
+                   cld.labelevent = myCalendar.Notes;
+                }
+            }
+            return cld;
+        }
+        public ObservableCollection<ItemCld> items
+        {
+            get { return itemhandler.items; }
+        }
+        public class ItemCld : INotifyPropertyChanged
+        {
+            public string labelday { get; set; }
+            public string labelevent { get; set; }
+            public ItemCld(string lbday, string lbevent)
+            {
+                labelday = lbday;
+                labelevent = lbevent;
+            }
+            public string LabelDay
+            {
+                get
+                {
+                    return labelday;
+                }
+                set
+                {
+
+                    labelday = value;
+                    UpdatePropertyChanged("LabelDay");
+                }
+            }
+            public string LabelEvent
+            {
+                get
+                {
+                    return labelevent;
+                }
+                set
+                {
+
+                    labelevent = value;
+                    UpdatePropertyChanged("LabelEvent");
+                }
+            }
+            public void UpdatePropertyChanged(string name)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+        }
+        public class Itemhandler
+        {
+            public ObservableCollection<ItemCld> items { get; set; }
+            public Itemhandler()
+            {
+                items = new ObservableCollection<ItemCld>();
+            }
+            public void Add(ItemCld item)
+            {
+                items.Add(item);
+            }
         }
         public DateTime A
         {
@@ -76,7 +172,7 @@ namespace Task_Managment.ViewModels
             var db = client.GetDatabase(DatabaseName);
             return db.GetCollection<T>(collection);
         }
-        public ObservableCollection<UserControlDays> GetUserControlDays()
+        public void GetUserControlDays()
         {
             DateTime now = DateTime.Now;
             month = now.Month;
@@ -92,18 +188,15 @@ namespace Task_Managment.ViewModels
             OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
-                UserControlDays a = new UserControlDays();
-                a.dayss("");
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld("", ""));
 
             }
             for (int i = 1; i <= days; i++)
             {
-                UserControlDays a=new UserControlDays();
-                a.days(i);
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld(i.ToString(), ""));
+
+                itemhandler.items[i - 1] = displayevent(itemhandler.items[i - 1]);
             }
-            return UserControlDays;
         }
         private void OnPropertyChanged(string name)
         {
@@ -113,15 +206,24 @@ namespace Task_Managment.ViewModels
 
         public ICommand PreviousCM { get; set; }
         public ICommand NextCM { get; set; }
-
+        public ICommand command { get; set; }
         private void InitCommands()
         {
             PreviousCM = new RelayCommand<RichTextBox>(p => true, p => PreviousMonth());
             NextCM = new RelayCommand<RichTextBox>(p => true, p => NextMonth());
+            command = new RelayCommand<ListViewItem>(p => true, p => eventwindow1(p));
+        }
+        private void eventwindow1(ListViewItem p)
+        {
+            ItemCld b = p.Content as ItemCld;
+            date = b.labelday;
+            test();
+            eventwindow a = new eventwindow();
+            a.ShowDialog();
         }
         private void PreviousMonth()
         {
-            UserControlDays.Clear();
+            itemhandler.items.Clear();
             month--;
             if (month <= 0)
             {
@@ -139,20 +241,17 @@ namespace Task_Managment.ViewModels
             OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
-                UserControlDays a = new UserControlDays();
-                a.dayss("");
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld("", ""));
             }
             for (int i = 1; i <= days; i++)
             {
-                UserControlDays a = new UserControlDays();
-                a.days(i);
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld(i.ToString(), ""));
+                itemhandler.items[i - 1] = displayevent(itemhandler.items[i - 1]);
             }
         }
         private void NextMonth()
         {
-            UserControlDays.Clear();
+            itemhandler.items.Clear();
             month++;
             if (month > 12)
             {
@@ -170,18 +269,13 @@ namespace Task_Managment.ViewModels
             OnPropertyChanged("A");
             for (int i = 1; i < dayoftheweek; i++)
             {
-                UserControlDays a = new UserControlDays();
-                a.dayss("");
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld("", ""));
             }
             for (int i = 1; i <= days; i++)
             {
-                UserControlDays a = new UserControlDays();
-                a.days(i);
-                UserControlDays.Add(a);
+                itemhandler.Add(new ItemCld(i.ToString(), ""));
+                itemhandler.items[i - 1] = displayevent(itemhandler.items[i - 1]);
             }
         }
-      
-   
     }
 }
