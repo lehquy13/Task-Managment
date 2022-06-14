@@ -21,6 +21,7 @@ namespace Task_Managment.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private string textboxday;
         private string textboxevent;
+        public Members members { get; set; }
         public bool isDialogOpen { get; set; }
 
         public CloseDialogCommandCld CloseDialogCommand { get; set; }
@@ -105,6 +106,7 @@ namespace Task_Managment.ViewModels
         {
             initCommand();
             isDialogOpen = false;
+            members = MainWindowViewModel.currentUser;
         }
 
         public ICommand SaveCM { get; set; }
@@ -147,15 +149,23 @@ namespace Task_Managment.ViewModels
         }
         private void SaveCalendar()
         {
-            tasks = db.GetAllTask();
-            foreach (Tasklist tasklist in tasks)
+            if (members.Email != "guest@gmail.com")
             {
-                if (tasklist.Name == "Calendarphatlam1811@gmail.com")
+                tasks = db.GetAllTask();
+                foreach (Tasklist tasklist in tasks)
                 {
-                    db.CreateNewTaskToTaskList(new Task() { TasklistID=tasklist.TasklistID,Expiretime=_selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                    if (tasklist.Name == "Calendar" + members.Email.ToString())
+                    {
+                        db.CreateNewTaskToTaskList(new Task() { TasklistID = tasklist.TasklistID, Expiretime = _selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                    }
                 }
             }
- 
+            else
+            {
+                db.CreateNewTaskToTaskList(new Task() { Expiretime = _selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+            }
+
+
             //MongoClient client = new MongoClient("mongodb://localhost:27017");
             //IMongoDatabase database = client.GetDatabase("Task_Management");
             //IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
@@ -167,16 +177,36 @@ namespace Task_Managment.ViewModels
         }
         private void UpdateCalendarAsync()
         {
-           
-            calendar1 = db.GetAllTasksCld();
-            foreach (Task myCalendar in calendar1)
+
+            if (members.Email != "guest@gmail.com")
             {
-                if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
+                calendar1 = db.GetAllTasksCld();
+                tasks = db.GetAllTasklistOfMember(members);
+                foreach (Tasklist tasklist in tasks)
                 {
-                    myCalendar.Notes = TextBoxEvent;
-                    db.UpdateSelectedTask(myCalendar);
+                    foreach (Task myCalendar in calendar1)
+                    {
+                        if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && tasklist.TasklistID == myCalendar.TasklistID)
+                        {
+                            myCalendar.Notes = TextBoxEvent;
+                            db.UpdateSelectedTask(myCalendar);
+                        }
+                    }
                 }
             }
+            else
+            {
+                calendar1 = db.GetAllTasksCld();
+                foreach (Task myCalendar in calendar1)
+                {
+                    if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && myCalendar.TasklistID == null)
+                    {
+                        myCalendar.Notes = TextBoxEvent;
+                        db.UpdateSelectedTask(myCalendar);
+                    }
+                }
+            }
+
 
             //MongoClient client = new MongoClient("mongodb://localhost:27017");
             //IMongoDatabase database = client.GetDatabase("Task_Management");
@@ -196,13 +226,32 @@ namespace Task_Managment.ViewModels
         } 
         private void DeleteCalendar()
         {
-           
-            calendar1 = db.GetAllTasksCld();
-            foreach (Task myCalendar in calendar1)
+
+
+            if (members.Email != "guest@gmail.com")
             {
-                if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay))
+                calendar1 = db.GetAllTasksCld();
+                tasks = db.GetAllTasklistOfMember(members);
+                foreach (Tasklist tasklist in tasks)
                 {
-                    db.DeleteSelectedTask(myCalendar);
+                    foreach (Task myCalendar in calendar1)
+                    {
+                        if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && tasklist.TasklistID == myCalendar.TasklistID)
+                        {
+                            db.DeleteSelectedTask(myCalendar);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                calendar1 = db.GetAllTasksCld();
+                foreach (Task myCalendar in calendar1)
+                {
+                    if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && myCalendar.TasklistID == null)
+                    {
+                        db.DeleteSelectedTask(myCalendar);
+                    }
                 }
             }
 

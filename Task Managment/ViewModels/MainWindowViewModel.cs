@@ -15,12 +15,13 @@ using TrayIcon.Services;
 using Task_Managment.Stores;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
+using System.Reflection;
 
 namespace Task_Managment.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        Members currentUser { get; set; }
+        public static Members currentUser { get; set; }
 
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
         public ICommand openNoteViewCommand { get; set; }
@@ -72,12 +73,27 @@ namespace Task_Managment.ViewModels
             Uri iconUri = new Uri("pack://application:,,,/app.ico", UriKind.RelativeOrAbsolute);
             //string temp = ImagesPath + "/app.ico";
             _notifyIconInstance.Icon = new Icon(Path.Combine(System.Environment.CurrentDirectory.Replace("\\bin\\Debug", "\\imagesForWpf\\"), "app.ico"));
+
+           
+
             _notifyIconInstance.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             _notifyIconInstance.ContextMenuStrip.Items.Add("Open");
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);
             _notifyIconInstance.Visible = true;
             _notifyIconInstance.BalloonTipClicked += NotifyIcon_BalloonTipClicked;
             init(currentUser);
+        }
+
+        private void _notifyIconInstance_Click(object sender, EventArgs e)
+        {
+            App.Current.Windows[0].Show();
+            App.Current.Windows[0].WindowState = WindowState.Normal;
+        }
+
+        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            App.Current.MainWindow.ShowDialog();
+            App.Current.MainWindow.WindowState = WindowState.Normal;
         }
 
         private void init(Members currentUser)
@@ -88,9 +104,8 @@ namespace Task_Managment.ViewModels
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
             openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
-            onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose());
-            //onMinimizeCommand = new RelayCommand<Window>(p => true, p => onClose());
-            //onClose = new RelayCommand<Frame>(p => true, p => Dispose());
+            onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
+            onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnMinimize(p));
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -134,15 +149,17 @@ namespace Task_Managment.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void OnClose(Window p)
+        public void OnMinimize(Window p)
         {
-            if (App.Current.MainWindow.WindowState == WindowState.Minimized)
-                App.Current.MainWindow.Hide();
+            if (p.WindowState == WindowState.Minimized)
+                p.Hide();
+            else if (p.WindowState == WindowState.Normal)
+            {
 
-
+            }
         }
 
-        public void Dispose()
+        public void Dispose(Window p)
         {
             _notifyIconInstance.Dispose();
         }
