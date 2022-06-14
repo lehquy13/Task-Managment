@@ -33,8 +33,15 @@ namespace Task_Managment.DataAccess
         //    {
 
         //    }
-            
-        //}
+        public List<MyCalendar> GetAllCalendar()
+        {
+
+            IMongoDatabase database = client.GetDatabase("Task_Management");
+            IMongoCollection<MyCalendar> collectionCalendar = database.GetCollection<MyCalendar>("Calendar");
+            List<MyCalendar> calendarList = collectionCalendar.AsQueryable().ToList<MyCalendar>();
+            return calendarList;
+
+        }
         public void AddCalendar(MyCalendar calendar)
         {
             IMongoDatabase database = client.GetDatabase("Task_Management");

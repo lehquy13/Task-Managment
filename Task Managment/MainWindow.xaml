@@ -208,8 +208,7 @@
                         Height="40"
                         Width="230"
                         HorizontalContentAlignment="Stretch"
-                        Command="{Binding openNoteViewCommand}"
-                        CommandParameter="{Binding ElementName=FrameWithinGrid}">
+                        CommandParameter="{Binding ElementName=FrameWithinGrid}" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="imagesForWpf/close.png"
                                Stretch="Fill"

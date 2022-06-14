@@ -37,7 +37,7 @@ namespace Task_Managment.Models
         
         private IMongoCollection<T> ConnectToMongo<T>(in string collection)
         {
-            if (members.Email != "guest@gmail.com")
+            if (StartWindowViewModel.mIsUser)
             {
                 var client = new MongoClient(DataAccessKey);
                 var db = client.GetDatabase(MongoDatabase);

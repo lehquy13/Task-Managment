@@ -23,7 +23,7 @@ namespace Task_Managment.ViewModels
         public bool mIsUserRemember { get; set; }
 
         private static Members mCurrentUser;
-        private static bool mIsUser;
+        public static bool mIsUser;
 
         public Action CloseAction { get; set; }
         public Action HideAction { get; set; }
@@ -157,8 +157,9 @@ namespace Task_Managment.ViewModels
         private void LoginAsUser(PasswordBox p)
         {
             string password = p.Password.ToString();
-
+            mIsUser = true;
             List<Members> members = db.GetMemberWithEmailAndPassword(mLoginEmail, password);
+
 
             if (members != null && members.Count == 1)
             {
