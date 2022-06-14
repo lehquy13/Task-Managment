@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Managment"
+        xmlns:y="clr-namespace:Task_Managment.Converters"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:wndContext="clr-namespace:Task_Managment.ViewModels"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -28,6 +29,7 @@
             Width="440"
             HorizontalAlignment="Stretch">
             <DockPanel 
+                Width="300"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
                 <TextBlock 
@@ -35,15 +37,15 @@
                     DockPanel.Dock="Top"
                     FontSize="30"
                     FontFamily="Fonts/Roboto-Weight.ttf #Roboto"
-                    Margin="0 40 0 0"
+                    Margin="0 20 0 0"
                     Foreground="Black"
                     HorizontalAlignment="Center">
-                    <Bold>Create new Account</Bold>
+                    <Bold>Be with us!</Bold>
                 </TextBlock>
 
                 <TextBlock
                     DockPanel.Dock="Top"
-                    Margin="0 20 0 0"
+                    Margin="10 20 10 0"
                     Padding="10 0"
                     Text="Email"
                     Foreground="Black">
@@ -53,8 +55,8 @@
                     Name="tbRegisterEmail"
                     DockPanel.Dock="Top"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Margin="0 1 0 0"
-                    Text="{Binding mEmail}"
+                    Margin="10 1 10 0"
+                    Text="{Binding mRegisterEmail}"
                     BorderBrush="DarkBlue"
                     Background="White"
                     Foreground="Black"
@@ -73,7 +75,7 @@
 
                 <TextBlock
                     DockPanel.Dock="Top"
-                    Margin="0 5 0 0"
+                    Margin="10 5 10 0"
                     Padding="5 0"
                     Text="Username"
                     Foreground="Black">
@@ -83,8 +85,8 @@
                     Name="tbRegisterUsername"
                     DockPanel.Dock="Top"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Margin="0 1 0 0"
-                    Text="{Binding mEmail}"
+                    Margin="10 1 10 0"
+                    Text="{Binding mRegisterUsername}"
                     BorderBrush="DarkBlue"
                     Background="White"
                     Foreground="Black"
@@ -103,7 +105,7 @@
 
                 <TextBlock
                     DockPanel.Dock="Top"
-                    Margin="0 5 0 0"
+                    Margin="10 5 10 0"
                     Padding="5 0"
                     Text="Password"
                     Foreground="Black">
@@ -117,7 +119,7 @@
                     BorderBrush="DarkBlue"
                     Background="White"
                     Foreground="Black"
-                    Margin="0 1 0 0"
+                    Margin="10 1 10 0"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Stretch"
                     Padding="5"
@@ -128,7 +130,7 @@
 
                 <TextBlock
                     DockPanel.Dock="Top"
-                    Margin="0 5 0 0"
+                    Margin="10 5 10 0"
                     Padding="5 0"
                     Text="Confirm Password"
                     Foreground="Black">
@@ -142,7 +144,7 @@
                     BorderBrush="DarkBlue"
                     Background="White"
                     Foreground="Black"
-                    Margin="0 1 0 0"
+                    Margin="10 1 10 0"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Stretch"
                     Padding="5"
@@ -154,14 +156,22 @@
                 <Button
                     DockPanel.Dock="Top"
                     Name="btnRegister"
-                    Content="Sign In"
+                    Content="Create new Account"
                     BorderThickness="0"
                     Background="#FF00A82D"
-                    Height="auto"
-                    Margin="5 10"
+                    Height="35"
+                    Margin="0 10 0 0"
                     HorizontalAlignment="Stretch"
-                    Command="{Binding RegisterNewAccountCmd}"
-                    CommandParameter="{Binding ElementName=pbPassword}">
+                    Command="{Binding RegisterNewAccountCmd}">
+                    <Button.Resources>
+                        <y:MultiValueConverter x:Key="btnResouces"/>
+                    </Button.Resources>
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ResourceKey=btnResouces}">
+                            <Binding ElementName="pbRegisterPassword"></Binding>
+                            <Binding ElementName="pbConfirmPassword"></Binding>
+                        </MultiBinding>
+                    </Button.CommandParameter>
                 </Button>
             </DockPanel>
         </Grid>
@@ -201,7 +211,7 @@
                     DockPanel.Dock="Top"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Margin="0 1 0 0"
-                    Text="{Binding mEmail}"
+                    Text="{Binding mLoginEmail}"
                     BorderBrush="DarkBlue"
                     Background="White"
                     Foreground="Black"

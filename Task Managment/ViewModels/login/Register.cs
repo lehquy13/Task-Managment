@@ -16,7 +16,7 @@ namespace Task_Managment.ViewModels
     public class Register
     {
         private const string ConnectionString = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/TestDB?retryWrites=true&w=majority";
-        private const string DatabaseName = "TestDB";
+        private const string DatabaseName = "Task_Management_Application_DB";
         private const string MembersCollection = "Members";
         private const string MailPattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 

@@ -223,6 +223,7 @@
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
+    <Compile Include="Converters\MultiValueConverter.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="DataAccess\Dataaccesslocal.cs" />
     <Compile Include="DataAccess\MemberDataAccess.cs" />

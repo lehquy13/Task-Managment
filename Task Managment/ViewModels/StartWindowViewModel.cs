@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
+using Task_Managment.Views;
 
 namespace Task_Managment.ViewModels
 {
     public class StartWindowViewModel
     {
         private MemberDataAccess db = MemberDataAccess.Instance;
+        private Register mRegisterHandler = new Register();
 
-        public string mEmail { get; set; }
-        public string mPassword { get; set; }
+        public string mLoginEmail { get; set; }
+        public string mRegisterEmail { get; set; }
+        public string mRegisterUsername { get; set; }
         public bool mIsUserRemember { get; set; }
 
         private static Members mCurrentUser;
@@ -50,12 +54,51 @@ namespace Task_Managment.ViewModels
         {
             LoginAsUserCmd = new RelayCommand<PasswordBox>(p => true, p => LoginAsUser(p));
             LoginAsGuestCmd = new RelayCommand<Button>(p => true, p => LoginAsGuest());
-            RegisterNewAccountCmd = new RelayCommand<Button>(p => true, p => StartRegisterWindow());
+            RegisterNewAccountCmd = new RelayCommand<object>(p => true, p => CreateNewAccount(p));
         }
 
-        private void StartRegisterWindow()
+        private void CreateNewAccount(object p)
         {
+            var values = (object[])p;
+            PasswordBox registerPassword = (PasswordBox)values[0];
+            PasswordBox confirmPassword = (PasswordBox)values[1];
 
+            bool isValid = false;
+
+            mRegisterHandler.isValidatePatternCheck(mRegisterEmail,ref isValid); if (!isValid) return;
+            mRegisterHandler.isExistedCheck(mRegisterEmail, ref isValid); if (!isValid) return;
+            mRegisterHandler.isPasswordValid(registerPassword.Password, confirmPassword.Password, ref isValid); if (!isValid) return;
+
+            try
+            {
+                string verificationCode = mRegisterHandler.GenerateVerficationCode();
+
+                mRegisterHandler.SendVerificationCode(verificationCode, mRegisterEmail);
+
+                wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
+                newWindow.ShowDialog();
+                if (newWindow.DialogResult == false) return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            try
+            {
+                mRegisterHandler.AddNewMember(mRegisterEmail, mRegisterUsername, registerPassword.Password);
+
+                mCurrentUser = new Members(mRegisterEmail, mRegisterUsername, registerPassword.Password);
+                mIsUser = true;
+
+                MainWindow newWindow = new MainWindow();
+                newWindow.Show();
+                CloseAction.Invoke();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void LoginAsGuest()
@@ -69,9 +112,9 @@ namespace Task_Managment.ViewModels
 
         private void LoginAsUser(PasswordBox p)
         {
-            mPassword = p.Password.ToString();
+            string password = p.Password.ToString();
 
-            List<Members> members = db.GetMemberWithEmailAndPassword(mEmail, mPassword);
+            List<Members> members = db.GetMemberWithEmailAndPassword(mLoginEmail, password);
 
             if (members != null && members.Count == 1)
             {
