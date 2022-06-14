@@ -81,8 +81,6 @@ namespace Task_Managment.ViewModels
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);
             _notifyIconInstance.Visible = true;
             _notifyIconInstance.BalloonTipClicked += NotifyIcon_BalloonTipClicked;
-           // _notifyIconInstance.DoubleClick += NotifyIcon_DoubleClick;
-            _notifyIconInstance.Click += _notifyIconInstance_Click;
             init(currentUser);
         }
 
@@ -167,3 +165,6 @@ namespace Task_Managment.ViewModels
         }
     }
 }
+
+/*       *
+}*/
