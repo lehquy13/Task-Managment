@@ -136,12 +136,9 @@ namespace Task_Managment.ViewModels
         }
         public void OnClose(Window p)
         {
-            if(App.Current.MainWindow.WindowState == WindowState.Minimized)
+            if (App.Current.MainWindow.WindowState == WindowState.Minimized)
                 App.Current.MainWindow.Hide();
-          
 
-        }
-            }
 
         }
 
@@ -151,3 +148,6 @@ namespace Task_Managment.ViewModels
         }
     }
 }
+
+/*       *
+}*/

@@ -638,7 +638,7 @@
 
         <Frame Name="FrameWithinGrid"
                Background="#FAFAD2"
-               Source="{Binding FrameSource}"
+               Source="{Binding FrameSource, Mode=TwoWay}"
                NavigationUIVisibility="Hidden"
                HorizontalContentAlignment="Stretch">
         </Frame>

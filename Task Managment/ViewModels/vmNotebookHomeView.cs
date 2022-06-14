@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Task_Managment.Models;
@@ -21,10 +22,23 @@ namespace Task_Managment.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private string _notebooksCount;
+        public string NotebooksCount
+        {
+            get { return _notebooksCount; }
+            set
+            {
+                _notebooksCount = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NotebooksCount"));
+            }
+        }
+
         public ICommand NoteSwichCommand { get; set; }
         public ICommand CreateNewNoteBookCommand { get; set; }
+        public ICommand EnableRenameSelectedNoteBookCommand { get; set; }
+        public ICommand DeleteSelectedNoteBookCommand { get; set; }
 
-        private NotebookModel _selectedNotebook;
+        private static NotebookModel _selectedNotebook;
 
         public NotebookModel SelectedNotebook
         {
@@ -62,23 +76,14 @@ namespace Task_Managment.ViewModels
             if (tempList.Count > 0)
             {
                 this.mNotebooks = new ObservableCollection<NotebookModel>();
-                foreach (NotebookModel temp in tempList) // lấy những tasklist như myday, importtant, untitledlist
+                foreach (NotebookModel temp in tempList)
                 {
-                    {
-                        this.mNotebooks.Add(temp); // sau đó add từng tasklist vào
-                    }
+                    this.mNotebooks.Add(temp);
                 }
-                for (int i = 0; i < this.mNotebooks.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
+                for (int i = 0; i < this.mNotebooks.Count; i++)
                 {
-
-                    this.mNotebooks[i]._collection = db.GetAllNotesFromNotebook(this.mNotebooks[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
-
-                    //for (int j = 0; j < this.mNotebooks[i].Tasks.Count; j++)
-                    //{
-                    //    this.mNotebooks[i].Tasks[j].Subtasks = db.GetAllSubTasksFromTask(this.TasklistsList[i].Tasks[j]); // get subtasks
-                    //}
+                    this.mNotebooks[i]._collection = db.GetAllNotesFromNotebook(this.mNotebooks[i]);
                 }
-
             }
             else
             {
@@ -96,6 +101,34 @@ namespace Task_Managment.ViewModels
         {
             NoteSwichCommand = new RelayCommand<ListViewItem>(p => true, p => noteSwitch());
             CreateNewNoteBookCommand = new RelayCommand<Button>(p => true, p => CreateNewNoteBook());
+            EnableRenameSelectedNoteBookCommand = new RelayCommand<ListViewItem>(p => true, p => EnableRenameSelectedNoteBook(p));
+            DeleteSelectedNoteBookCommand = new RelayCommand<Button>(p => true, p => DeleteSelectedNoteBook());
+        }
+
+        private void DeleteSelectedNoteBook()
+        {
+            try
+            {
+                if (_selectedNotebook._name.Equals("First notebook"))
+                {
+                    MessageBox.Show("First notebook can't be delete!!");
+                    return;
+                }
+                db.DeleteSelectedNotebook(_selectedNotebook);
+                MessageBox.Show("Successfully deleted!!");
+                mNotebooks.Remove(_selectedNotebook);
+                NotebooksCount = mNotebooks.Count.ToString();
+                SelectedNotebook = mNotebooks.Count > 0 ? mNotebooks[0] : null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void EnableRenameSelectedNoteBook(ListViewItem p)
+        {
+            p.IsEnabled = true;
         }
 
         private void CreateNewNoteBook()
@@ -112,8 +145,6 @@ namespace Task_Managment.ViewModels
 
         private void noteSwitch()
         {
-
-
         }
 
         #endregion

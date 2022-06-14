@@ -4,9 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Task_Managment.Views"
+      xmlns:dtContext="clr-namespace:Task_Managment.ViewModels"
       mc:Ignorable="d"
       d:DesignHeight="900"
       d:DesignWidth="1600"
+     
       Title="pNotebookHomeView"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -360,22 +362,21 @@
                                         >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Width="500"
-                                            
-                                            >
-                                        <TextBlock HorizontalAlignment="Left"
-                                                   Text="{Binding _name}"
-                                                   Background="#00F1F1F1"
-                                                   FontSize="18"
-                                                   Foreground="Black">
-                                        </TextBlock>
+                                    <Border Width="500" >
+                                        <TextBox
+                                            Name="tbNotebookTitle"
+                                            HorizontalAlignment="Left"
+                                            Text="{Binding _name}"
+                                            Background="#00F1F1F1"
+                                            FontSize="18"
+                                            Foreground="Black">
                                         <behaviors:Interaction.Triggers>
                                             <behaviors:EventTrigger EventName="MouseUp">
                                                 <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=NoteSwichCommand}"
                                                                                CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
                                             </behaviors:EventTrigger>
                                         </behaviors:Interaction.Triggers>
-
+                                        </TextBox>
                                     </Border>
 
                                 </DataTemplate>
@@ -408,7 +409,12 @@
                                                Margin="0 5 0 0"
                                                Foreground="Black"
                                                FontSize="18">
-
+                                         <behaviors:Interaction.Triggers>
+                                            <behaviors:EventTrigger EventName="MouseUp">
+                                                <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=NoteSwichCommand}"
+                                                                               CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+                                            </behaviors:EventTrigger>
+                                        </behaviors:Interaction.Triggers>
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -419,13 +425,37 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border Width="500">
-                                        <Button HorizontalAlignment="Left"
+                                        <materialDesign:PopupBox HorizontalAlignment="Left"
                                                 Content="{materialDesign:PackIcon Kind=DotsVertical}"
                                                 BorderBrush="Transparent"
                                                 Background="#00F1F1F1"
                                                 FontSize="18"
                                                 Foreground="Black">
-                                        </Button>
+                                            <StackPanel
+                                                Name="spNotebookActions"
+                                                Width="100"
+                                                Height="auto"
+                                                Background="White">
+                                                <Button
+                                                    Name="btnActionRename"
+                                                    Foreground="Black"
+                                                    Background="White"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0"
+                                                    Content="Rename">
+                                                </Button>
+                                                
+                                                <Button
+                                                    Name="btnActionDelete"
+                                                    Foreground="Red"
+                                                    Background="{x:Null}"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0"
+                                                    Content="Delete"
+                                                    Command="{Binding Source={StaticResource NoteBookVM}, Path=DeleteSelectedNoteBookCommand}">
+                                                </Button>
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
                                         <behaviors:Interaction.Triggers>
                                             <behaviors:EventTrigger EventName="MouseUp">
                                                 <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=NoteSwichCommand}"
