@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
+using Task_Managment.ViewModel.Commands;
 
 namespace Task_Managment.ViewModels 
 {
@@ -27,13 +28,9 @@ namespace Task_Managment.ViewModels
 
         #endregion
 
-        public HomeViewModel()
-        {
-            //init commands
-            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
-            init(currentUser);
+        public EndRenameCommand endRenameCommand;
 
-        }
+       
 
         private string _selectedScratchPad;
 
@@ -48,9 +45,7 @@ namespace Task_Managment.ViewModels
                 {
                     _selectedScratchPad = value;
                     PropertyUpdated("SelectedScratchPad");
-
                 }
-
             }
         }
 
@@ -59,9 +54,13 @@ namespace Task_Managment.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public HomeViewModel(Members currentUser)
+        public HomeViewModel()
         {
             //init commands
+            MainWindow newWindow = new MainWindow();
+
+            StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
+            Members currentUser = startWindowViewModel.getCurrentUser();
             init(currentUser);
 
         }
@@ -101,7 +100,7 @@ namespace Task_Managment.ViewModels
             {
                 BackgroundList.Add(new TaskIcon(temp));
             }
-            if (db1.GetUserSetting(_currentUser.Email).homeViewBackground == "")
+            if (db1.GetUserSetting(_currentUser.Email) == null)
             {
                 _currentUser.Setting = new UserSetting();
                 _currentUser.Setting.taskBackground = "img_background.png";
@@ -114,7 +113,7 @@ namespace Task_Managment.ViewModels
 
         private void InitCommand()
         {
-            
+            endRenameCommand = new EndRenameCommand(this);
         }
     }
 }

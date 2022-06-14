@@ -147,7 +147,8 @@ namespace Task_Managment.ViewModels
 
         private void LoginAsGuest()
         {
-            mCurrentUser = null;
+            mCurrentUser = new Members("email@guest.com","","");
+            mCurrentUser.isGuest = true;
             mIsUser = false;
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
