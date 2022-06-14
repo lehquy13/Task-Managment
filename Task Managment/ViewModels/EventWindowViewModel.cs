@@ -20,6 +20,9 @@ namespace Task_Managment.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private string textboxday;
         private string textboxevent;
+        TaskDataAccess db = new TaskDataAccess();
+        List<Tasklist> tasks = new List<Tasklist>();
+        List<Task> calendar1 = new List<Task>();
         public string TextBoxDay
         {
             get { return textboxday; }
@@ -46,10 +49,6 @@ namespace Task_Managment.ViewModels
         public EventWindowViewModel() 
         {
             initCommand();
-            if(TextBoxDay != null)
-            {
-                GetCalendar();
-            }
         }
 
         public ICommand SaveCM { get; set; }
@@ -90,12 +89,10 @@ namespace Task_Managment.ViewModels
         }
         private void SaveCalendar()
         {
-            TaskDataAccess db = new TaskDataAccess();
-            List<Tasklist> tasks = new List<Tasklist>();
             tasks = db.GetAllTask();
             foreach (Tasklist tasklist in tasks)
             {
-                if (tasklist.Name == "Calenadr")
+                if (tasklist.Name == "Calendarphatlam1811@gmail.com")
                 {
                     db.CreateNewTaskToTaskList(new Task() { TasklistID=tasklist.TasklistID, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
                 }
@@ -112,8 +109,7 @@ namespace Task_Managment.ViewModels
         }
         private void UpdateCalendarAsync()
         {
-            TaskDataAccess db = new TaskDataAccess();
-            List<Task> calendar1 = new List<Task>();
+           
             calendar1 = db.GetAllTasksCld();
             foreach (Task myCalendar in calendar1)
             {
@@ -142,8 +138,7 @@ namespace Task_Managment.ViewModels
         } 
         private void DeleteCalendar()
         {
-            TaskDataAccess db = new TaskDataAccess();
-            List<Task> calendar1 = new List<Task>();
+           
             calendar1 = db.GetAllTasksCld();
             foreach (Task myCalendar in calendar1)
             {
