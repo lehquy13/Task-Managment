@@ -10,6 +10,7 @@ namespace Task_Managment.Models
 {
     public class TaskDataAccess 
     {
+        Members members = MainWindowViewModel.currentUser;
         #region framework
         #region Singleton
         private static TaskDataAccess _Instance = null;
@@ -26,17 +27,28 @@ namespace Task_Managment.Models
         #endregion
 
         private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
+        private const string DataAccessKeyLocal = "mongodb://localhost:27017";
         private const string MongoDatabase = "Task_Management_Application_DB";
         private const string TasklistsCollection = "Tasklists";
         private const string TasksCollection = "Tasks";
         private const string SubtasksCollection = "SubTasks";
         private const string MembersCollection = "Members";
 
+        
         private IMongoCollection<T> ConnectToMongo<T>(in string collection)
         {
-            var client = new MongoClient(DataAccessKey);
-            var db = client.GetDatabase(MongoDatabase);
-            return db.GetCollection<T>(collection);
+            if (members.Email != "guest@gmail.com")
+            {
+                var client = new MongoClient(DataAccessKey);
+                var db = client.GetDatabase(MongoDatabase);
+                return db.GetCollection<T>(collection);
+            }
+            else
+            {
+                MongoClient client = new MongoClient(DataAccessKeyLocal);
+                IMongoDatabase database = client.GetDatabase(MongoDatabase);
+                return database.GetCollection<T>(collection);
+            }
         }
 
         public async Task<List<T>> GetCollection<T>(string collection)
