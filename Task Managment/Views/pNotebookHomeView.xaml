@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Task_Managment.Views"
       mc:Ignorable="d"
-      d:DesignHeight="450"
-      d:DesignWidth="800"
+      d:DesignHeight="900"
+      d:DesignWidth="1600"
       Title="pNotebookHomeView"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
@@ -18,6 +18,58 @@
       Background="White"
       DataContext="{StaticResource NoteBookVM}"
       FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="SelectedTemplate"
+                         TargetType="ListViewItem">
+            <Border CornerRadius="5"
+                    BorderThickness="1"
+                    BorderBrush="DarkGray"
+                    Background="#FF92C6F9"
+                    Padding="2"
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    Tag="{Binding Value}"
+                    Cursor="Hand"
+                    >
+                <TextBlock Text="{Binding Name}"
+                           Margin="5" />
+            </Border>
+        </ControlTemplate>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border CornerRadius="5"
+                                BorderThickness="1"
+                                BorderBrush="DarkGray"
+                                Background="WhiteSmoke"
+                                Padding="2"
+                                HorizontalAlignment="Left"
+                                Margin="5"
+                                Tag="{Binding Value}"
+                                Cursor="Hand"
+                                >
+                            <TextBlock Text="{Binding Name}"
+                                       Margin="5" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="true" />
+                        <Condition Property="Selector.IsSelectionActive"
+                                   Value="true" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Template"
+                            Value="{StaticResource SelectedTemplate}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -237,7 +289,8 @@
                     Background="Transparent"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Margin="50 3">
+                    Margin="50 3"
+                    Command="{Binding CreateNewNoteBookCommand}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="NotebookPlus"
                                              Foreground="#FF00A82D"
@@ -264,12 +317,18 @@
 
         <Grid Name="grdContent"
               Grid.Row="1">
+
             <ListView ItemsSource="{Binding mNotebooks}"
                       Name="lvNotebooks"
-                      Margin="15 3 15 15">
+                      Margin="15 3 15 15"
+                      SelectedItem="{Binding SelectedNotebook, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      ItemContainerStyle="{DynamicResource FileItemStyle}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+
+           
+                
                 <ListView.View>
                     <GridView>
-                        
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="GridViewColumnHeader">
                                 <Setter Property="HorizontalAlignment"
@@ -277,7 +336,7 @@
                                 <Setter Property="Foreground"
                                         Value="Gray"></Setter>
                                 <Setter Property="Background"
-                                        Value="White"></Setter>
+                                        Value="#F1F1F1"></Setter>
                                 <Setter Property="Width"
                                         Value="Auto"></Setter>
                                 <Setter Property="IsEnabled"
@@ -290,9 +349,9 @@
                                         Value="20"></Setter>
                                 <Setter Property="BorderBrush"
                                         Value="Transparent"></Setter>
-                                
-                          
-                            
+
+
+
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
                         <GridViewColumn Header="TITLE                                                                                                               "
@@ -301,26 +360,24 @@
                                         >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                  
-                                        <TextBox HorizontalAlignment="Left"
-                                                
-                                                Background="#00F1F1F1"
-                                                BorderBrush="Transparent"
-                                                FontSize="18"
-                                                Foreground="Black"
-                                                >
-
+                                    <Border Width="500"
+                                            
+                                            >
+                                        <TextBlock HorizontalAlignment="Left"
+                                                   Text="{Binding _name}"
+                                                   Background="#00F1F1F1"
+                                                   FontSize="18"
+                                                   Foreground="Black">
+                                        </TextBlock>
                                         <behaviors:Interaction.Triggers>
-                                                <behaviors:EventTrigger EventName="MouseUp">
-                                                    <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=EndRenameCommand}"
-                                                                           CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
-                                                </behaviors:EventTrigger>
+                                            <behaviors:EventTrigger EventName="MouseUp">
+                                                <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=NoteSwichCommand}"
+                                                                               CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+                                            </behaviors:EventTrigger>
                                         </behaviors:Interaction.Triggers>
-                                    </TextBox>
-                                        
-                                   
-                                 
-                                    
+
+                                    </Border>
+
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
 
@@ -343,8 +400,7 @@
                         </GridViewColumn>
                         <GridViewColumn Header="UPDATED                                                                                                            "
                                         Width="450"
-                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}"
-                                        >
+                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding _lastUpdateDate}"
@@ -352,7 +408,7 @@
                                                Margin="0 5 0 0"
                                                Foreground="Black"
                                                FontSize="18">
-                                        
+
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -360,12 +416,33 @@
                         <GridViewColumn Header="ACTIONS"
                                         Width="Auto"
                                         HeaderContainerStyle="{DynamicResource GridViewColumnHeader}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Width="500">
+                                        <Button HorizontalAlignment="Left"
+                                                Content="{materialDesign:PackIcon Kind=DotsVertical}"
+                                                BorderBrush="Transparent"
+                                                Background="#00F1F1F1"
+                                                FontSize="18"
+                                                Foreground="Black">
+                                        </Button>
+                                        <behaviors:Interaction.Triggers>
+                                            <behaviors:EventTrigger EventName="MouseUp">
+                                                <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=NoteSwichCommand}"
+                                                                               CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+                                            </behaviors:EventTrigger>
+                                        </behaviors:Interaction.Triggers>
 
+                                    </Border>
+
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
                     </GridView>
 
                 </ListView.View>
+
 
             </ListView>
         </Grid>

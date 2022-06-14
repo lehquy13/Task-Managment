@@ -21,8 +21,32 @@ namespace Task_Managment.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ICommand NoteSwichCommand { get; set; }  
-      
+        public ICommand NoteSwichCommand { get; set; }
+        public ICommand CreateNewNoteBookCommand { get; set; }
+
+        private NotebookModel _selectedNotebook;
+
+        public NotebookModel SelectedNotebook
+        {
+            get => _selectedNotebook;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedNotebook = value;
+                    //DateTime temp = _selectedTime;
+                    //temp = temp.AddHours(_selectedClockTime.Hour - temp.Hour);
+                    //temp = temp.AddMinutes(_selectedClockTime.Minute - temp.Minute);
+                    //temp = temp.AddSeconds(0 - temp.Second);
+                    //if (SelectedTask != null)
+                    //    this.SelectedTime = temp;
+
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedNotebook"));
+
+                }
+
+            }
+        }
 
         public vmNotebookHomeView()
         {
@@ -31,7 +55,7 @@ namespace Task_Managment.ViewModels
             StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
             Members currentUser = startWindowViewModel.getCurrentUser();
             Initialize(currentUser);
-            
+
 
             List<NotebookModel> tempList = db.GetAllNotebooksOfMember(currentUser);
 
@@ -58,22 +82,38 @@ namespace Task_Managment.ViewModels
             }
             else
             {
-                NotebookModel notebookModel = new NotebookModel(currentUser.Email,"First notebook");
+                NotebookModel notebookModel = new NotebookModel(currentUser.Email, "First notebook");
                 db.CreateNewNotebook(notebookModel);
                 this.mNotebooks = new ObservableCollection<NotebookModel> { notebookModel };
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("mNotebooks"));
             }
+            InitCommand();
         }
 
         #region Commands
 
-        private void InitCommand() {
+        private void InitCommand()
+        {
             NoteSwichCommand = new RelayCommand<ListViewItem>(p => true, p => noteSwitch());
+            CreateNewNoteBookCommand = new RelayCommand<Button>(p => true, p => CreateNewNoteBook());
+        }
+
+        private void CreateNewNoteBook()
+        {
+            NotebookModel notebookModel = new NotebookModel(mCurrentUser.Email, "Untitled");
+            db.CreateNewNotebook(notebookModel);
+            if (this.mNotebooks == null)
+                this.mNotebooks = new ObservableCollection<NotebookModel> { notebookModel };
+            else
+                this.mNotebooks.Add(notebookModel);
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("mNotebooks"));
         }
 
         private void noteSwitch()
         {
-            throw new NotImplementedException();
+
+
         }
 
         #endregion
