@@ -21,7 +21,7 @@ namespace Task_Managment.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        Members currentUser { get; set; }
+        public static Members currentUser { get; set; }
 
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
         public ICommand openNoteViewCommand { get; set; }

@@ -24,6 +24,7 @@ namespace Task_Managment.ViewModels
     {
         private string monthyear;
         int month, year;
+        public Members members { get; set; }
         public static string date;
         public static int static_month, static_year;
         ObservableCollection<UserControlDays> userControlDays = new ObservableCollection<UserControlDays>();
@@ -35,6 +36,7 @@ namespace Task_Managment.ViewModels
         public DateTime a;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         List<Task> calendar = new List<Task>();
+        List<Tasklist> tasklists = new List<Tasklist>();
         TaskDataAccess db = new TaskDataAccess();
       
 
@@ -43,6 +45,7 @@ namespace Task_Managment.ViewModels
         public CalendarViewModel()
         {
             InitCommands();
+            members = MainWindowViewModel.currentUser;
             GetUserControlDays();
         }
         private void test()
@@ -55,6 +58,7 @@ namespace Task_Managment.ViewModels
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             calendar = db.GetAllTasksCld();
+            tasklists = db.GetAllTasklistOfMember(members);
             for (int i = 0; i < itemhandler.items.Count; i++)
             {
                 itemhandler.items[i] = displayevent(itemhandler.items[i]);
@@ -68,11 +72,27 @@ namespace Task_Managment.ViewModels
             {
                 cld.labelevent = "";
             }
-            foreach (Task myCalendar in calendar)
+            if (members.Email != "guest@gmail.com")
             {
-                if (static_month.ToString() + "/" + cld.labelday + "/" + static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy"))
+                foreach (Tasklist task in tasklists)
                 {
-                    cld.labelevent = myCalendar.Notes;
+                    foreach (Task myCalendar in calendar)
+                    {
+                        if (static_month.ToString() + "/" + cld.labelday + "/" + static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy") && task.TasklistID == myCalendar.TasklistID)
+                        {
+                            cld.labelevent = myCalendar.Notes;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (Task myCalendar in calendar)
+                {
+                    if (static_month.ToString() + "/" + cld.labelday + "/" + static_year.ToString() == myCalendar.Date.ToString("M/d/yyyy") && myCalendar.TasklistID == null)
+                    {
+                        cld.labelevent = myCalendar.Notes;
+                    }
                 }
             }
             return cld;
@@ -193,6 +213,7 @@ namespace Task_Managment.ViewModels
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
             calendar = db.GetAllTasksCld();
+            tasklists = db.GetAllTasklistOfMember(members);
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -248,6 +269,7 @@ namespace Task_Managment.ViewModels
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
             calendar = db.GetAllTasksCld();
+            tasklists = db.GetAllTasklistOfMember(members);
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -278,6 +300,7 @@ namespace Task_Managment.ViewModels
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
             calendar = db.GetAllTasksCld();
+            tasklists = db.GetAllTasklistOfMember(members);
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
