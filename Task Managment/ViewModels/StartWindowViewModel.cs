@@ -38,6 +38,7 @@ namespace Task_Managment.ViewModels
         public ICommand LoginAsUserCmd { get; set; }
         public ICommand LoginAsGuestCmd { get; set; }
         public ICommand RegisterNewAccountCmd { get; set; }
+        public ICommand ResetPasswordCmd { get; set; }
         #endregion
 
         #region Functions
@@ -55,6 +56,45 @@ namespace Task_Managment.ViewModels
             LoginAsUserCmd = new RelayCommand<PasswordBox>(p => true, p => LoginAsUser(p));
             LoginAsGuestCmd = new RelayCommand<Button>(p => true, p => LoginAsGuest());
             RegisterNewAccountCmd = new RelayCommand<object>(p => true, p => CreateNewAccount(p));
+            ResetPasswordCmd = new RelayCommand<Button>(p => true, p => ResetPassword());
+        }
+
+        private void ResetPassword()
+        {
+            if (mLoginEmail == null)
+            {
+                MessageBox.Show("Please enter your email for reset password!");
+                return;
+            }
+
+            try
+            {
+                string verificationCode = mRegisterHandler.GenerateVerficationCode();
+                mRegisterHandler.SendVerificationCode(verificationCode, mLoginEmail);
+
+                wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
+                newWindow.ShowDialog();
+                if (newWindow.DialogResult == false)
+                {
+                    MessageBox.Show("Wrong verification code!");
+                    return;
+                }
+                else
+                {
+                    List<Members> resetPasswordMember = db.GetMemberWithEmail(mLoginEmail);
+
+                    if (resetPasswordMember.Count > 0) resetPasswordMember[0].Password = "1";
+
+                    db.ResetMemberPassword(resetPasswordMember[0]);
+
+                    MessageBox.Show("Your password has been reset to '1'!");
+
+                    return;
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CreateNewAccount(object p)
@@ -77,7 +117,11 @@ namespace Task_Managment.ViewModels
 
                 wndVerifyCode newWindow = new wndVerifyCode(verificationCode);
                 newWindow.ShowDialog();
-                if (newWindow.DialogResult == false) return;
+                if (newWindow.DialogResult == false)
+                {
+                    MessageBox.Show("Wrong verification code!");
+                    return;
+                }
             }
             catch (Exception ex)
             {

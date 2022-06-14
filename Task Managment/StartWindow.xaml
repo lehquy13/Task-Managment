@@ -283,6 +283,7 @@
                         Height="20"
                         Width="90"
                         Background="Transparent"
+                        Command="{Binding ResetPasswordCmd}"
                         Foreground="Blue"
                         BorderThickness="0">
                     </Button>

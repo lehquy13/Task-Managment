@@ -55,5 +55,23 @@ namespace Task_Managment.DataAccess
             var _results = _collection.Find<Members>(_filter);
             return _results.ToList();
         }
+
+        public List<Members> GetMemberWithEmail(string email)
+        {
+            var _collection = ConnectToMongo<Members>(MembersCollection);
+
+            var _filter = Builders<Members>.Filter.Eq("_id", email);
+
+            var _results = _collection.Find<Members>(_filter);
+            return _results.ToList();
+        }
+
+        public System.Threading.Tasks.Task ResetMemberPassword(Members resetPassMember)
+        {
+            var _collection = ConnectToMongo<Members>(MembersCollection);
+            var _filter = Builders<Members>.Filter.Eq("_id", resetPassMember.Email);
+            return _collection.ReplaceOneAsync(_filter, resetPassMember, new ReplaceOptions { IsUpsert = true });
+        }
+
     }
 }
