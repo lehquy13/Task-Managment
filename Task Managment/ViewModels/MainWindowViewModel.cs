@@ -88,9 +88,9 @@ namespace Task_Managment.ViewModels
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
             openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
-            onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
-            onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnClose(p));
-            onClose = new RelayCommand<Frame>(p => true, p => Dispose());
+            onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose());
+            //onMinimizeCommand = new RelayCommand<Window>(p => true, p => onClose());
+            //onClose = new RelayCommand<Frame>(p => true, p => Dispose());
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
