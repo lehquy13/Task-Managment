@@ -102,21 +102,22 @@ namespace Task_Managment.ViewModels
             NoteSwichCommand = new RelayCommand<ListViewItem>(p => true, p => noteSwitch());
             CreateNewNoteBookCommand = new RelayCommand<Button>(p => true, p => CreateNewNoteBook());
             EnableRenameSelectedNoteBookCommand = new RelayCommand<ListViewItem>(p => true, p => EnableRenameSelectedNoteBook(p));
-            DeleteSelectedNoteBookCommand = new RelayCommand<Button>(p => true, p => DeleteSelectedNoteBook());
+            DeleteSelectedNoteBookCommand = new RelayCommand<ListViewItem>(p => true, p => DeleteSelectedNoteBook(p));
         }
 
-        private void DeleteSelectedNoteBook()
+        private void DeleteSelectedNoteBook(ListViewItem p)
         {
             try
             {
-                if (_selectedNotebook._name.Equals("First notebook"))
+                NotebookModel selectedNotebook = p.Content as NotebookModel;
+                if (selectedNotebook._name.Equals("First notebook"))
                 {
                     MessageBox.Show("First notebook can't be delete!!");
                     return;
                 }
-                db.DeleteSelectedNotebook(_selectedNotebook);
+                db.DeleteSelectedNotebook(selectedNotebook);
                 MessageBox.Show("Successfully deleted!!");
-                mNotebooks.Remove(_selectedNotebook);
+                mNotebooks.Remove(selectedNotebook);
                 NotebooksCount = mNotebooks.Count.ToString();
                 SelectedNotebook = mNotebooks.Count > 0 ? mNotebooks[0] : null;
             }

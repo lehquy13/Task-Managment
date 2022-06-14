@@ -452,7 +452,8 @@
                                                     BorderBrush="Transparent"
                                                     BorderThickness="0"
                                                     Content="Delete"
-                                                    Command="{Binding Source={StaticResource NoteBookVM}, Path=DeleteSelectedNoteBookCommand}">
+                                                    Command="{Binding Source={StaticResource NoteBookVM}, Path=DeleteSelectedNoteBookCommand}"
+                                                    CommandParameter="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}">
                                                 </Button>
                                             </StackPanel>
                                         </materialDesign:PopupBox>
