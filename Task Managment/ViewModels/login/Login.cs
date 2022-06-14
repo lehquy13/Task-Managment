@@ -37,10 +37,10 @@ namespace Task_Managment.ViewModels
                 if (memberList.Count > 0 && memberList[0].Password == password)
                 {
                     MainWindow newWindow = new MainWindow();
-                    wndLogin _this = sender as wndLogin;
-                    _this.Hide(); 
+                    //wndLogin _this = sender as wndLogin;
+                    //_this.Hide(); 
                     newWindow.ShowDialog();
-                    _this.Show();
+                    //_this.Show();
                 }
                 else
                 {

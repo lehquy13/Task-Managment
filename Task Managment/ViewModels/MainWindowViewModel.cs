@@ -21,11 +21,13 @@ namespace Task_Managment.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         Members currentUser { get; set; }
+
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf").Replace("\\bin\\Debug\\", "\\");
         public ICommand openNoteViewCommand { get; set; }
         public ICommand openCalendarCommand { get; set; }
         public ICommand openTaskViewCommand { get; set; }
         public ICommand openHomeViewCommand { get; set; }
+        public ICommand openNotebookViewCommand { get; set; }
         public ICommand onCloseCommand { get; set; }
         public ICommand onMinimizeCommand { get; set; }
 
@@ -56,7 +58,16 @@ namespace Task_Managment.ViewModels
 
         public MainWindowViewModel()
         {
-            currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
+            StartWindowViewModel wdvm = new StartWindowViewModel();
+
+            if (wdvm.IsUserLoggedIn())
+            {
+                // currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
+                currentUser = new Members(wdvm.getCurrentUser());
+            }
+            else currentUser = new Members("guest@gmail.com", "Guest", "123");
+
+
             _notifyIconInstance = new System.Windows.Forms.NotifyIcon();
             Uri iconUri = new Uri("pack://application:,,,/app.ico", UriKind.RelativeOrAbsolute);
             //string temp = ImagesPath + "/app.ico";
@@ -90,6 +101,7 @@ namespace Task_Managment.ViewModels
             openTaskViewCommand = new RelayCommand<Frame>(p => true, p => OpenTaskView());
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
+            openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
             onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
             onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnClose(p));
         }
@@ -108,6 +120,12 @@ namespace Task_Managment.ViewModels
         {
             FrameSource = new Uri("/Views/pNoteHomeView.xaml", UriKind.Relative);
         }
+
+        private void OpenNotebookView()
+        {
+            FrameSource = new Uri("/Views/pNotebookHomeView.xaml", UriKind.Relative);
+        }
+
         private void OpenTaskView()
         {
             FrameSource = new Uri("/Views/TaskHomeView.xaml", UriKind.Relative);

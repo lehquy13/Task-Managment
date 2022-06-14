@@ -225,6 +225,7 @@
     <Compile Include="Converters\BooltoVisSubtasksPane.cs" />
     <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="DataAccess\Dataaccesslocal.cs" />
+    <Compile Include="DataAccess\MemberDataAccess.cs" />
     <Compile Include="DataAccess\TaskDataAccess.cs" />
     <Compile Include="DataAccess\UserSettingDataAccess.cs" />
     <Compile Include="Models\Members.cs" />
@@ -239,6 +240,9 @@
     <Compile Include="Models\UserSetting.cs" />
     <Compile Include="Service\INotificationService.cs" />
     <Compile Include="Service\NotifyIconNotificationService.cs" />
+    <Compile Include="StartWindow.xaml.cs">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Stores\TimerStore.cs" />
     <Compile Include="UserControls\UserControlDays.xaml.cs">
       <DependentUpon>UserControlDays.xaml</DependentUpon>
@@ -252,6 +256,7 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\login\Register.cs" />
     <Compile Include="ViewModels\RichTextboxHelper.cs" />
+    <Compile Include="ViewModels\StartWindowViewModel.cs" />
     <Compile Include="ViewModels\TasksViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />
     <Compile Include="ViewModels\UCdayViewModel.cs" />
@@ -269,16 +274,13 @@
     <Compile Include="Views\PickingTaskIcon.xaml.cs">
       <DependentUpon>PickingTaskIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\pLoginView.xaml.cs">
+      <DependentUpon>pLoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\pNotebookHomeView.xaml.cs">
       <DependentUpon>pNotebookHomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\pNoteHomeView.xaml.cs" />
-    <Compile Include="Views\wndLogin.xaml.cs">
-      <DependentUpon>wndLogin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\wndRegister.xaml.cs">
-      <DependentUpon>wndRegister.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\wndVerifyCode.xaml.cs">
       <DependentUpon>wndVerifyCode.xaml</DependentUpon>
     </Compile>
@@ -289,6 +291,10 @@
     <Page Include="ResXAML\MainResource.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Calendars.xaml">
       <SubType>Designer</SubType>
@@ -315,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PickingTaskIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\pLoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,14 +367,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\wndLogin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\wndRegister.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\wndVerifyCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -457,6 +459,7 @@
     <Resource Include="imagesForWpf\close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="imagesForWpf\startUpIcon.png" />
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img_background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -603,6 +606,7 @@
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img4_background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="imagesForWpf\notebook.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>

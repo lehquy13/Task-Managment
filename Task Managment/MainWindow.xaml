@@ -198,7 +198,7 @@
         <DockPanel   x:Name="nav_pnl"
                      HorizontalAlignment="Left"
                      Width="60"
-                     Background="#282F33  "
+                     Background="#282F33"
                      LastChildFill="False">
             <StackPanel Orientation="Horizontal"
                         Width="230"
@@ -512,6 +512,49 @@
 
                     </ListViewItem>
 
+                    <!--// Home5 //-->
+                    <ListViewItem HorizontalAlignment="Left"
+                                  Margin="0,0,0,15">
+
+                        <StackPanel Orientation="Horizontal"
+                                    Width="230">
+                            <Button Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Height="40"
+                                    Width="230"
+                                    HorizontalContentAlignment="Left"
+                                    Command="{Binding openNotebookViewCommand}"
+                                    CommandParameter="{Binding ElementName=FrameWithinGrid}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="imagesForWpf/notebook.png"
+                                           Stretch="Fill"
+                                           Margin="-10,-3,0,0" />
+                                    <TextBlock Text="Calendar"
+                                               Margin="25,0,0,0"
+                                               Style="{StaticResource font_style}" />
+                                </StackPanel>
+
+                            </Button>
+
+
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_home5"
+                                     Width="150"
+                                     Content="Notebooks"
+                                     FontSize="18"
+                                     Background="White"
+                                     Margin="20,0,0,0"
+                                     Placement="Right" />
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
 
 
                     <!--// Listview items style template //-->
