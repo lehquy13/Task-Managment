@@ -6,18 +6,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Managment"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="728"
-        Width="1366"
+        Height="900"
+        Width="1600"
         ResizeMode="CanResize"
         Topmost="False"
         WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterScreen"
         Icon="/imagesForWpf/appIcon.png"
+        Title="Simple2do"
         DataContext="{StaticResource MainWindowVM}">
     <behaviors:Interaction.Triggers>
-        <behaviors:EventTrigger EventName="Closing">
-            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onClose}">
+        <behaviors:EventTrigger EventName="StateChanged">
+            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onMinimizeCommand}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            </behaviors:InvokeCommandAction>
+        </behaviors:EventTrigger>
+        <behaviors:EventTrigger EventName="Close">
+            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onCloseCommand}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
             </behaviors:InvokeCommandAction>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>

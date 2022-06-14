@@ -80,8 +80,6 @@
                                     <Grid Grid.Column="1"
                                           HorizontalAlignment="Left">
 
-
-
                                         <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                    Style="{Binding Source={StaticResource myTextblockStyle}}">
                                         </TextBlock>
@@ -185,7 +183,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <!--anh nay xau :((( -->
+                                            
                                             <Image Grid.Column="0"
                                                    Width="15"
                                                    Height="15"

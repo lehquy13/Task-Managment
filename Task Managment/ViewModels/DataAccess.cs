@@ -83,5 +83,34 @@ namespace Task_Managment.ViewModels
             return _collection.DeleteOneAsync(c => c.Id == selectedNote.Id);
         }
         #endregion
+
+        #region Notebooks_Data_Access
+        public List<NotebookModel> GetAllNotebooksOfMember(Members currentMember)
+        {
+            var _collection = ConnectToMongo<NotebookModel>(NotebooksCollection);
+            var _results = _collection.Find<NotebookModel>(c => c._ownerId == currentMember.Email);
+            return _results.ToList();
+        }
+
+
+        public System.Threading.Tasks.Task CreateNewNotebook(NotebookModel newNote)
+        {
+            var _collection = ConnectToMongo<NotebookModel>(NotebooksCollection);
+            return _collection.InsertOneAsync(newNote);
+        }
+
+        public System.Threading.Tasks.Task UpdateSelectedNotebook(NotebookModel selectedNote)
+        {
+            var _collection = ConnectToMongo<NotebookModel>(NotebooksCollection);
+            var _filter = Builders<NotebookModel>.Filter.Eq("_id", selectedNote._id);
+            return _collection.ReplaceOneAsync(_filter, selectedNote, new ReplaceOptions { IsUpsert = true });
+        }
+
+        public System.Threading.Tasks.Task DeleteSelectedNotebook(NotebookModel selectedNote)
+        {
+            var _collection = ConnectToMongo<NotebookModel>(NotebooksCollection);
+            return _collection.DeleteOneAsync(c => c._id == selectedNote._id);
+        }
+        #endregion
     }
 }
