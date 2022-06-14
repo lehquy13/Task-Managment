@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -27,6 +28,8 @@ namespace Task_Managment.ViewModels
         private bool _isTitleSorted;
         private bool _isCreatedDateSorted;
         private bool _isLastUpdatedDateSorted;
+        private string _searchBoxContent;
+        private CollectionViewSource cvsNotes;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -80,8 +83,23 @@ namespace Task_Managment.ViewModels
                 OnPropertyChanged("IsLastUpdatedDateSorted");
             }
         }
+        public string SearchBoxContent
+        {
+            get { return _searchBoxContent; }
+            set
+            {
+                _searchBoxContent = value;
+                cvsNotes.View.Refresh();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SearchBoxContent"));
+            }
+        }
+
+        public ICollectionView AllNotes
+        {
+            get { return cvsNotes.View; }
+        }
         #endregion
-        
+
         public vmNoteHomeView()
         {
             Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
@@ -113,7 +131,7 @@ namespace Task_Managment.ViewModels
         #region Functions
         private void Initialize(Members currentUsers)
         {
-            IsTitleSorted = false;
+            IsTitleSorted = false;  
             IsCreatedDateSorted = false;
             IsLastUpdatedDateSorted = false;
 
@@ -125,6 +143,10 @@ namespace Task_Managment.ViewModels
             _notes = new ObservableCollection<Note>(db.GetAllNotesOfMember(currentUsers));
             SelectedNote = _notes.Count > 0 ? _notes[0] : null;
             NotesCount = _notes.Count.ToString();
+
+            cvsNotes = new CollectionViewSource();
+            cvsNotes.Source = _notes;
+            cvsNotes.Filter += CvsNotes_Filter;
 
             InitCommands();
         }
@@ -228,6 +250,20 @@ namespace Task_Managment.ViewModels
 
             IsTitleSorted = !IsTitleSorted;
             IsCreatedDateSorted = IsLastUpdatedDateSorted = false;
+        }
+
+        private void CvsNotes_Filter(object sender, FilterEventArgs e)
+        {
+            Note note = (Note)e.Item;
+
+            if (string.IsNullOrWhiteSpace(_searchBoxContent) || _searchBoxContent.Length == 0)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = note.Title.IndexOf(_searchBoxContent, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
         }
 
         private void InsertPicture(RichTextBox p)

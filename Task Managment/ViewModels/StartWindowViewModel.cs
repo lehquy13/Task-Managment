@@ -45,9 +45,20 @@ namespace Task_Managment.ViewModels
         private void Initialize()
         {
             InitCommands();
+
+            //IsUserLoggedIn();
         }
 
-        public bool IsUserLoggedIn() { return mIsUser; }
+        public bool IsUserLoggedIn() {
+            if (Properties.Settings.Default.isLoggedIn)
+            {
+                MainWindow mainWindow = new MainWindow();
+                CloseAction.Invoke();
+                mainWindow.Show();
+            }
+
+            return true;
+        }
 
         public Members getCurrentUser() { return mCurrentUser; }
 
@@ -164,6 +175,18 @@ namespace Task_Managment.ViewModels
             {
                 mCurrentUser = members[0];
                 mIsUser = true;
+
+                if (mIsUserRemember)
+                {
+                    Properties.Settings.Default["UserEmail"] = mCurrentUser.Email;
+                    Properties.Settings.Default["UserName"] = mCurrentUser.UserName;
+                    Properties.Settings.Default["UserPassword"] = mCurrentUser.Password;
+
+                    Properties.Settings.Default["isUser"] = true;
+                    Properties.Settings.Default["isLoggedIn"] = true;
+                    Properties.Settings.Default.Save();
+                }
+
                 MainWindow mainWindow = new MainWindow();
                 CloseAction.Invoke();
                 mainWindow.Show();

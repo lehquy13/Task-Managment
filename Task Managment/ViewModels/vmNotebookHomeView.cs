@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Task_Managment.Models;
 
@@ -73,7 +74,42 @@ namespace Task_Managment.ViewModels
         public ICommand SortByCreatedDateCmd { get; set; }
         public ICommand SortByLastUpdatedDateCmd { get; set; }
 
-        private static NotebookModel _selectedNotebook;
+        private NotebookModel _selectedNotebook;
+
+        //filter
+        #region FILTER
+        private CollectionViewSource cvsNotebooks;
+        public ICollectionView AllNotebooks
+        {
+            get { return cvsNotebooks.View; }
+        }
+
+        private string _searchBoxContent;
+        public string SearchBoxContent
+        {
+            get { return _searchBoxContent; }
+            set
+            {
+                _searchBoxContent = value;
+                cvsNotebooks.View.Refresh();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SearchBoxContent"));
+            }
+        }
+
+        private void CvsNotebooks_Filter(object sender, FilterEventArgs e)
+        {
+            NotebookModel notebook = (NotebookModel)e.Item;
+
+            if (string.IsNullOrWhiteSpace(_searchBoxContent) || _searchBoxContent.Length == 0)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = notebook._name.IndexOf(_searchBoxContent, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
+        }
+        #endregion
 
         public NotebookModel SelectedNotebook
         {
@@ -103,8 +139,8 @@ namespace Task_Managment.ViewModels
 
             StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
             Members currentUser = startWindowViewModel.getCurrentUser();
+            
             Initialize(currentUser);
-
 
             List<NotebookModel> tempList = db.GetAllNotebooksOfMember(currentUser);
 
@@ -127,6 +163,13 @@ namespace Task_Managment.ViewModels
                 this.mNotebooks = new ObservableCollection<NotebookModel> { notebookModel };
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("mNotebooks"));
             }
+
+            // =================
+            cvsNotebooks = new CollectionViewSource();
+            cvsNotebooks.Source = mNotebooks;
+            cvsNotebooks.Filter += CvsNotebooks_Filter;
+            // =================
+
             InitCommand();
         }
 

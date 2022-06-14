@@ -61,12 +61,13 @@ namespace Task_Managment.ViewModels
         {
             StartWindowViewModel wdvm = new StartWindowViewModel();
 
-            if (wdvm.IsUserLoggedIn())
+            if (true/*wdvm.IsUserLoggedIn()*/)
             {
                 // currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
                 currentUser = new Members(wdvm.getCurrentUser());
             }
-            else currentUser = new Members("guest@gmail.com", "Guest", "123");
+            else
+                currentUser = new Members("guest@gmail.com", "Guest", "123");
 
 
             _notifyIconInstance = new System.Windows.Forms.NotifyIcon();
