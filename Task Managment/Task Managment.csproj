@@ -226,8 +226,11 @@
     <Compile Include="DataAccess\CalendarDataacess.cs" />
     <Compile Include="DataAccess\Dataaccesslocal.cs" />
     <Compile Include="DataAccess\MemberDataAccess.cs" />
+    <Compile Include="DataAccess\MemberDataAccessLocal.cs" />
     <Compile Include="DataAccess\TaskDataAccess.cs" />
+    <Compile Include="DataAccess\TaskDataAccessLocal.cs" />
     <Compile Include="DataAccess\UserSettingDataAccess.cs" />
+    <Compile Include="DataAccess\UserSettingDataAccessLocal.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\MyCalendar.cs" />
     <Compile Include="Models\MyNotifyIcon.cs" />
