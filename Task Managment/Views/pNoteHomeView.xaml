@@ -40,7 +40,7 @@
                   DockPanel.Dock="Top"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
-                  Margin="0 13 0 0"
+                  Margin="0 13 0 30"
                   Height="40">
                 <materialDesign:PackIcon Kind="NoteText" 
                                          Foreground="Black"
@@ -57,7 +57,7 @@
                            HorizontalAlignment="Stretch"
                            TextTrimming="CharacterEllipsis"
                            Margin="55 0 0 0"
-                           Padding="5 14 0 0"
+                           Padding="5 10 0 0"
                            TextWrapping="Wrap">
                 </TextBlock>
             </Grid>
@@ -104,21 +104,12 @@
                         Command="{Binding CreateNewNoteCmd}">
                 </Button>
 
-                <materialDesign:PopupBox Name="pubNotesFilter"
-                                         Background="White"
-                                         HorizontalAlignment="Right"
-                                         DockPanel.Dock="Right"
-                                         ToolTip="Filter">
-                    <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Kind="Filter" Foreground="DarkGray"></materialDesign:PackIcon>
-                    </materialDesign:PopupBox.ToggleContent>
-                </materialDesign:PopupBox>
-
                 <TextBlock Name="tblSeperate" Width="5" DockPanel.Dock="Right"></TextBlock>
                 <materialDesign:PopupBox Name="pubNotesSort" 
                                          HorizontalAlignment="Right" 
                                          DockPanel.Dock="Right"
-                                         IsEnabled="True">
+                                         IsEnabled="True"
+                                         StaysOpen="True">
                     <materialDesign:PopupBox.ToggleContent>
                         <materialDesign:PackIcon Kind="Sort" Foreground="DarkGray"></materialDesign:PackIcon>
                     </materialDesign:PopupBox.ToggleContent>
@@ -159,6 +150,22 @@
                             </Style>
                         </StackPanel.Resources>
 
+                        <TextBlock Name="tblSearch" 
+                                   Text="SEARCH"
+                                   HorizontalAlignment="Left"
+                                   Margin="15 10 0 0"
+                                   Padding="0 0 0 5"
+                                   Foreground="LightGray">
+                        </TextBlock>
+
+                        <TextBox Name="tbSearch"
+                                 Text="{Binding SearchBoxContent, UpdateSourceTrigger=PropertyChanged}"
+                                 materialDesign:HintAssist.Hint="Title"
+                                 materialDesign:HintAssist.Foreground="Gray"
+                                 Foreground="Black"
+                                 Margin="15 5">
+                        </TextBox>
+
                         <TextBlock Name="tblSortBy" 
                                    Text="SORT BY"
                                    HorizontalAlignment="Left"
@@ -169,6 +176,7 @@
 
                         <Button Name="btnTitleSort" Height="30"
                                 Foreground="Black"
+                                Focusable="False"
                                 Command="{Binding SortByTitleCmd}"
                                 CommandParameter="{Binding ElementName=lvNotes}">
                             <StackPanel Orientation="Horizontal" 
@@ -245,7 +253,7 @@
                       Foreground="Black"
                       VerticalAlignment="Stretch"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ItemsSource="{Binding _notes, Mode=TwoWay}"
+                      ItemsSource="{Binding AllNotes}"
                       SelectedItem="{Binding SelectedNote, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -283,7 +291,7 @@
                     VerticalAlignment="Stretch">
             <Grid Name="grdFormatToolbar"
                   DockPanel.Dock="Top"
-                  Height="85">
+                  Height="150">
                 <Button Name="btnNoteSave"
                         Width="45"
                         Height="30"
@@ -304,7 +312,7 @@
                 <TextBlock Name="tblLastUpdatedDate"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Bottom"
-                           Margin="0 0 0 35"
+                           Margin="0 0 0 75"
                            Padding="15 0"
                            Text="{Binding SelectedNote.LastUpdatedDate, 
                                       StringFormat={}Last updated on: {0}}"
