@@ -14,6 +14,8 @@ namespace Task_Managment.ViewModel.Commands
         //!Properties
         public TasksViewModel TasksViewModel { get; set; }
 
+        public HomeViewModel HomeViewModel { get; set; }
+
         //!Events
         public event EventHandler CanExecuteChanged;
 
@@ -21,6 +23,11 @@ namespace Task_Managment.ViewModel.Commands
         public EndRenameCommand(TasksViewModel tasksViewModel)
         {
             this.TasksViewModel = tasksViewModel;
+        }
+
+        public EndRenameCommand(HomeViewModel tasksViewModel)
+        {
+            this.HomeViewModel = tasksViewModel;
         }
 
         //!Methods

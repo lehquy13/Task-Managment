@@ -18,9 +18,9 @@ namespace Task_Managment
     /// <summary>
     /// Interaction logic for StartWindow.xaml
     /// </summary>
-    public partial class StartWindow : Window
+    public partial class StartWindowViewModels : Window
     {
-        public StartWindow()
+        public StartWindowViewModels()
         {
             InitializeComponent();
 

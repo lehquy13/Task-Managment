@@ -11,6 +11,7 @@ namespace Task_Managment.DataAccess
 {
     public class MemberDataAccess
     {
+        Members members = MainWindowViewModel.currentUser;
         #region Singleton
         private static MemberDataAccess _Instance = null;
         public static MemberDataAccess Instance
@@ -24,7 +25,7 @@ namespace Task_Managment.DataAccess
         private MemberDataAccess() { }
         private MemberDataAccess(MemberDataAccess dt) { }
         #endregion
-        Members members = MainWindowViewModel.currentUser;
+        
 
         private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
         private const string DataAccessKeyLocal = "mongodb://localhost:27017";

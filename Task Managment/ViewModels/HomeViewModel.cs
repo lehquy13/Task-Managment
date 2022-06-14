@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Task_Managment.DataAccess;
 using Task_Managment.Models;
+using Task_Managment.ViewModel.Commands;
 
-namespace Task_Managment.ViewModels
+namespace Task_Managment.ViewModels 
 {
-    public class HomeViewModel
+    public class HomeViewModel : INotifyPropertyChanged
     {
         public Members _currentUser { get; set; }
         private TaskDataAccess db = TaskDataAccess.Instance;
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
-
+        private UserSettingDataAccess db1 = UserSettingDataAccess.Instance;
         #region ImageList & UserSetting
         public ObservableCollection<TaskIcon> IconTaskList { get; set; }
         public ObservableCollection<TaskIcon> BackgroundList { get; set; }
@@ -25,18 +28,39 @@ namespace Task_Managment.ViewModels
 
         #endregion
 
+        public EndRenameCommand endRenameCommand;
+
+       
+
+        private string _selectedScratchPad;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string SelectedScratchPad
+        {
+            get => _selectedScratchPad;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedScratchPad = value;
+                    PropertyUpdated("SelectedScratchPad");
+                }
+            }
+        }
+
+        public void PropertyUpdated(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public HomeViewModel()
         {
             //init commands
-            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
-            init(currentUser);
+            MainWindow newWindow = new MainWindow();
 
-        }
-
-
-        public HomeViewModel(Members currentUser)
-        {
-            //init commands
+            StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
+            Members currentUser = startWindowViewModel.getCurrentUser();
             init(currentUser);
 
         }
@@ -76,13 +100,20 @@ namespace Task_Managment.ViewModels
             {
                 BackgroundList.Add(new TaskIcon(temp));
             }
+            if (db1.GetUserSetting(_currentUser.Email) == null)
+            {
+                _currentUser.Setting = new UserSetting();
+                _currentUser.Setting.taskBackground = "img_background.png";
+                _currentUser.Setting.homeViewBackground = "img4_background.png";
+                db1.CreateNewUserSetting(_currentUser.Setting);
 
-            background = new BitmapImage(new Uri((ImagesPath + _currentUser.Setting.taskBackground)));
+            }
+            background = new BitmapImage(new Uri((ImagesPath + _currentUser.Setting.homeViewBackground)));
         }
 
         private void InitCommand()
         {
-            
+            endRenameCommand = new EndRenameCommand(this);
         }
     }
 }

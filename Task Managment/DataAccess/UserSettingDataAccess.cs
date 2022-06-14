@@ -11,6 +11,7 @@ namespace Task_Managment.DataAccess
 {
     public class UserSettingDataAccess
     {
+        Members members = MainWindowViewModel.currentUser;
         #region framework
         #region Singleton
         private static UserSettingDataAccess _Instance = null;
@@ -25,7 +26,7 @@ namespace Task_Managment.DataAccess
         public UserSettingDataAccess() { }
         public UserSettingDataAccess(UserSettingDataAccess dt) { }
         #endregion
-        Members members = MainWindowViewModel.currentUser;
+        
 
         private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
         private const string DataAccessKeyLocal = "mongodb://localhost:27017";
@@ -36,7 +37,7 @@ namespace Task_Managment.DataAccess
 
         private IMongoCollection<T> ConnectToMongo<T>(in string collection)
         {
-            if (members.Email != "guest@gmail.com")
+            if (members!=null &&members.Email != "guest@gmail.com")
             {
                 var client = new MongoClient(DataAccessKey);
                 var db = client.GetDatabase(MongoDatabase);
