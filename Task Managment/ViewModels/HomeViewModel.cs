@@ -12,7 +12,7 @@ using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.ViewModel.Commands;
 
-namespace Task_Managment.ViewModels 
+namespace Task_Managment.ViewModels
 {
     public class HomeViewModel : INotifyPropertyChanged
     {
@@ -30,7 +30,7 @@ namespace Task_Managment.ViewModels
 
         public EndRenameCommand endRenameCommand;
 
-       
+
 
         private string _selectedScratchPad;
 
@@ -57,8 +57,6 @@ namespace Task_Managment.ViewModels
         public HomeViewModel()
         {
             //init commands
-            MainWindow newWindow = new MainWindow();
-
             StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
             Members currentUser = startWindowViewModel.getCurrentUser();
             init(currentUser);
@@ -70,7 +68,7 @@ namespace Task_Managment.ViewModels
             _currentUser = currentUser;
 
             //get all the tasks of tripledefaultTasklists
-          
+
             InitCommand();
             InitIconAndBackground();
 
@@ -83,7 +81,7 @@ namespace Task_Managment.ViewModels
 
             BackgroundList = new ObservableCollection<TaskIcon>();
             BackgroundList.Clear();
-           
+
             string[] backgroundOptions =
             {
                 "\\imagesForWpf\\TaskResource\\iconForTasks\\img_background.png",
@@ -100,7 +98,11 @@ namespace Task_Managment.ViewModels
             {
                 BackgroundList.Add(new TaskIcon(temp));
             }
-            if (db1.GetUserSetting(_currentUser.Email) == null)
+            _currentUser.Setting = db1.GetUserSetting(_currentUser.Email);
+
+
+            if (_currentUser.Setting == null || _currentUser.Setting.homeViewBackground == "")
+
             {
                 _currentUser.Setting = new UserSetting();
                 _currentUser.Setting.taskBackground = "img_background.png";
