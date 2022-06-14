@@ -23,7 +23,7 @@ namespace Task_Managment.ViewModels
         public bool mIsUserRemember { get; set; }
 
         private static Members mCurrentUser;
-        private static bool mIsUser;
+        public static bool mIsUser;
 
         public Action CloseAction { get; set; }
         public Action HideAction { get; set; }
@@ -147,8 +147,7 @@ namespace Task_Managment.ViewModels
 
         private void LoginAsGuest()
         {
-            mCurrentUser = new Members("email@guest.com","","");
-            mCurrentUser.isGuest = true;
+            mCurrentUser = new Members("guest@gmail.com","Guest","");
             mIsUser = false;
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
@@ -158,8 +157,9 @@ namespace Task_Managment.ViewModels
         private void LoginAsUser(PasswordBox p)
         {
             string password = p.Password.ToString();
-
+            mIsUser = true;
             List<Members> members = db.GetMemberWithEmailAndPassword(mLoginEmail, password);
+
 
             if (members != null && members.Count == 1)
             {

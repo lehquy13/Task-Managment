@@ -38,6 +38,7 @@ namespace Task_Managment.ViewModels
         List<Task> calendar = new List<Task>();
         List<Tasklist> tasklists = new List<Tasklist>();
         TaskDataAccess db = new TaskDataAccess();
+        TaskDataAccessLocal dblc = new TaskDataAccessLocal();
       
 
         public Itemhandler itemhandler = new Itemhandler();
@@ -54,11 +55,18 @@ namespace Task_Managment.ViewModels
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
-       
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            calendar = db.GetAllTasksCld();
-            tasklists = db.GetAllTasklistOfMember(members);
+            if (members.Email != "guest@gmail.com")
+            {
+                calendar = db.GetAllTasksCld();
+                tasklists = db.GetAllTasklistOfMember(members);
+            }
+            else
+            {
+                calendar=dblc.GetAllTasksCld();
+            }
             for (int i = 0; i < itemhandler.items.Count; i++)
             {
                 itemhandler.items[i] = displayevent(itemhandler.items[i]);
@@ -212,8 +220,15 @@ namespace Task_Managment.ViewModels
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
-            calendar = db.GetAllTasksCld();
-            tasklists = db.GetAllTasklistOfMember(members);
+            if (members.Email != "guest@gmail.com")
+            {
+                calendar = db.GetAllTasksCld();
+                tasklists = db.GetAllTasklistOfMember(members);
+            }
+            else
+            {
+                calendar=dblc.GetAllTasksCld();
+            }
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -268,8 +283,15 @@ namespace Task_Managment.ViewModels
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
-            calendar = db.GetAllTasksCld();
-            tasklists = db.GetAllTasklistOfMember(members);
+            if (members.Email != "guest@gmail.com")
+            {
+                calendar = db.GetAllTasksCld();
+                tasklists = db.GetAllTasklistOfMember(members);
+            }
+            else
+            {
+                calendar = dblc.GetAllTasksCld();
+            }
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));
@@ -299,8 +321,15 @@ namespace Task_Managment.ViewModels
             int dayoftheweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d")) + 1;
             a = DateTime.Parse(static_month.ToString() + "/" + "1" + "/" + static_year.ToString());
             OnPropertyChanged("A");
-            calendar = db.GetAllTasksCld();
-            tasklists = db.GetAllTasklistOfMember(members);
+            if (members.Email != "guest@gmail.com")
+            {
+                calendar = db.GetAllTasksCld();
+                tasklists = db.GetAllTasklistOfMember(members);
+            }
+            else
+            {
+                calendar = dblc.GetAllTasksCld();
+            }
             for (int i = 1; i < dayoftheweek; i++)
             {
                 itemhandler.Add(new ItemCld("", ""));

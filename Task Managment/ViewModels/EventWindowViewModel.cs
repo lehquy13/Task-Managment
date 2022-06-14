@@ -27,6 +27,7 @@ namespace Task_Managment.ViewModels
         public CloseDialogCommandCld CloseDialogCommand { get; set; }
         public OpenDiaLogCommandCld OpenDiaLogCommand { get; set; }
         TaskDataAccess db = new TaskDataAccess();
+        TaskDataAccessLocal dblc = new TaskDataAccessLocal();
         List<Tasklist> tasks = new List<Tasklist>();
         List<Task> calendar1 = new List<Task>();
         private DateTime _selectedClockTime;
@@ -162,7 +163,8 @@ namespace Task_Managment.ViewModels
             }
             else
             {
-                db.CreateNewTaskToTaskList(new Task() { Expiretime = _selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                //db.CreateNewTaskToTaskList(new Task() { Expiretime = _selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                dblc.CreateNewTaskToTaskList(new Task() { Expiretime = _selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
             }
 
 
@@ -196,13 +198,14 @@ namespace Task_Managment.ViewModels
             }
             else
             {
-                calendar1 = db.GetAllTasksCld();
+                calendar1 = dblc.GetAllTasksCld();
+                //calendar1 = db.GetAllTasksCld();
                 foreach (Task myCalendar in calendar1)
                 {
                     if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && myCalendar.TasklistID == null)
                     {
                         myCalendar.Notes = TextBoxEvent;
-                        db.UpdateSelectedTask(myCalendar);
+                        dblc.UpdateSelectedTask(myCalendar);
                     }
                 }
             }
@@ -245,12 +248,13 @@ namespace Task_Managment.ViewModels
             }
             else
             {
-                calendar1 = db.GetAllTasksCld();
+                calendar1=dblc.GetAllTasksCld();
+                //calendar1 = db.GetAllTasksCld();
                 foreach (Task myCalendar in calendar1)
                 {
                     if (myCalendar.Date.ToString("M/d/yyyy") == (TextBoxDay) && myCalendar.TasklistID == null)
                     {
-                        db.DeleteSelectedTask(myCalendar);
+                        dblc.DeleteSelectedTask(myCalendar);
                     }
                 }
             }

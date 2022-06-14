@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task_Managment.Models;
+using Task_Managment.ViewModels;
 
 namespace Task_Managment.DataAccess
 {
     public class MemberDataAccess
     {
+        Members members = MainWindowViewModel.currentUser;
         #region Singleton
         private static MemberDataAccess _Instance = null;
         public static MemberDataAccess Instance
@@ -23,8 +25,10 @@ namespace Task_Managment.DataAccess
         private MemberDataAccess() { }
         private MemberDataAccess(MemberDataAccess dt) { }
         #endregion
+        
 
         private const string DataAccessKey = "mongodb+srv://Task_Manager_Team:softintro123456@cluster0.xc1uy.mongodb.net/test";
+        private const string DataAccessKeyLocal = "mongodb://localhost:27017";
         private const string MongoDatabase = "Task_Management_Application_DB";
         private const string NotebooksCollection = "Notebooks";
         private const string NotesCollection = "Notes";
@@ -32,9 +36,18 @@ namespace Task_Managment.DataAccess
 
         private IMongoCollection<T> ConnectToMongo<T>(in string collection)
         {
-            var client = new MongoClient(DataAccessKey);
-            var db = client.GetDatabase(MongoDatabase);
-            return db.GetCollection<T>(collection);
+            if (StartWindowViewModel.mIsUser)
+            {
+                var client = new MongoClient(DataAccessKey);
+                var db = client.GetDatabase(MongoDatabase);
+                return db.GetCollection<T>(collection);
+            }
+            else
+            {
+                MongoClient client = new MongoClient(DataAccessKeyLocal);
+                IMongoDatabase database = client.GetDatabase(MongoDatabase);
+                return database.GetCollection<T>(collection);
+            }
         }
 
         public async Task<List<T>> GetCollection<T>(string collection)
