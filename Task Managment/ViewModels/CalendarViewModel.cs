@@ -229,6 +229,7 @@ namespace Task_Managment.ViewModels
             month--;
             if (month <= 0)
             {
+                year = year - 1;
                 month = 12;
             }
             static_month = month;
@@ -258,6 +259,7 @@ namespace Task_Managment.ViewModels
             month++;
             if (month > 12)
             {
+                year = year + 1;
                 month = 1;
             }
             static_month = month;
