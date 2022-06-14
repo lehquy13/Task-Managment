@@ -556,10 +556,14 @@ namespace Task_Managment.ViewModels
 
             string[] backgroundOptions =
             {
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\img_background.png",
+                 "\\imagesForWpf\\TaskResource\\iconForTasks\\img_background.png",
                 "\\imagesForWpf\\TaskResource\\iconForTasks\\img2_background.png",
                 "\\imagesForWpf\\TaskResource\\iconForTasks\\img3_background.png",
-                "\\imagesForWpf\\TaskResource\\iconForTasks\\img4_background.png"
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img4_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img5_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img6_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img7_background.png",
+                "\\imagesForWpf\\TaskResource\\iconForTasks\\img8_background.png",
             };
 
             foreach (string temp in backgroundOptions)
