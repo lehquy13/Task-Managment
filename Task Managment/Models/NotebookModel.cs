@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel;
 
 namespace Task_Managment.Models
 {
-    public class NotebookModel
+    public class NotebookModel : INotifyPropertyChanged
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -37,5 +38,12 @@ namespace Task_Managment.Models
             _lastUpdateDate = DateTime.UtcNow;
 
         }
+
+        private void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

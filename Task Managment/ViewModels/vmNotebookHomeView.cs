@@ -33,10 +33,45 @@ namespace Task_Managment.ViewModels
             }
         }
 
+        private bool _isTitleSorted;
+        private bool _isCreatedDateSorted;
+        private bool _isLastUpdatedDateSorted;
+
+        public bool IsTitleSorted
+        {
+            get { return _isTitleSorted; }
+            set
+            {
+                _isTitleSorted = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsTitleSorted"));
+            }
+        }
+        public bool IsCreatedDateSorted
+        {
+            get { return _isCreatedDateSorted; }
+            set
+            {
+                _isCreatedDateSorted = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsCreatedDateSorted"));
+            }
+        }
+        public bool IsLastUpdatedDateSorted
+        {
+            get { return _isLastUpdatedDateSorted; }
+            set
+            {
+                _isLastUpdatedDateSorted = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsLastUpdatedDateSorted"));
+            }
+        }
+
         public ICommand NoteSwichCommand { get; set; }
         public ICommand CreateNewNoteBookCommand { get; set; }
         public ICommand EnableRenameSelectedNoteBookCommand { get; set; }
         public ICommand DeleteSelectedNoteBookCommand { get; set; }
+        public ICommand SortByTitleCmd { get; set; }
+        public ICommand SortByCreatedDateCmd { get; set; }
+        public ICommand SortByLastUpdatedDateCmd { get; set; }
 
         private static NotebookModel _selectedNotebook;
 
@@ -103,6 +138,9 @@ namespace Task_Managment.ViewModels
             CreateNewNoteBookCommand = new RelayCommand<Button>(p => true, p => CreateNewNoteBook());
             EnableRenameSelectedNoteBookCommand = new RelayCommand<ListViewItem>(p => true, p => EnableRenameSelectedNoteBook(p));
             DeleteSelectedNoteBookCommand = new RelayCommand<ListViewItem>(p => true, p => DeleteSelectedNoteBook(p));
+            SortByTitleCmd = new RelayCommand<ListView>(p => true, p => SortByTitle(p));
+            SortByCreatedDateCmd = new RelayCommand<ListView>(p => true, p => SortByCreatedDate(p));
+            SortByLastUpdatedDateCmd = new RelayCommand<ListView>(p => true, p => SortByLastUpdatedDate(p));
         }
 
         private void DeleteSelectedNoteBook(ListViewItem p)
@@ -154,6 +192,64 @@ namespace Task_Managment.ViewModels
         private void Initialize(Members currentUser)
         {
             mCurrentUser = currentUser;
+        }
+
+
+        private void SortByCreatedDate(ListView p)
+        {
+            if (p.Items.SortDescriptions.Count != 0 &&
+                p.Items.SortDescriptions.Last().PropertyName == "_createdDate" &&
+                p.Items.SortDescriptions.Last().Direction == ListSortDirection.Ascending)
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_createdDate", ListSortDirection.Descending));
+            }
+            else
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_createdDate", ListSortDirection.Ascending));
+            }
+
+            IsCreatedDateSorted = !IsCreatedDateSorted;
+            IsTitleSorted = IsLastUpdatedDateSorted = false;
+        }
+
+        private void SortByLastUpdatedDate(ListView p)
+        {
+            if (p.Items.SortDescriptions.Count != 0 &&
+                p.Items.SortDescriptions.Last().PropertyName == "_lastUpdateDate" &&
+                p.Items.SortDescriptions.Last().Direction == ListSortDirection.Ascending)
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_lastUpdateDate", ListSortDirection.Descending));
+            }
+            else
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_lastUpdateDate", ListSortDirection.Ascending));
+            }
+
+            IsLastUpdatedDateSorted = !IsLastUpdatedDateSorted;
+            IsTitleSorted = IsCreatedDateSorted = false;
+        }
+
+        private void SortByTitle(ListView p)
+        {
+            if (p.Items.SortDescriptions.Count != 0 &&
+                p.Items.SortDescriptions.Last().PropertyName == "_name" &&
+                p.Items.SortDescriptions.Last().Direction == ListSortDirection.Ascending)
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_name", ListSortDirection.Descending));
+            }
+            else
+            {
+                p.Items.SortDescriptions.Clear();
+                p.Items.SortDescriptions.Add(new SortDescription("_name", ListSortDirection.Ascending));
+            }
+
+            IsTitleSorted = !IsTitleSorted;
+            IsCreatedDateSorted = IsLastUpdatedDateSorted = false;
         }
         #endregion
     }
