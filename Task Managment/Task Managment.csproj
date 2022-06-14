@@ -200,6 +200,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CalendarCommands\CloseDialogCommandCld.cs" />
+    <Compile Include="Commands\CalendarCommands\OpenDiaLogCommandCld.cs" />
     <Compile Include="Commands\TaskCommands\OpenDialogCommand.cs" />
     <Compile Include="Commands\TaskCommands\CloseDialogCommand.cs" />
     <Compile Include="Commands\TaskCommands\CloseSubtaskPanelCommand.cs" />
@@ -461,6 +463,7 @@
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Resource Include="imagesForWpf\neneventwindow.jpg" />
     <Content Include="imagesForWpf\TaskResource\iconForTasks\img_background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

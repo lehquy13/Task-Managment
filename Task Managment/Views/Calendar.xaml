@@ -678,7 +678,7 @@
                                 x:Name="tblday"
                                 Text="{Binding labelday}"
                                  Foreground="Black"
-                                  FontSize="18"
+                                  FontSize="23"
                                   Margin="0,3,0,5" Width="125"
                                        />
                                 <TextBlock Text="{Binding labelevent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -686,7 +686,7 @@
                                           FontSize="18" 
                                            Width="125"
                                            TextWrapping="Wrap"
-                                           Height="89"
+                                           Height="85"
                                            />
                             </StackPanel>
                         </Border>

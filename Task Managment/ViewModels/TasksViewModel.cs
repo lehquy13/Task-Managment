@@ -387,9 +387,7 @@ namespace Task_Managment.ViewModels
                 }
             }
 
-
         }
-
         public void InitClockAndCalendar()
         {
             SelectedCalendarDate = DateTime.Now;

@@ -16,6 +16,7 @@ using MongoDB.Driver;
 using Task_Managment.Models;
 using Task = Task_Managment.Models.Task;
 using Task_Managment.Views;
+using Task_Managment.Commands.CalendarCommands;
 
 namespace Task_Managment.ViewModels
 {
@@ -35,6 +36,8 @@ namespace Task_Managment.ViewModels
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         List<Task> calendar = new List<Task>();
         TaskDataAccess db = new TaskDataAccess();
+      
+
         public Itemhandler itemhandler = new Itemhandler();
 
         public CalendarViewModel()
@@ -48,6 +51,7 @@ namespace Task_Managment.ViewModels
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
+       
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             calendar = db.GetAllTasksCld();
@@ -77,6 +81,7 @@ namespace Task_Managment.ViewModels
         {
             get { return itemhandler.items; }
         }
+
         public class ItemCld : INotifyPropertyChanged
         {
             public string labelday { get; set; }
@@ -199,7 +204,7 @@ namespace Task_Managment.ViewModels
                 itemhandler.items[i-1] = displayevent(itemhandler.items[i-1]);
             }
         }
-        private void OnPropertyChanged(string name)
+        public void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(name));

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Task_Managment.Commands.CalendarCommands;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.UserControls;
@@ -20,9 +21,63 @@ namespace Task_Managment.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private string textboxday;
         private string textboxevent;
+        public bool isDialogOpen { get; set; }
+
+        public CloseDialogCommandCld CloseDialogCommand { get; set; }
+        public OpenDiaLogCommandCld OpenDiaLogCommand { get; set; }
         TaskDataAccess db = new TaskDataAccess();
         List<Tasklist> tasks = new List<Tasklist>();
         List<Task> calendar1 = new List<Task>();
+        private DateTime _selectedClockTime;
+
+        public DateTime SelectedClockTime
+        {
+            get => _selectedClockTime;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedClockTime = value;
+                    //DateTime temp = _selectedTime;
+                    //temp = temp.AddHours(_selectedClockTime.Hour - temp.Hour);
+                    //temp = temp.AddMinutes(_selectedClockTime.Minute - temp.Minute);
+                    //temp = temp.AddSeconds(0 - temp.Second);
+                    //if (SelectedTask != null)
+                    //    this.SelectedTime = temp;
+
+                    OnPropertyChanged("SelectedClockTime");
+
+                }
+
+            }
+        }
+        private DateTime _selectedCalendarDate;
+
+        public DateTime SelectedCalendarDate
+        {
+            get => _selectedCalendarDate;
+            set
+            {
+                if (value != null)
+                {
+                    _selectedCalendarDate = value;
+                    //DateTime temp = _selectedTime;
+                    //temp = temp.AddDays(double.Parse(_selectedCalendarDate.Day.ToString()) - double.Parse(temp.Day.ToString()));
+                    //temp = temp.AddMonths(int.Parse(_selectedCalendarDate.Month.ToString()) - int.Parse(temp.Month.ToString()));
+                    //temp = temp.AddYears(int.Parse(_selectedCalendarDate.Year.ToString()) - int.Parse(temp.Year.ToString()));
+
+                    //if (SelectedTask != null)
+                    //    this.SelectedTime = temp;
+
+                    OnPropertyChanged("SelectedCalendarDate");
+
+                    //this.SelectedTask.Expiretime = _selectedTime;
+                    //db.UpdateSelectedTask(SelectedTask);
+                    //PropertyUpdated("SelectedTime");
+                }
+
+            }
+        }
         public string TextBoxDay
         {
             get { return textboxday; }
@@ -41,7 +96,7 @@ namespace Task_Managment.ViewModels
                 OnPropertyChanged("TextBoxEvent");
             }
         }
-        private void OnPropertyChanged(string name)
+        public void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
@@ -49,6 +104,7 @@ namespace Task_Managment.ViewModels
         public EventWindowViewModel() 
         {
             initCommand();
+            isDialogOpen = false;
         }
 
         public ICommand SaveCM { get; set; }
@@ -61,6 +117,8 @@ namespace Task_Managment.ViewModels
             SaveCM=new RelayCommand<Task>(p => true, p =>SaveCalendar());
             EditCM = new RelayCommand<Task>(p => true, p => UpdateCalendarAsync());
             DeleteCM = new RelayCommand<Task>(p => true, p => DeleteCalendar());
+            this.OpenDiaLogCommand = new OpenDiaLogCommandCld(this);
+            this.CloseDialogCommand = new CloseDialogCommandCld(this);
         }
 
         public List<MyCalendar> GetAllCalendar()
@@ -94,7 +152,7 @@ namespace Task_Managment.ViewModels
             {
                 if (tasklist.Name == "Calendarphatlam1811@gmail.com")
                 {
-                    db.CreateNewTaskToTaskList(new Task() { TasklistID=tasklist.TasklistID, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
+                    db.CreateNewTaskToTaskList(new Task() { TasklistID=tasklist.TasklistID,Expiretime=_selectedCalendarDate, Date = DateTime.Parse(TextBoxDay).AddDays(1), Notes = TextBoxEvent });
                 }
             }
  
