@@ -14,17 +14,10 @@
         WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterScreen"
         Icon="/imagesForWpf/appIcon.png"
-        
         DataContext="{StaticResource MainWindowVM}">
     <behaviors:Interaction.Triggers>
-        <behaviors:EventTrigger EventName="StateChanged">
-            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onMinimizeCommand}"
-                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-            </behaviors:InvokeCommandAction>
-        </behaviors:EventTrigger>
         <behaviors:EventTrigger EventName="Closing">
-            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onCloseCommand}"
-                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=onClose}">
             </behaviors:InvokeCommandAction>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
@@ -202,7 +195,8 @@
                      LastChildFill="False">
             <StackPanel Orientation="Horizontal"
                         Width="230"
-                        DockPanel.Dock="Bottom">
+                        DockPanel.Dock="Bottom"
+                        >
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
                         Height="40"
@@ -213,8 +207,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="imagesForWpf/close.png"
                                Stretch="Fill"
-                               Margin="-5,0,0,0"
-                               />
+                               Margin="-5,0,0,0" />
                         <TextBlock Text="Close"
                                    Margin="25,0,0,0"
                                    Style="{StaticResource font_style}" />
@@ -264,7 +257,9 @@
                                   Height="30"
                                   Width="30"
                                   BorderThickness="0"
-                                  Style="{StaticResource tb_style}">
+                                  Style="{StaticResource tb_style}"
+                                  
+                                  >
 
                         <!--// Toggle button default background image //-->
 
@@ -338,10 +333,12 @@
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                  Margin="0,0,0,15"
+                                 >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="230">
+                                    Width="230"
+                                    >
 
                             <Button Background="Transparent"
                                     BorderBrush="Transparent"
@@ -360,7 +357,7 @@
                                 </StackPanel>
                             </Button>
 
-
+                           
 
                         </StackPanel>
 
@@ -374,7 +371,8 @@
                                      FontSize="18"
                                      Background="White"
                                      Margin="20,0,0,0"
-                                     Placement="Right" />
+                                     Placement="Right"
+                                      />
 
                         </ListViewItem.ToolTip>
 
@@ -393,7 +391,8 @@
                                     HorizontalContentAlignment="Left"
                                     Command="{Binding openTaskViewCommand}"
                                     CommandParameter="{Binding ElementName=FrameWithinGrid}">
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            >
                                     <Image Source="imagesForWpf/task.png"
                                            Stretch="Fill"
                                            Margin="-7,0,0,0" />
@@ -401,10 +400,10 @@
                                                Margin="25,0,0,0"
                                                Style="{StaticResource font_style}" />
                                 </StackPanel>
-
+                               
                             </Button>
 
-
+                           
 
                         </StackPanel>
 
@@ -414,10 +413,11 @@
 
                             <ToolTip x:Name="tt_home2"
                                      Content="Task"
+                                     
                                      FontSize="20"
                                      Background="White"
                                      Margin="20,0,0,0"
-                                     Placement="Right" />
+                                     Placement="Right"/>
 
                         </ListViewItem.ToolTip>
 
@@ -425,7 +425,8 @@
 
                     <!--// Home4 //-->
                     <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                  Margin="0,0,0,15"
+                                  >
 
                         <StackPanel Orientation="Horizontal"
                                     Width="230">
@@ -444,10 +445,10 @@
                                                Margin="25,0,0,0"
                                                Style="{StaticResource font_style}" />
                                 </StackPanel>
-
+                                
                             </Button>
 
-
+                            
 
                         </StackPanel>
 
@@ -470,7 +471,8 @@
 
                     <!--// Home3 //-->
                     <ListViewItem HorizontalAlignment="Left"
-                                  Margin="0,0,0,15">
+                                  Margin="0,0,0,15"
+                                  >
 
                         <StackPanel Orientation="Horizontal"
                                     Width="230">
@@ -490,10 +492,10 @@
                                                Margin="25,0,0,0"
                                                Style="{StaticResource font_style}" />
                                 </StackPanel>
-
+                              
                             </Button>
 
-
+                           
 
                         </StackPanel>
 
@@ -622,7 +624,7 @@
 
 
             </StackPanel>
-
+            
 
 
         </DockPanel>

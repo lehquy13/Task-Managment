@@ -218,7 +218,6 @@
     <Compile Include="Commands\TaskCommands\SelectTaskCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\TaskCommands\StartCommand.cs" />
-    <Compile Include="Commands\TaskCommands\Command1.cs" />
     <Compile Include="Commands\TaskCommands\StartRenameCommand.cs" />
     <Compile Include="Converters\BooltoVis.cs" />
     <Compile Include="Converters\BooltoVisOpposite.cs" />

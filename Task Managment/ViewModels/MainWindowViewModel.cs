@@ -77,21 +77,7 @@ namespace Task_Managment.ViewModels
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);
             _notifyIconInstance.Visible = true;
             _notifyIconInstance.BalloonTipClicked += NotifyIcon_BalloonTipClicked;
-           // _notifyIconInstance.DoubleClick += NotifyIcon_DoubleClick;
-            _notifyIconInstance.Click += _notifyIconInstance_Click;
             init(currentUser);
-        }
-
-        private void _notifyIconInstance_Click(object sender, EventArgs e)
-        {
-            App.Current.MainWindow.Show();
-            App.Current.MainWindow.WindowState = WindowState.Normal;
-        }
-
-        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
-        {
-            App.Current.MainWindow.ShowDialog();
-            App.Current.MainWindow.WindowState = WindowState.Normal;
         }
 
         private void init(Members currentUser)
@@ -104,6 +90,7 @@ namespace Task_Managment.ViewModels
             openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
             onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
             onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnClose(p));
+            onClose = new RelayCommand<Frame>(p => true, p => Dispose());
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -147,18 +134,8 @@ namespace Task_Managment.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void OnClose(Window p)
-        {
-            if(App.Current.MainWindow.WindowState == WindowState.Minimized)
-                App.Current.MainWindow.Hide();
-            else if (App.Current.MainWindow.WindowState == WindowState.Normal)
-            {
-               
-            }
 
-        }
-
-        public void Dispose(Window p)
+        public void Dispose()
         {
             _notifyIconInstance.Dispose();
         }
