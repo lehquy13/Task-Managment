@@ -19,6 +19,7 @@ namespace Task_Managment.Models
 
         public static readonly string DefaultIcon = "img4_background.png";
 
+        public string scratchPad = "";
         public string taskBackground { get; set; }
 
         public string homeViewBackground { get; set; }
