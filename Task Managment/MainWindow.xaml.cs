@@ -26,9 +26,6 @@ namespace Task_Managment
         {
             InitializeComponent();
         }
-
-   
-
        
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

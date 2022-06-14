@@ -443,7 +443,7 @@ namespace Task_Managment.ViewModels
                     }
                 }
 
-                this.CalendarTaskList = this.TasklistsList[1];
+                this.CalendarTaskList = this.TasklistsList[1]; // cung muon lam cho nay ghe :((
                 this.TasklistsList.RemoveAt(1);
                 this.DefaultMyDayList = this.TasklistsList[0];
                 this.DefaultImportantList = this.TasklistsList[1];
@@ -567,9 +567,15 @@ namespace Task_Managment.ViewModels
                 BackgroundList.Add(new TaskIcon(temp));
             }
             _currentUser.Setting = db1.GetUserSetting(_currentUser.Email);
+            if(db1.GetUserSetting(_currentUser.Email) == null)
+            {
+                _currentUser.Setting = new UserSetting();
+                _currentUser.Setting.taskBackground = "img_background.png";
+                _currentUser.Setting.homeViewBackground = "img4_background.png";
+                db1.CreateNewUserSetting(_currentUser.Setting);
 
+            }
             background = new BitmapImage(new Uri((ImagesPath + _currentUser.Setting.taskBackground)));
-
 
         }
 

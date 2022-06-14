@@ -15,6 +15,7 @@ using TrayIcon.Services;
 using Task_Managment.Stores;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
+using System.Reflection;
 
 namespace Task_Managment.ViewModels
 {
@@ -72,6 +73,9 @@ namespace Task_Managment.ViewModels
             Uri iconUri = new Uri("pack://application:,,,/app.ico", UriKind.RelativeOrAbsolute);
             //string temp = ImagesPath + "/app.ico";
             _notifyIconInstance.Icon = new Icon(Path.Combine(System.Environment.CurrentDirectory.Replace("\\bin\\Debug", "\\imagesForWpf\\"), "app.ico"));
+
+           
+
             _notifyIconInstance.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             _notifyIconInstance.ContextMenuStrip.Items.Add("Open");
             _notifyIconInstance.ContextMenuStrip.Items.Add(currentUser.UserName);
@@ -84,8 +88,8 @@ namespace Task_Managment.ViewModels
 
         private void _notifyIconInstance_Click(object sender, EventArgs e)
         {
-            App.Current.MainWindow.Show();
-            App.Current.MainWindow.WindowState = WindowState.Normal;
+            App.Current.Windows[0].Show();
+            App.Current.Windows[0].WindowState = WindowState.Normal;
         }
 
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
@@ -103,7 +107,7 @@ namespace Task_Managment.ViewModels
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
             openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
             onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
-            onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnClose(p));
+            onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnMinimize(p));
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -147,12 +151,14 @@ namespace Task_Managment.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void OnClose(Window p)
+        public void OnMinimize(Window p)
         {
-            if(App.Current.MainWindow.WindowState == WindowState.Minimized)
-                App.Current.MainWindow.Hide();
-          
+            if (p.WindowState == WindowState.Minimized)
+                p.Hide();
+            else if (p.WindowState == WindowState.Normal)
+            {
 
+            }
         }
 
         public void Dispose(Window p)
