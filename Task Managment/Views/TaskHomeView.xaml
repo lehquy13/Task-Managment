@@ -486,7 +486,7 @@
                                                                  Height="30" />
                                     </materialDesign:PopupBox.ToggleContent>
                                     <DockPanel    Height="200"
-                                                  Width="200"
+                                                  Width="300"
                                                   Background="White"
                                                   LastChildFill="True"
                                                   Margin="5 0 5 0">

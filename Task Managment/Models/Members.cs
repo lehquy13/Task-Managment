@@ -18,6 +18,7 @@ namespace Task_Managment.Models
         public string UserName { get; set; }
         public string Password { get; set; }
 
+        public bool isGuest { get; set; }
 
          UserSettingDataAccess db = UserSettingDataAccess.Instance;
         public UserSetting Setting { get; set; }
