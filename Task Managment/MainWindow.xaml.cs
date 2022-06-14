@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
+using Task_Managment.ViewModels;
 
 namespace Task_Managment
 {
@@ -25,6 +26,12 @@ namespace Task_Managment
         public MainWindow()
         {
             InitializeComponent();
+
+            MainWindowViewModel vm = new MainWindowViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null) vm.CloseAction = new Action(this.Close);
+            if (vm.HideAction == null) vm.HideAction = new Action(this.Hide);
+            if (vm.ShowAction == null) vm.ShowAction = new Action(this.Show);
         }
        
 

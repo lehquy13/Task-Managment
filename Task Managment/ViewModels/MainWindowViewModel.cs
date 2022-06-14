@@ -31,6 +31,11 @@ namespace Task_Managment.ViewModels
         public ICommand openNotebookViewCommand { get; set; }
         public ICommand onCloseCommand { get; set; }
         public ICommand onMinimizeCommand { get; set; }
+        public ICommand logOutCommand { get; set; }
+
+        public Action CloseAction { get; set; }
+        public Action HideAction { get; set; }
+        public Action ShowAction { get; set; }
 
         private static NotifyIcon _notifyIconInstance = null;
         public static NotifyIcon NotifyIconInstance
@@ -108,8 +113,16 @@ namespace Task_Managment.ViewModels
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
             openCalendarCommand = new RelayCommand<Frame>(p => true, p => OpenCalendarView());
             openNotebookViewCommand = new RelayCommand<Frame>(p => true, p => OpenNotebookView());
+            logOutCommand = new RelayCommand<System.Windows.Controls.Button>(p => true, p => logOut());
             onCloseCommand = new RelayCommand<Window>(p => true, p => Dispose(p));
             onMinimizeCommand = new RelayCommand<Window>(p => true, p => OnMinimize(p));
+        }
+
+        private void logOut()
+        {
+            StartWindowViewModels startWindow = new StartWindowViewModels();
+            CloseAction.Invoke();
+            startWindow.Show();
         }
 
         private void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
