@@ -1,37 +1,40 @@
 ﻿<Page x:Class="Task_Managment.Views.pNotebookHomeView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Task_Managment.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
       Title="pNotebookHomeView"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       Background="White"
+      DataContext="{StaticResource NoteBookVM}"
       FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"/>
-            <RowDefinition/>
+            <RowDefinition Height="130" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid Name="grdPageToolbar"
               Grid.Row="0">
-            <materialDesign:PackIcon Kind="Notebook" 
+            <materialDesign:PackIcon Kind="Notebook"
                                      Width="30"
                                      Height="30"
                                      Foreground="Black"
                                      HorizontalAlignment="Left"
                                      VerticalAlignment="Top"
-                                     Margin="10 20"/>
-            
+                                     Margin="10 20" />
+
             <TextBlock Name="tblPageTitle"
                        Text="Notebooks"
                        FontSize="20"
@@ -51,7 +54,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Margin="0 20 15 0">
-                <StackPanel Name="spSearch"    
+                <StackPanel Name="spSearch"
                             VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch"
                             Orientation="Horizontal">
@@ -71,7 +74,7 @@
                              TextWrapping="Wrap">
                     </TextBox>
 
-                    <materialDesign:PackIcon Kind="Magnify" 
+                    <materialDesign:PackIcon Kind="Magnify"
                                              Foreground="DarkGray"
                                              Padding="-1"
                                              Margin="5 0 0 0"
@@ -82,7 +85,7 @@
             </Border>
 
             <TextBlock Name="tblNotebooksCount"
-                       Text="notebooks"
+                       Text="Your Notebooks"
                        FontSize="18"
                        Height="{Binding ElementName=tblPageTitle, Path=FontSize}"
                        Foreground="Black"
@@ -94,12 +97,12 @@
             <materialDesign:PopupBox Name="pubNotesSort"
                                      Width="30"
                                      Height="30"
-                                     HorizontalAlignment="Right" 
+                                     HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom"
                                      IsEnabled="True"
                                      Margin="0 0 15 5">
                 <materialDesign:PopupBox.ToggleContent>
-                    <materialDesign:PackIcon Kind="Sort" 
+                    <materialDesign:PackIcon Kind="Sort"
                                              Foreground="DarkGray"
                                              Width="20"
                                              Height="20"
@@ -113,7 +116,7 @@
                             Height="Auto"
                             Background="White">
                     <StackPanel.Resources>
-                        <Style TargetType="materialDesign:PackIcon" 
+                        <Style TargetType="materialDesign:PackIcon"
                                x:Key="sortIcoStyle1">
                             <Setter Property="Foreground"
                                     Value="Black">
@@ -121,22 +124,22 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"
                                              Value="false">
-                                    <Setter Property="Foreground" 
+                                    <Setter Property="Foreground"
                                             Value="LightGray">
                                     </Setter>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
 
-                        <Style TargetType="materialDesign:PackIcon" 
+                        <Style TargetType="materialDesign:PackIcon"
                                x:Key="sortIcoStyle2">
                             <Setter Property="Foreground"
                                     Value="LightGray">
                             </Setter>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" 
+                                <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"
                                              Value="false">
-                                    <Setter Property="Foreground" 
+                                    <Setter Property="Foreground"
                                             Value="Black">
                                     </Setter>
                                 </DataTrigger>
@@ -144,7 +147,7 @@
                         </Style>
                     </StackPanel.Resources>
 
-                    <TextBlock Name="tblSortBy" 
+                    <TextBlock Name="tblSortBy"
                                Text="SORT BY"
                                HorizontalAlignment="Left"
                                Margin="15 10 0 0"
@@ -152,12 +155,13 @@
                                Foreground="LightGray">
                     </TextBlock>
 
-                    <Button Name="btnTitleSort" Height="30"
+                    <Button Name="btnTitleSort"
+                            Height="30"
                             Foreground="Black"
                             Command="{Binding SortByTitleCmd}"
                             CommandParameter="{Binding ElementName=lvNotes}">
-                        <StackPanel Orientation="Horizontal" 
-                                    HorizontalAlignment="Stretch" 
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch">
                             <materialDesign:PackIcon Kind="ArrowDownThin"
                                                      Style="{StaticResource sortIcoStyle1}"
@@ -175,12 +179,13 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Name="btnCreatedDateSort" Height="30"
+                    <Button Name="btnCreatedDateSort"
+                            Height="30"
                             Foreground="Black"
                             Command="{Binding SortByCreatedDateCmd}"
                             CommandParameter="{Binding ElementName=lvNotes}">
-                        <StackPanel Orientation="Horizontal" 
-                                    HorizontalAlignment="Stretch" 
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch">
                             <materialDesign:PackIcon Kind="ArrowDownThin"
                                                      Style="{StaticResource sortIcoStyle1}"
@@ -198,12 +203,13 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Name="btnLastUpdatedDateSort" Height="30"
-                            Foreground="Black"        
+                    <Button Name="btnLastUpdatedDateSort"
+                            Height="30"
+                            Foreground="Black"
                             Command="{Binding SortByLastUpdatedDateCmd}"
                             CommandParameter="{Binding ElementName=lvNotes}">
-                        <StackPanel Orientation="Horizontal" 
-                                    HorizontalAlignment="Stretch" 
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch">
                             <materialDesign:PackIcon Kind="ArrowDownThin"
                                                      Style="{StaticResource sortIcoStyle1}"
@@ -233,7 +239,7 @@
                     VerticalAlignment="Bottom"
                     Margin="50 3">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="NotebookPlus" 
+                    <materialDesign:PackIcon Kind="NotebookPlus"
                                              Foreground="#FF00A82D"
                                              Width="20"
                                              Height="20">
@@ -258,27 +264,109 @@
 
         <Grid Name="grdContent"
               Grid.Row="1">
-            <ListView Name="lvNotebooks"
+            <ListView ItemsSource="{Binding mNotebooks}"
+                      Name="lvNotebooks"
                       Margin="15 3 15 15">
                 <ListView.View>
                     <GridView>
+                        
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                                <Setter Property="Foreground" Value="Gray"></Setter>
-                                <Setter Property="Background" Value="White"></Setter>
-                                <Setter Property="Width" Value="Auto"></Setter>
-                                <Setter Property="IsEnabled" Value="False"></Setter>
-                                <Setter Property="BorderThickness" Value="0"></Setter>
-                                <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Left"></Setter>
+                                <Setter Property="Foreground"
+                                        Value="Gray"></Setter>
+                                <Setter Property="Background"
+                                        Value="White"></Setter>
+                                <Setter Property="Width"
+                                        Value="Auto"></Setter>
+                                <Setter Property="IsEnabled"
+                                        Value="False"></Setter>
+                                <Setter Property="BorderThickness"
+                                        Value="10"></Setter>
+                                <Setter Property="FontStyle"
+                                        Value="Normal"></Setter>
+                                <Setter Property="FontSize"
+                                        Value="20"></Setter>
+                                <Setter Property="BorderBrush"
+                                        Value="Transparent"></Setter>
+                                
+                          
+                            
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Header="TITLE" Width="300"></GridViewColumn>
-                        <GridViewColumn Header="CREATED" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="UPDATED" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="ACTIONS"></GridViewColumn>
+                        <GridViewColumn Header="TITLE                                                                                                               "
+                                        Width="500"
+                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}"
+                                        >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                  
+                                        <TextBox HorizontalAlignment="Left"
+                                                
+                                                Background="#00F1F1F1"
+                                                BorderBrush="Transparent"
+                                                FontSize="18"
+                                                Foreground="Black"
+                                                >
+
+                                        <behaviors:Interaction.Triggers>
+                                                <behaviors:EventTrigger EventName="MouseUp">
+                                                    <behaviors:InvokeCommandAction Command="{Binding Source={StaticResource NoteBookVM}, Path=EndRenameCommand}"
+                                                                           CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+                                                </behaviors:EventTrigger>
+                                        </behaviors:Interaction.Triggers>
+                                    </TextBox>
+                                        
+                                   
+                                 
+                                    
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+                        </GridViewColumn>
+                        <GridViewColumn Header="CREATED                                                                                                                     "
+                                        Width="450"
+                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}">
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding _createdDate}"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 5 0 0"
+                                               Foreground="Black"
+                                               FontSize="18">
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+                        </GridViewColumn>
+                        <GridViewColumn Header="UPDATED                                                                                                            "
+                                        Width="450"
+                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}"
+                                        >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding _lastUpdateDate}"
+                                               HorizontalAlignment="Left"
+                                               Margin="0 5 0 0"
+                                               Foreground="Black"
+                                               FontSize="18">
+                                        
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="ACTIONS"
+                                        Width="Auto"
+                                        HeaderContainerStyle="{DynamicResource GridViewColumnHeader}">
+
+                        </GridViewColumn>
+
                     </GridView>
+
                 </ListView.View>
+
             </ListView>
         </Grid>
     </Grid>

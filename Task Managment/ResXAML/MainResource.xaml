@@ -10,4 +10,6 @@
     <viewmodel:EventWindowViewModel x:Key="EventVM"></viewmodel:EventWindowViewModel>
     <viewmodel:UCdayViewModel x:Key="UCdayVM"></viewmodel:UCdayViewModel>
     <viewmodel:MainWindowViewModel x:Key="MainWindowVM"></viewmodel:MainWindowViewModel>
+    <viewmodel:vmNotebookHomeView x:Key="NoteBookVM"></viewmodel:vmNotebookHomeView>
+
 </ResourceDictionary>

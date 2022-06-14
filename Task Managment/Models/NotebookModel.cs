@@ -16,7 +16,26 @@ namespace Task_Managment.Models
         public string _id { get; set; }
         public string _ownerId { get; set; }
         public string _name { get; set; }
-        public ObservableCollection<Note> _collection { get; set; }
+        public List<Note> _collection { get; set; }
         public DateTime _createdDate { get; set; }
+
+        public DateTime _lastUpdateDate { get; set; }
+        public NotebookModel()
+        {
+            _ownerId = "";
+            _name = "";
+            _collection = new List<Note>();
+            _createdDate = DateTime.UtcNow;
+            _lastUpdateDate = DateTime.UtcNow;
+        }
+        public NotebookModel(string ownerId, string name)
+        {
+            _ownerId = ownerId;
+            _name = name;
+            _collection = new List<Note>();
+            _createdDate = DateTime.UtcNow;
+            _lastUpdateDate = DateTime.UtcNow;
+
+        }
     }
 }

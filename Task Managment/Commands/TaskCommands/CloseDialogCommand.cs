@@ -37,6 +37,8 @@ namespace Task_Managment.Commands.TaskCommands
             this.TasksViewModel.isDialogOpen = false;
             this.TasksViewModel.PropertyUpdated("isDialogOpen");
 
+            if (parameter as string == "0")
+                return;
             DateTime temp = this.TasksViewModel.SelectedTime;
             temp = temp.AddDays(double.Parse(this.TasksViewModel.SelectedCalendarDate.Day.ToString()) - double.Parse(temp.Day.ToString()));
             temp = temp.AddMonths(int.Parse(this.TasksViewModel.SelectedCalendarDate.Month.ToString()) - int.Parse(temp.Month.ToString()));

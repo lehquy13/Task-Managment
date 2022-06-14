@@ -96,7 +96,7 @@ namespace Task_Managment.ViewModels
 
         private void init(Members currentUser)
         {
-            FrameSource = new Uri("/Views/TaskHomeView.xaml", UriKind.Relative);
+            FrameSource = new Uri("/Views/MainHomeView.xaml", UriKind.Relative);
             openNoteViewCommand = new RelayCommand<Frame>(p => true, p => OpenNoteView());
             openTaskViewCommand = new RelayCommand<Frame>(p => true, p => OpenTaskView());
             openHomeViewCommand = new RelayCommand<Frame>(p => true, p => OpenHomeView());
@@ -151,10 +151,7 @@ namespace Task_Managment.ViewModels
         {
             if(App.Current.MainWindow.WindowState == WindowState.Minimized)
                 App.Current.MainWindow.Hide();
-            else if (App.Current.MainWindow.WindowState == WindowState.Normal)
-            {
-               
-            }
+          
 
         }
 

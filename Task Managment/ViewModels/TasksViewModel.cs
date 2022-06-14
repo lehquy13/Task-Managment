@@ -16,6 +16,7 @@ using Task_Managment.Stores;
 using TrayIcon.Services;
 using System.Windows.Forms;
 using MaterialDesignThemes.Wpf;
+using Task_Managment.DataAccess;
 
 namespace Task_Managment.ViewModels
 {
@@ -23,6 +24,7 @@ namespace Task_Managment.ViewModels
     {
         public Members _currentUser { get; set; }
         private TaskDataAccess db = TaskDataAccess.Instance;
+        private UserSettingDataAccess db1 = UserSettingDataAccess.Instance;
         //!Fields
         public static readonly string ImagesPath = Path.GetFullPath("imagesForWpf\\TaskResource\\iconForTasks\\").Replace("\\bin\\Debug\\", "\\");
         //!Properties
@@ -308,9 +310,9 @@ namespace Task_Managment.ViewModels
         public PickTaskThemeCommand PickTaskThemeCommand { get; set; }
 
         public NotifyCommand NotifyCommand { get; set; }
-        public StartCommand StartCommand { get;  set; }
+        public StartCommand StartCommand { get; set; }
 
-        public CloseDialogCommand CloseDialogCommand { get;  set; }
+        public CloseDialogCommand CloseDialogCommand { get; set; }
 
         public OpenDiaLogCommand OpenDiaLogCommand { get; set; }
 
@@ -324,8 +326,11 @@ namespace Task_Managment.ViewModels
         public TasksViewModel()
         {
             //init commands
-            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
-            init(currentUser);
+            MainWindow newWindow = new MainWindow();
+
+            StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
+            Members members = startWindowViewModel.getCurrentUser();
+            init(members);
 
         }
 
@@ -345,7 +350,7 @@ namespace Task_Managment.ViewModels
         {
             _currentUser = currentUser;
 
-           isDialogOpen = false;
+            isDialogOpen = false;
             _duration = 10;
 
 
@@ -407,7 +412,7 @@ namespace Task_Managment.ViewModels
                 this.TasklistsList = new ObservableCollection<Tasklist>();
                 foreach (Tasklist temp in tempList) // lấy những tasklist như myday, importtant, untitledlist
                 {
-             
+
                     {
                         this.TasklistsList.Add(temp); // sau đó add từng tasklist vào
                     }
@@ -417,7 +422,7 @@ namespace Task_Managment.ViewModels
                 }
                 for (int i = 0; i < this.TasklistsList.Count; i++) // duyệt từng tasklist ở trong  this.TasklistsList (tức tổng số tasklist dc lưu ở local bây giờ)
                 {
- 
+
                     this.TasklistsList[i].Tasks = db.GetAllTasksFromTasklist(this.TasklistsList[i]); // lấy cái task ở trong từng tasklist đó * tưởng tự chỗ này !!!!
 
                     for (int j = 0; j < this.TasklistsList[i].Tasks.Count; j++)
@@ -437,8 +442,8 @@ namespace Task_Managment.ViewModels
 
                     }
                 }
-               
-               this.CalendarTaskList = this.TasklistsList[1];
+
+                this.CalendarTaskList = this.TasklistsList[1];
                 this.TasklistsList.RemoveAt(1);
                 this.DefaultMyDayList = this.TasklistsList[0];
                 this.DefaultImportantList = this.TasklistsList[1];
@@ -561,6 +566,7 @@ namespace Task_Managment.ViewModels
             {
                 BackgroundList.Add(new TaskIcon(temp));
             }
+            _currentUser.Setting = db1.GetUserSetting(_currentUser.Email);
 
             background = new BitmapImage(new Uri((ImagesPath + _currentUser.Setting.taskBackground)));
 
@@ -593,7 +599,7 @@ namespace Task_Managment.ViewModels
             this.StartCommand = new StartCommand(this);
 
             this.OpenDiaLogCommand = new OpenDiaLogCommand(this);
-            
+
             this.CloseDialogCommand = new CloseDialogCommand(this);
 
         }
