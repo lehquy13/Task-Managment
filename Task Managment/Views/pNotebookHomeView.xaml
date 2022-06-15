@@ -374,7 +374,7 @@
                                         <TextBox
                                             Name="tbNotebookTitle"
                                             HorizontalAlignment="Left"
-                                            Text="{Binding _name}"
+                                            Text="{Binding _name, UpdateSourceTrigger=PropertyChanged}"
                                             Background="#00F1F1F1"
                                             FontSize="18"
                                             Foreground="Black">
@@ -450,7 +450,10 @@
                                                     Background="White"
                                                     BorderBrush="Transparent"
                                                     BorderThickness="0"
-                                                    Content="Rename">
+                                                    Content="Rename"
+                                                    Command="{Binding Source={StaticResource NoteBookVM}, Path=RenameNotebookCmd}"
+                                                    CommandParameter="{Binding Source={StaticResource NoteBookVM}, Path=SelectedNotebook}">
+                                                    
                                                 </Button>
                                                 
                                                 <Button
