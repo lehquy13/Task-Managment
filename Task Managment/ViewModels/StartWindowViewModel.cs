@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Task_Managment.DataAccess;
 using Task_Managment.Models;
 using Task_Managment.Views;
+using System.Configuration;
 
 namespace Task_Managment.ViewModels
 {
@@ -183,9 +184,10 @@ namespace Task_Managment.ViewModels
                     Properties.Settings.Default["UserName"] = mCurrentUser.UserName;
                     Properties.Settings.Default["UserPassword"] = mCurrentUser.Password;
 
-                    Properties.Settings.Default["isUser"] = true;
-                    Properties.Settings.Default["isLoggedIn"] = true;
+                    Properties.Settings.Default.isUser = true;
+                    Properties.Settings.Default.isLoggedIn = true;
                     Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
                 }
 
                 MainWindow mainWindow = new MainWindow();
