@@ -102,18 +102,19 @@ namespace Task_Managment.ViewModels
 
         public vmNoteHomeView()
         {
-            Members currentUser = new Members("phatlam1811@gmail.com", "phatlam1811", "123");
-            Initialize(currentUser);
+            Initialize(MainWindowViewModel.currentUser);
         }
 
         public vmNoteHomeView(Members currentUser)
         {
-            Initialize(currentUser);
+            
+            Initialize(MainWindowViewModel.currentUser);
         }
 
         public vmNoteHomeView(Members currentUser, NotebookModel currentNotebook)
         {
-            Initialize(currentUser);
+           
+            Initialize(MainWindowViewModel.currentUser);
         }
 
         #region Commands

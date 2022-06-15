@@ -382,7 +382,7 @@
                                         <Image Source="{Binding SelectedTasklist.IconSource}"
                                                Width="25"
                                                Height="25"
-                                               Margin="0,3,14,0">
+                                               Margin="0,-7,14,0">
 
                                         </Image>
                                     </materialDesign:PopupBox.ToggleContent>
