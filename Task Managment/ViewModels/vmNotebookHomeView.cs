@@ -73,6 +73,7 @@ namespace Task_Managment.ViewModels
         public ICommand SortByTitleCmd { get; set; }
         public ICommand SortByCreatedDateCmd { get; set; }
         public ICommand SortByLastUpdatedDateCmd { get; set; }
+        public ICommand RenameNotebookCmd { get; set; }
 
         private NotebookModel _selectedNotebook;
 
@@ -184,6 +185,13 @@ namespace Task_Managment.ViewModels
             SortByTitleCmd = new RelayCommand<ListView>(p => true, p => SortByTitle(p));
             SortByCreatedDateCmd = new RelayCommand<ListView>(p => true, p => SortByCreatedDate(p));
             SortByLastUpdatedDateCmd = new RelayCommand<ListView>(p => true, p => SortByLastUpdatedDate(p));
+            RenameNotebookCmd = new RelayCommand<NotebookModel>(p => true, p => RenameNotebook(p));
+        }
+
+        private void RenameNotebook(NotebookModel p)
+        {
+            if (p == null) return;
+            else db.UpdateSelectedNotebook(p);
         }
 
         private void DeleteSelectedNoteBook(ListViewItem p)
