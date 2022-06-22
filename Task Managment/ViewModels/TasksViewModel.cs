@@ -326,11 +326,7 @@ namespace Task_Managment.ViewModels
         public TasksViewModel()
         {
             //init commands
-            MainWindow newWindow = new MainWindow();
-
-            StartWindowViewModel startWindowViewModel = new StartWindowViewModel();
-            Members members = startWindowViewModel.getCurrentUser();
-            init(members);
+            init(MainWindowViewModel.currentUser);
 
         }
 

@@ -147,9 +147,10 @@ namespace Task_Managment.ViewModels
                 mCurrentUser = new Members(mRegisterEmail, mRegisterUsername, registerPassword.Password);
                 mIsUser = true;
 
-                MainWindow newWindow = new MainWindow();
-                newWindow.Show();
-                CloseAction.Invoke();
+                //MessageBox.Show("Successfully sign up!");
+                //MainWindow newWindow = new MainWindow();
+                //newWindow.Show();
+                //CloseAction.Invoke();
             }
             catch (Exception ex)
             {

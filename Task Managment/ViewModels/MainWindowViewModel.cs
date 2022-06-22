@@ -75,12 +75,16 @@ namespace Task_Managment.ViewModels
                 currentUser = new Members("guest@gmail.com", "Guest", "123");
 
 
-            _notifyIconInstance = new System.Windows.Forms.NotifyIcon();
+            _notifyIconInstance = MainWindowViewModel.NotifyIconInstance;
             Uri iconUri = new Uri("pack://application:,,,/app.ico", UriKind.RelativeOrAbsolute);
             //string temp = ImagesPath + "/app.ico";
-            _notifyIconInstance.Icon = new Icon(Path.Combine(System.Environment.CurrentDirectory.Replace("\\bin\\Debug", "\\imagesForWpf\\"), "app.ico"));
+            if(!_notifyIconInstance.Visible)
+            {
+                _notifyIconInstance.Icon = new Icon(Path.Combine(System.Environment.CurrentDirectory.Replace("\\bin\\Debug", "\\imagesForWpf\\"), "app.ico"));
+            }
+            
 
-           
+
 
             _notifyIconInstance.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             _notifyIconInstance.ContextMenuStrip.Items.Add("Open");

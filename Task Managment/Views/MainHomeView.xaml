@@ -26,8 +26,8 @@
                             ImageSource="{Binding background}"
                             Stretch="UniformToFill" />
             </Border.Background>
-
-            <TextBox Background="Aquamarine"
+<!--scratch pad-->
+            <!--<TextBox Background="Aquamarine"
                          Height="400"
                          Width="400"
                          Margin="1111,129,87,369"
@@ -38,7 +38,7 @@
                                                CommandParameter="{Binding   RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-            </TextBox> 
+            </TextBox>--> 
             
             
         </Border>

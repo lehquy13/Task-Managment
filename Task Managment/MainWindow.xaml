@@ -222,6 +222,29 @@
                 </Button>
 
             </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Width="230"
+                        DockPanel.Dock="Bottom"
+                        Margin="0 0 0 20 ">
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Height="40"
+                        Width="230"
+                        HorizontalContentAlignment="Stretch"
+                        Command="{Binding logOutCommand}"
+                        Click="Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="imagesForWpf/closeBtn_default.png"
+                               Stretch="Fill"
+                               
+                               Margin="-5,0,0,0" />
+                        <TextBlock Text="Sign Out"
+                                   Margin="25,0,0,0"
+                                   Style="{StaticResource font_style}" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
 
             <StackPanel x:Name="st_pnl">
 
@@ -645,7 +668,7 @@
                HorizontalContentAlignment="Stretch">
             </Frame>
 
-            <Button Name="btnLogOut"
+            <!--<Button Name="btnLogOut"
                     Width="60"
                     Height="60"
                     Margin="30"
@@ -657,7 +680,7 @@
                     Content="{materialDesign:PackIcon Kind=Logout, Size=40}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom">
-            </Button>
+            </Button>-->
         </Grid>
 
     </DockPanel>
